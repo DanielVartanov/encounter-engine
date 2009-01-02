@@ -2,8 +2,9 @@
  
 # Specify a specific version of a dependency
 # dependency "RedCloth", "> 3.0"
+require 'config/dependencies.rb'
 
- use_orm :activerecord
+use_orm :activerecord
 use_test :rspec
 use_template_engine :erb
  
@@ -22,4 +23,5 @@ end
  
 Merb::BootLoader.after_app_loads do
   # This will get executed after your app's classes have been loaded.
+  Merb::Plugins.config[:"merb-auth"][:login_param] = :email
 end
