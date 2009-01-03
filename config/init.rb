@@ -1,7 +1,5 @@
 # Go to http://wiki.merbivore.com/pages/init-rb
  
-# Specify a specific version of a dependency
-# dependency "RedCloth", "> 3.0"
 require 'config/dependencies.rb'
 
 use_orm :activerecord
@@ -20,8 +18,7 @@ end
 Merb::BootLoader.before_app_loads do
   # This will get executed after dependencies have been loaded but before your app's classes have loaded.
 end
- 
+
 Merb::BootLoader.after_app_loads do
-  # This will get executed after your app's classes have been loaded.
-  Merb::Plugins.config[:"merb-auth"][:login_param] = :email
+  # This will get executed after your app's classes have been loaded.  
 end

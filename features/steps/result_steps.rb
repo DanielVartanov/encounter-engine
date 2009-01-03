@@ -1,5 +1,13 @@
-Then /^должен увидеть сообщение "(.*)"$/ do |text|
+Then /должен увидеть сообщение "(.*)"$/ do |text|
+  Then %{должен увидеть "#{text}"}
+end
+
+Then /должен увидеть "(.*)"$/ do |text|
   response.body.to_s.should =~ /#{text}/m
+end
+
+Then /должен быть перенраправлен на (.*)/ do |url|
+  URI.parse(response.url).path.should == url
 end
 
 Then /^I should not see "(.*)"$/ do |text|

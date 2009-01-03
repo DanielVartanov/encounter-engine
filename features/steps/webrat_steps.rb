@@ -1,11 +1,11 @@
 # Commonly used webrat steps
 # http://github.com/brynary/webrat
 
-When /^я захожу по адресу (.*)$/ do |path|
+When /захожу по адресу (.*)$/ do |path|
   visit path
 end
 
-When /^нажимаю "(.*)"$/ do |button|
+When /нажимаю "(.*)"$/ do |button|
   click_button(button)
 end
 
@@ -13,7 +13,7 @@ When /^I follow "(.*)"$/ do |link|
   click_link(link)
 end
 
-When /^ввожу "(.*)" в поле "(.*)"$/ do |field, value|
+When /^ввожу "(.*)" в поле "(.*)"$/ do |value, field|
   fill_in(field, :with => value) 
 end
 

@@ -1,3 +1,6 @@
-<h1>Users controller, new action</h1>
-
-<p>Edit this file in <tt>app/views/users/new.html.erb</tt></p>
+<%= form_for @user, :action => url(:users) do %>
+  <%= text_field :email, :label => "E-mail" %> <br />
+  <%= text_field :password, :label => "Пароль" %> <br />
+  <%= text_field :password_confirmation, :label => "Подтверждение" %> <br />
+  <%= submit "Зарегистрироваться" %>
+<% end =%>

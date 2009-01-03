@@ -19,3 +19,5 @@ src/*
 gems/gems/*
 gems/specifications/*
 merb_profile_results
+out.html
+config/database.yml
