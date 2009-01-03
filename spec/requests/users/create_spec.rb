@@ -10,7 +10,7 @@ describe "resource(:users)" do
     end
 
     it "redirects to resource(:users)" do      
-      response.should redirect_to(url(:dashboard))      
+      @response.should redirect_to(url(:dashboard))
     end
 
     it "creates a user" do
