@@ -7,6 +7,7 @@ class Users < Application
   
   def new
     only_provides :html
+    @bla = "1"
     @user = User.new(params[:user])
     render
   end
@@ -14,10 +15,16 @@ class Users < Application
   def create
     @user = User.new(params[:user])
     if @user.save
-      session.user = @user
+      authenticate_user
       redirect url(:dashboard)
     else
       render :new
     end
+  end
+
+protected
+
+  def authenticate_user
+    session.user = @user
   end
 end
