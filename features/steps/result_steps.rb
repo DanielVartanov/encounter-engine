@@ -6,7 +6,7 @@ Then /должен увидеть "(.*)"$/ do |text|
   response.body.to_s.should =~ /#{text}/m
 end
 
-Then /должен быть перенраправлен на (.*)/ do |url|
+Then /должен быть перенаправлен на (.*)/ do |url|
   URI.parse(response.url).path.should == url
 end
 
