@@ -1,5 +1,4 @@
-# Go to http://wiki.merbivore.com/pages/init-rb
- 
+# Go to http://wiki.merbivore.com/pages/init-rb 
 require 'config/dependencies.rb'
 
 use_orm :activerecord
@@ -20,5 +19,6 @@ Merb::BootLoader.before_app_loads do
 end
 
 Merb::BootLoader.after_app_loads do
-  # This will get executed after your app's classes have been loaded.  
+  # This will get executed after your app's classes have been loaded.
+  Merb::Mailer.delivery_method = :test_send
 end

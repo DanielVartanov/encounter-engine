@@ -16,6 +16,7 @@ class Users < Application
     @user = User.new(params[:user])
     if @user.save
       authenticate_user
+      send_welcome_letter_to @user
       redirect url(:dashboard)
     else
       render :new
@@ -26,5 +27,15 @@ protected
 
   def authenticate_user
     session.user = @user
+  end
+
+  def send_welcome_letter_to(user)
+    send_mail NotificationMailer, :welcome_letter,
+      { :to => user.email,
+        :from => "noreply@bien.kg",
+        :subject => "Регистрация на bienkg" },
+      { :email => user.email,
+        :password => user.password
+      }
   end
 end

@@ -8,3 +8,12 @@ Merb::Config.use { |c|
   # or redirect logger using IO handle
   # c[:log_stream] = STDOUT
 }
+
+Merb::Mailer.config = {
+    :host   => 'smtp.yourserver.com',
+    :port   => '25',
+    :user   => 'user',
+    :pass   => 'pass',
+    :auth   => :plain,                 # :plain, :login, :cram_md5, the default is no auth
+    :domain => "localhost.localdomain" # the HELO domain provided by the client to the server
+}

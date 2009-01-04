@@ -3,10 +3,12 @@ require File.join(File.dirname(__FILE__), '..', '..', 'spec_helper.rb')
 describe "resource(:users)" do
   describe "regular case" do
     EMAIL = "valid@email.com"
+    PASSWORD = "1234"
 
-    before(:each) do
+    before do
       User.delete_all
-      @response = perform_request(EMAIL, "1234", "1234")
+      clear_mail_deliveries
+      @response = perform_request(EMAIL, PASSWORD, PASSWORD)
     end
 
     it "redirects to resource(:users)" do      
@@ -16,6 +18,13 @@ describe "resource(:users)" do
     it "creates a user" do
       User.exists?(:email => EMAIL).should be_true
     end
+
+    it "delivers a welcome letter" do
+      Merb::Mailer.should have(1).delivery
+      last_delivered_mail.to.first.should == EMAIL
+      last_delivered_mail.text.should match(/#{EMAIL}/)
+      last_delivered_mail.text.should match(/#{PASSWORD}/)
+    end
   end
 
   describe "email already registered" do
@@ -23,6 +32,7 @@ describe "resource(:users)" do
 
     before(:each) do
       User.delete_all
+      clear_mail_deliveries
       User.create!(:email => REGISTERED_EMAIL, :password => "sekrit",
         :password_confirmation => "sekrit")      
       @response = perform_request(REGISTERED_EMAIL, "1234", "1234")
@@ -38,12 +48,17 @@ describe "resource(:users)" do
 
     it "shows a error message" do
       @response.body.include?("уже зарегистрирован").should be_true
-    end   
+    end
+
+    it "does not deliver email" do
+      Merb::Mailer.deliveries.should be_empty
+    end
   end
 
   describe "password confirmation does not match" do
     before(:each) do
       User.delete_all
+      clear_mail_deliveries
       @response = perform_request("valid@email.com", "1234", "oooops")
     end
 
@@ -58,11 +73,16 @@ describe "resource(:users)" do
     it "shows a error message" do
       @response.body.include?("Пароль и его подтверждение не совпадают").should be_true
     end
+
+    it "does not deliver email" do
+      Merb::Mailer.deliveries.should be_empty
+    end
   end
   
   describe "invalid email" do
     before(:each) do
       User.delete_all
+      clear_mail_deliveries
       @response = perform_request("invalid-mail-booooo", "1234", "1234")
     end
 
@@ -76,6 +96,10 @@ describe "resource(:users)" do
 
     it "shows a error message" do
       @response.body.include?("Неправильный формат").should be_true
+    end
+
+    it "does not deliver email" do
+      Merb::Mailer.deliveries.should be_empty
     end
   end
 end

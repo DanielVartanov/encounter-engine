@@ -12,5 +12,4 @@ dependency "merb-auth-slice-password", merb_gems_version
 dependency "merb-param-protection", merb_gems_version
 dependency "merb-exceptions", merb_gems_version
 
-
 dependency "do_sqlite3"
