@@ -27,6 +27,7 @@ begin
     def store_user(user)
       user.nil? ? user : user.id
     end
+    
   end
   
 rescue

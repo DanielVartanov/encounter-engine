@@ -1,7 +1,7 @@
 <%= error_messages_for @user, :header => "<h2>Ошибка</h2>", :before => nil %>
 
 <%= form_for @user, :action => url(:users) do %>
-  <p><%= text_field :email, :label => "E-mail" %></p>
+  <p><%= text_field :email, :label => "Email" %></p>
   <p><%= text_field :password, :label => "Пароль" %></p>
   <p><%= text_field :password_confirmation, :label => "Подтверждение" %></p>
   <%= submit "Зарегистрироваться" %>
