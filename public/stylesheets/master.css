@@ -117,3 +117,6 @@ a:hover {
 #main-container ul {
   margin-left: 3.0em;
 }
+.error {
+  border: solid red 1px;
+}

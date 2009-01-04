@@ -1,21 +1,16 @@
 ---
-# This is a sample database file for the ActiveRecord ORM
 :development: &defaults
-  :adapter: mysql
-  :database: sample_development
-  :username: the_user
-  :password: secrets
-  :host: localhost
-  :socket: /tmp/mysql.sock
+  :adapter: sqlite3
+  :database: schema/development.sqlite3
   :encoding: utf8
 
 :test:
   <<: *defaults
-  :database: sample_test
+  :database: ":memory:"
 
 :production:
   <<: *defaults
-  :database: sample_production
-  
+  :database: schema/production.sqlite3
+
 :rake:
   <<: *defaults
