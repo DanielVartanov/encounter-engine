@@ -11,7 +11,7 @@ describe "resource(:users)" do
       @response = perform_request(EMAIL, PASSWORD, PASSWORD)
     end
 
-    it "redirects to resource(:users)" do      
+    it "redirects to dashboard" do
       @response.should redirect_to(url(:dashboard))
     end
 
