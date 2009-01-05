@@ -6,8 +6,7 @@ class Users < Application
   end
   
   def new
-    only_provides :html
-    @bla = "1"
+    only_provides :html    
     @user = User.new(params[:user])
     render
   end

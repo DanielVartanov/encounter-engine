@@ -5,6 +5,7 @@ module MerbAuthSlicePassword::ExceptionsMixin
 
     case content_type
     when :html
+      @message = "Вы не авторизованы для посещения этой страницы. Попробуйте выполнить вход."
       render
     else
       basic_authentication.request!
