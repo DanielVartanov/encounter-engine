@@ -6,6 +6,6 @@ describe "resource(:users, :new)" do
   end
   
   it "responds successfully" do
-    @response.should be_successful    
+    @response.should be_successful
   end
 end

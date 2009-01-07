@@ -10,7 +10,7 @@ Then /должен быть перенаправлен на (.*)/ do |url|
   URI.parse(response.url).path.should == url
 end
 
-Then /^I should not see "(.*)"$/ do |text|
+Then /^Я не должен увидеть "(.*)"$/ do |text|
   response.body.to_s.should_not =~ /#{text}/m
 end
 

@@ -1,5 +1,13 @@
 class Application < Merb::Controller
-  def find_user_from_session
-    @current_user = session.user
+  before :finds_user_from_session
+
+protected
+
+  def current_user
+    session.user
+  end
+
+  def finds_user_from_session
+    @current_user = current_user
   end
 end

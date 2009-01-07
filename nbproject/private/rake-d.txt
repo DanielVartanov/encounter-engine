@@ -27,8 +27,34 @@ db\:version=Retrieves the current schema version number
 default=Default: run spec examples
 feature[feature_name]=Run a specified feature with Cucumber.  feature[feature_name]
 features=Run Features with Cucumber
+merb-auth_more\:default=Do something for merb-auth-more
 merb_cucumber\:test_env=
 merb_env=Start runner environment
+slices=Show information on application slices
+slices\:env=Get a suitable slices environment up
+slices\:install_as_gem=Install a slice into the local gems dir (GEM=your-slice)
+slices\:list=List known slices for the current application
+slices\:merb-auth-slice-password\:copy_assets=Copy public assets to host application
+slices\:merb-auth-slice-password\:freeze=Freeze MerbAuthSlicePassword into your app (only merb-auth-slice-password/app)
+slices\:merb-auth-slice-password\:freeze\:app=Freezes MerbAuthSlicePassword by copying all files from merb-auth-slice-password/app to your application
+slices\:merb-auth-slice-password\:freeze\:app_with_gem=Freezes MerbAuthSlicePassword as a gem and copies over merb-auth-slice-password/app
+slices\:merb-auth-slice-password\:freeze\:gem=Freezes MerbAuthSlicePassword by installing the gem into application/gems using merb-freezer
+slices\:merb-auth-slice-password\:freeze\:models=Freeze all models into your application for easy modification
+slices\:merb-auth-slice-password\:freeze\:unpack=Freezes MerbAuthSlicePassword by unpacking all files into your application
+slices\:merb-auth-slice-password\:freeze\:views=Freeze all views into your application for easy modification
+slices\:merb-auth-slice-password\:install=Install MerbAuthSlicePassword
+slices\:merb-auth-slice-password\:migrate=Migrate the database / Migrate the database
+slices\:merb-auth-slice-password\:patch=Copy stub files and views to host application
+slices\:merb-auth-slice-password\:preflight=Test for any dependencies / Test for any dependencies
+slices\:merb-auth-slice-password\:setup_directories=Setup directories
+slices\:merb-auth-slice-password\:spec=Run slice specs within the host application context
+slices\:merb-auth-slice-password\:spec\:controller=Run all controller specs, run a spec for a specific Controller with CONTROLLER=MyController
+slices\:merb-auth-slice-password\:spec\:default=Run specs
+slices\:merb-auth-slice-password\:spec\:explain=
+slices\:merb-auth-slice-password\:spec\:html=Run all specs and output the result in html
+slices\:merb-auth-slice-password\:spec\:model=Run all model specs, run a spec for a specific Model with MODEL=MyModel
+slices\:merb-auth-slice-password\:spec\:view=Run all view specs, run specs for a specific controller (and view) with CONTROLLER=MyController (VIEW=MyView)
+slices\:merb-auth-slice-password\:stubs=Copy stub files to host application
 spec=Run specs, run a specific spec with TASK=spec/path_to_spec.rb
 spec\:clobber=
 spec\:clobber_coverage=Remove rcov products for coverage

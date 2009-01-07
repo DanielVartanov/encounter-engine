@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  belongs_to :team
+
   validates_uniqueness_of :email, 
     :message => "Пользователь с таким адресом уже зарегистрирован"
 
@@ -13,5 +15,10 @@ class User < ActiveRecord::Base
 
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+.)+[a-z]{2,})\Z/i, 
     :message => "Неправильный формат поля e-mail"
+
+  
+  def member_of_any_team?
+    ! team.nil?
+  end
 
 end

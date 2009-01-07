@@ -1,5 +1,17 @@
 Вы <%= @current_user.email %>
 
+<% if @current_user.team.nil? %>
+  Вы не состоите ни в одной из команд
+<% else %>
+  <% if @current_user.captain? %>
+    Вы - капитан команды <%= @current_user.team.name %>
+  <% else %>
+    Вы состоите в команде <%= @current_user.team.name %>
+  <% end %>
+<% end %>
+
+<br />
+
 session = <%= session.inspect %> <br />
 user = <%= session.user.email %> <br />
 authentication = <%= session.authentication.inspect %>

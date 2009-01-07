@@ -29,7 +29,8 @@ Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do
   slice(:merb_auth_slice_password, :name_prefix => nil, :path_prefix => "")
 
-  resources :users
+  resources :users  
+  resources :teams
 
   match('/signup').to(:controller => :users, :action => :new)
   match('/dashboard').to(:controller => :dashboard).name(:dashboard)

@@ -10,4 +10,9 @@ class Exceptions < Merb::Controller
     render :format => :html
   end
 
+  def unauthorized
+    @message = request.exceptions.first.message    
+    render
+  end
+
 end
