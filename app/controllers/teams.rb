@@ -11,8 +11,9 @@ class Teams < Application
 
   def create
     @team = Team.new(params[:team])
+    @team.captain = @current_user
     if @team.save
-      redirect url(:team, @team)
+      redirect url(:dashboard)
     else
       render :new
     end

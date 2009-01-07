@@ -1,3 +1,6 @@
-<h1>Teams controller, new action</h1>
+<%= error_messages_for @team, :header => "<h2>Ошибка</h2>" %>
 
-<p>Edit this file in <tt>app/views/teams/new.html.erb</tt></p>
+<%= form_for @team, :action => url(:teams) do %>
+  <p><%= text_field :name, :label => "Название" %></p>
+  <%= submit "Создать команду" %>
+<% end =%>

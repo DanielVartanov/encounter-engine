@@ -18,7 +18,11 @@ class User < ActiveRecord::Base
 
   
   def member_of_any_team?
-    ! team.nil?
+    !! team
+  end
+  
+  def captain?
+    member_of_any_team? && team.captain.id == id
   end
 
 end

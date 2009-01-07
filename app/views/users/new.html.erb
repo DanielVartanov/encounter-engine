@@ -1,4 +1,4 @@
-<%= error_messages_for @user, :header => "<h2>Ошибка</h2>", :before => nil %>
+<%= error_messages_for @user, :header => "<h2>Ошибка</h2>" %>
 
 <%= form_for @user, :action => url(:users) do %>
   <p><%= text_field :email, :label => "Email" %></p>
