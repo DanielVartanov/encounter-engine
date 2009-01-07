@@ -20,14 +20,16 @@ Spec::Runner.configure do |config|
 end
 
 module FixtureHelpers
-  def create_user(params={})
-    default_params = { :email => "valid@email.com", :password => "1234",
-          :password_confirmation => "1234" }
-    User.create(default_params.merge(params))
+  def create_user
+    random_email = "vaild" + rand(10000).to_s + "@email.com"
+    
+    User.create! :email => random_email, :password => "1234",
+      :password_confirmation => "1234"
   end
 
   def create_team(options={})
-    Team.create(:name => "A Team", :captain => options[:captain])
+    random_name = "Team#" + rand(10000).to_s
+    Team.create!(:name => random_name, :captain => options[:captain])
   end
 end
 

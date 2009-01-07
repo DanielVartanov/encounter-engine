@@ -25,7 +25,7 @@ describe User, '#captain?' do
   describe "when user is a regular member of some team" do
     before :each do
       @user = create_user
-      captain = create_user :email => "captain@email.com"
+      captain = create_user
       team = create_team :captain => captain
       team.members << @user
       team.save

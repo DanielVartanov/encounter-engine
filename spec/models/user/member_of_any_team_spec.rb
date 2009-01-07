@@ -4,7 +4,7 @@ describe User, "#member_of_any_team" do
   describe "when member of any team" do
     before :each do
       @user = create_user
-      captain = create_user :email => "captain@team.com"
+      captain = create_user
       team = create_team :captain => captain
       team.members << @user
       team.save
