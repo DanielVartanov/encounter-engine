@@ -1,6 +1,5 @@
 class Teams < Application
-  before :ensure_authenticated
-  #before :ensure_team_member, :exclude => [:new, :create]
+  before :ensure_authenticated  
   before :ensure_not_member_of_any_team, :only => [:new, :create]
 
   def new

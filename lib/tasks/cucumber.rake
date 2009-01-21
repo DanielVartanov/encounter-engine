@@ -1,7 +1,6 @@
 require 'cucumber/rake/task'
 
-cucumber_options = proc do |t|
-  t.binary        = Merb.root / 'bin' / 'cucumber'
+cucumber_options = lambda do |t|
   t.cucumber_opts = "--language ru"
 end
 

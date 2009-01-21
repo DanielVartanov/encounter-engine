@@ -11,7 +11,7 @@ class Exceptions < Merb::Controller
   end
 
   def unauthorized
-    @message = request.exceptions.first.message    
+    @message = request.exceptions.first.message
     render
   end
 

@@ -1,8 +1,7 @@
 class Dashboard < Application
   before :ensure_authenticated  
 
-  def index
-    @current_user = current_user
+  def index    
     render
   end  
 end
