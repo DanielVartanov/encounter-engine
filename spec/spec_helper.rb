@@ -21,19 +21,33 @@ end
 
 module FixtureHelpers
   def create_user
-    random_email = "vaild" + rand(10000).to_s + "@email.com"
+    random_email = "vaild" + rand(100000).to_s + "@email.com"
     
     User.create! :email => random_email, :password => "1234",
       :password_confirmation => "1234"
   end
 
   def create_team(options={})
-    random_name = "Team#" + rand(10000).to_s
-    Team.create!(:name => random_name, :captain => options[:captain])
+    random_name = "Team#" + rand(100000).to_s
+    team = Team.new(:name => random_name, :captain => options[:captain])
+    team.members << options[:members] unless options[:members].nil?
+    team.save!
+    team
+  end
+end
+
+module ExceptionsHelper
+  def assert_unauthenticated(&block)
+    block.should raise_error(Merb::Controller::Unauthenticated)
+  end
+
+  def assert_unauthorized(&block)
+    block.should raise_error(Merb::Controller::Unauthorized)
   end
 end
 
 include FixtureHelpers
+include ExceptionsHelper
 
 require Merb.root / "spec" / 'mail_controller_spec_helper'
 include MailControllerTestHelper

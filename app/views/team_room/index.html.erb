@@ -1,1 +1,6 @@
 Команда <%= @current_user.team.name %>
+
+<%= form_for @invitation, :action => url(:invitations) do %>
+  <p><%= text_field :name, :label => "Пригласить нового участника" %></p>
+  <%= submit "Пригласить" %>
+<% end =%>
