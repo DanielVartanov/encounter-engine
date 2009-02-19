@@ -18,6 +18,10 @@ src/*
 .svn/*
 gems/gems/*
 gems/specifications/*
+gems/doc/*
+gems/gems
+gems/specifications
+gems/doc
 merb_profile_results
 out.html
 config/database.yml

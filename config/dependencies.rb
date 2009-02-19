@@ -13,3 +13,7 @@ dependency "merb-param-protection", merb_gems_version
 dependency "merb-exceptions", merb_gems_version
 
 dependency "do_sqlite3"
+
+dependency "webrat"
+dependency "nokogiri"
+dependency "cucumber", "0.1.16"
