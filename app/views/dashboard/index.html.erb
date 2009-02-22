@@ -1,7 +1,9 @@
 Вы <%= @current_user.email %>
 
-<% if @current_user.team.nil? %>
+<% unless @current_user.member_of_any_team? %>
   Вы не состоите ни в одной из команд
+  <br />
+  <%= link_to "Создать команду", resource(:teams, :new) %>
 <% else %>
   <% if @current_user.captain? %>
     Вы - капитан команды <%= @current_user.team.name %>
@@ -9,7 +11,3 @@
     Вы состоите в команде <%= @current_user.team.name %>
   <% end %>
 <% end %>
-
-<br />
-
-<%= link_to "Создать команду", resource(:teams, :new) %>
