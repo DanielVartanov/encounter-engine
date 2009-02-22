@@ -6,6 +6,10 @@ Then /должен увидеть "(.*)"$/ do |text|
   response_body.to_s.should =~ /#{text}/m
 end
 
+Then /должен увидеть ссылку на (.*)$/ do |text|
+  response_body.to_s.should have_tag("a", :href => text)
+end
+
 Then /должен быть перенаправлен на (.*)/ do |url|
   URI.parse(@response.url).path.should == url
 end
