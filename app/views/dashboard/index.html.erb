@@ -10,4 +10,6 @@
   <% else %>
     Вы состоите в команде <%= @current_user.team.name %>
   <% end %>
+  <br />
+  <%= link_to "Комната команды", url(:team_room) %>
 <% end %>
