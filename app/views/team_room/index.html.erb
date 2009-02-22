@@ -1,6 +1,9 @@
-Команда <%= @current_user.team.name %>
+Команда <%= @team.name %> <br />
+<%= @team.captain.email %> - капитан <br /><br />
+
+<hr /><br />
 
 <%= form_for @invitation, :action => url(:invitations) do %>
-  <p><%= text_field :name, :label => "Пригласить нового участника" %></p>
+  <%= text_field :name, :label => "Пригласить нового участника" %>
   <%= submit "Пригласить" %>
 <% end =%>
