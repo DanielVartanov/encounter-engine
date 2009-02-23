@@ -2,26 +2,24 @@ class Invitations < Application
   before :ensure_authenticated
   before :ensure_team_captain
 
-  def create
-    user = User.find_by_email(params[:to_user])
+  before :build_invitation  
 
-    return redirect_with_error("Пользователя с адресом #{params[:to_user]} не существует") unless user
-    return redirect_with_error("Пользователь #{user.email} -- уже член команды #{user.team.name}") if user.member_of_any_team?
+  def new
+    only_provides :html        
+    render
+  end
 
-    invitation = Invitation.find(:first, :conditions => { :from_team_id => @current_user.team, :to_user_id => user })
-    return redirect_with_error("Пользователю #{user.email} вы уже высылали приглашение и он ещё не ответил") if invitation
-
-    Invitation.create!(:from_team => @current_user.team, :to_user => user)
-    redirect_with_notice("Приглашение пользователю #{user.email} отправлено")
+  def create    
+    if @invitation.save
+      redirect resource(:invitations, :new), :message => "Пользователю #{@invitation.recepient_email} выслано приглашение"
+    else
+      render :new
+    end
   end
 
 protected
 
-  def redirect_with_error(error_message)
-    redirect url(:team_room), :message => { :error => error_message }
-  end
-
-  def redirect_with_notice(error_message)
-    redirect url(:team_room), :message => { :notice => error_message }
+  def build_invitation
+    @invitation = Invitation.new(params[:invitation])
   end
 end

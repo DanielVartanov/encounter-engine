@@ -1,0 +1,7 @@
+<%= h(message) %>
+<%= error_messages_for @invitation %>
+
+<%= form_for @invitation, :action => url(:invitations) do %>
+  <%= text_field :recepient_email, :label => "Пригласить нового участника" %>
+  <%= submit "Пригласить" %>
+<% end =%>

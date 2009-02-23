@@ -3,7 +3,4 @@
 
 <hr /><br />
 
-<%= form_for @invitation, :action => url(:invitations) do %>
-  <%= text_field :name, :label => "Пригласить нового участника" %>
-  <%= submit "Пригласить" %>
-<% end =%>
+<%= link_to "Пригласить участников", resource(:invitations, :new) %>
