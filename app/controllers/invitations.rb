@@ -22,14 +22,14 @@ protected
 
   def build_invitation
     @invitation = Invitation.new(params[:invitation])
-    @invitation.from_team = @current_user.team
+    @invitation.to_team = @current_user.team
   end
 
   def send_invitation_notification(invitation)
     send_mail NotificationMailer, :invitation_notification,
-      { :to => invitation.to_user.email,
+      { :to => invitation.for_user.email,
         :from => "noreply@bien.kg",
-        :subject => "Вас пригласили вступить в команду #{invitation.from_team.name}" },
-      { :team_name => invitation.from_team.name }
+        :subject => "Вас пригласили вступить в команду #{invitation.to_team.name}" },
+      { :team_name => invitation.to_team.name }
   end
 end

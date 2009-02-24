@@ -43,8 +43,8 @@ module FixtureHelper
 
   def create_invitation(options={})
     for_user = options[:for] || create_user
-    from_team = create_team :captain => create_user    
-    Invitation.create! :from_team => from_team, :recepient_email => for_user.email
+    to_team = create_team :captain => create_user
+    Invitation.create! :to_team => to_team, :recepient_email => for_user.email
   end
 end
 

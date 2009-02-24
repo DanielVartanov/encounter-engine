@@ -1,8 +1,8 @@
 class InvitationMigration < ActiveRecord::Migration
   def self.up
     create_table :invitations do |t|
-      t.integer :from_team_id
-      t.integer :to_user_id
+      t.integer :to_team_id
+      t.integer :for_user_id
       t.timestamps
     end
   end

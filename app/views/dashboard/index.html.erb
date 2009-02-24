@@ -9,7 +9,7 @@
   <hr />
   <br />
   <% @invitations.each do |invitation| %>
-    Вас пригласили в команду <%= invitation.from_team.name %>
+    Вас пригласили в команду <%= invitation.to_team.name %>
   <% end %>
 
 <% else %>

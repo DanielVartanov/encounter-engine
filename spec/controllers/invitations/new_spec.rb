@@ -33,7 +33,7 @@ describe Invitations, "#new" do
     end
   end
 
-  describe "when it receives blank string as 'to_user' parameter" do
+  describe "when it receives blank string as 'for_user' parameter" do
     before :each do
       @captain = create_user
       @team = create_team :captain => @captain
@@ -48,7 +48,7 @@ describe Invitations, "#new" do
     end
   end
 
-  describe "when it receives a string with email as 'to_user' parameter" do
+  describe "when it receives a string with email as 'for_user' parameter" do
     before :each do
       @captain = create_user
       @team = create_team :captain => @captain

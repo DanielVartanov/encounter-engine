@@ -64,13 +64,13 @@ describe Invitations, "#create" do
     it "assigns captain team as invitation target team" do
       @response = perform_request({ :as_user => @captain }, @params)
 
-      @response.assigns(:invitation).from_team.id.should == @team.id
+      @response.assigns(:invitation).to_team.id.should == @team.id
     end
 
     it "finds proper user by email" do
       @response = perform_request({ :as_user => @captain }, @params)
 
-      @response.assigns(:invitation).to_user.id.should == @user.id
+      @response.assigns(:invitation).for_user.id.should == @user.id
     end
   end
 

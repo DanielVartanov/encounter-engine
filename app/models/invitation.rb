@@ -1,19 +1,19 @@
 class Invitation < ActiveRecord::Base
-  belongs_to :from_team, :class_name => "Team"
-  belongs_to :to_user, :class_name => "User"
+  belongs_to :to_team, :class_name => "Team"
+  belongs_to :for_user, :class_name => "User"
   
-  named_scope :for, lambda { |user| { :conditions => { :to_user_id => user.id } } }
+  named_scope :for, lambda { |user| { :conditions => { :for_user_id => user.id } } }
 
   attr_accessor :recepient_email
 
-  validates_presence_of :to_user, 
+  validates_presence_of :for_user,
     :message => "Пользователя с таким адресом не существует"
 
   validates_presence_of :recepient_email, 
     :message => "Вы не ввели адрес пользователя"
 
-  validates_uniqueness_of :to_user_id,
-    :scope => [:from_team_id],
+  validates_uniqueness_of :for_user_id,
+    :scope => [:to_team_id],
     :message => "Вы уже высылали этому пользователю приглашение и он ещё не ответил"
   
   validate :recepient_is_not_member_of_any_team
@@ -23,10 +23,10 @@ class Invitation < ActiveRecord::Base
 protected
 
   def find_user
-    self.to_user = User.find_by_email recepient_email
+    self.for_user = User.find_by_email recepient_email
   end
 
   def recepient_is_not_member_of_any_team
-    errors.add_to_base("Пользователь уже является членом одной из команд") if to_user and to_user.member_of_any_team?
+    errors.add_to_base("Пользователь уже является членом одной из команд") if for_user and for_user.member_of_any_team?
   end
 end
