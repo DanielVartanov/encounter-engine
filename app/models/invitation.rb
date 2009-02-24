@@ -1,6 +1,8 @@
 class Invitation < ActiveRecord::Base
   belongs_to :from_team, :class_name => "Team"
   belongs_to :to_user, :class_name => "User"
+  
+  named_scope :for, lambda { |user| { :conditions => { :to_user_id => user.id } } }
 
   attr_accessor :recepient_email
 

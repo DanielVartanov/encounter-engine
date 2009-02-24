@@ -52,14 +52,26 @@ describe Invitations, "#create" do
       lambda do
         perform_request({ :as_user => @captain }, @params)
       end.should change(Invitation, :count).by(1)
+    end    
+
+    it "sends a notification to invited user by email" do
+      assert_sends_email { perform_request({ :as_user => @captain }, @params) }
+
+      Merb::Mailer.deliveries.last.to.first.should == @user.email
+      Merb::Mailer.deliveries.last.text.should match(/Вас пригласили вступить в команду #{@team.name}/)
+    end
+
+    it "assigns captain team as invitation target team" do
+      @response = perform_request({ :as_user => @captain }, @params)
+
+      @response.assigns(:invitation).from_team.id.should == @team.id
     end
 
     it "finds proper user by email" do
-      perform_request({ :as_user => @captain }, @params)
-      Invitation.last.id == @user.id      
-    end
+      @response = perform_request({ :as_user => @captain }, @params)
 
-    it "sends a notification to invited user by email"      
+      @response.assigns(:invitation).to_user.id.should == @user.id
+    end
   end
 
   def perform_request(opts={}, params={})

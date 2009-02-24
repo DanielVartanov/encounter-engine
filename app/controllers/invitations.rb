@@ -11,6 +11,7 @@ class Invitations < Application
 
   def create    
     if @invitation.save
+      send_invitation_notification @invitation
       redirect resource(:invitations, :new), :message => "Пользователю #{@invitation.recepient_email} выслано приглашение"
     else
       render :new
@@ -21,5 +22,14 @@ protected
 
   def build_invitation
     @invitation = Invitation.new(params[:invitation])
+    @invitation.from_team = @current_user.team
+  end
+
+  def send_invitation_notification(invitation)
+    send_mail NotificationMailer, :invitation_notification,
+      { :to => invitation.to_user.email,
+        :from => "noreply@bien.kg",
+        :subject => "Вас пригласили вступить в команду #{invitation.from_team.name}" },
+      { :team_name => invitation.from_team.name }
   end
 end

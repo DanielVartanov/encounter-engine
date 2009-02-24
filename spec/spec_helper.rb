@@ -19,7 +19,13 @@ Spec::Runner.configure do |config|
   config.include(Merb::Test::ControllerHelper)
 end
 
-module FixtureHelpers
+module MailerHelper
+  def assert_sends_email(&block)    
+    block.should change(Merb::Mailer.deliveries, :size).by(1)
+  end
+end
+
+module FixtureHelper
   def create_user
     random_email = "vaild" + rand(100000).to_s + "@email.com"
     
@@ -34,6 +40,12 @@ module FixtureHelpers
     team.save!
     team
   end
+
+  def create_invitation(options={})
+    for_user = options[:for] || create_user
+    from_team = create_team :captain => create_user    
+    Invitation.create! :from_team => from_team, :recepient_email => for_user.email
+  end
 end
 
 module ExceptionsHelper
@@ -46,7 +58,8 @@ module ExceptionsHelper
   end
 end
 
-include FixtureHelpers
+include MailerHelper
+include FixtureHelper
 include ExceptionsHelper
 
 require Merb.root / "spec" / 'mail_controller_spec_helper'

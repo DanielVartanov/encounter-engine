@@ -5,5 +5,10 @@ class NotificationMailer < Merb::MailController
     @password = params[:password]
     render_mail
   end
+
+  def invitation_notification
+    @team_name = params[:team_name]
+    render_mail
+  end
   
 end
