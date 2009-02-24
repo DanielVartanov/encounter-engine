@@ -1,4 +1,4 @@
-merb_gems_version = "1.0.8"
+merb_gems_version = "1.0.9"
 
 dependency "merb-action-args", merb_gems_version
 dependency "merb-assets", merb_gems_version
