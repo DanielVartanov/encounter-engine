@@ -10,5 +10,10 @@ class NotificationMailer < Merb::MailController
     @team_name = params[:team_name]
     render_mail
   end
+
+  def reject_notification
+    @user_email = params[:user_email]
+    render_mail
+  end
   
 end

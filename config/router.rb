@@ -32,10 +32,10 @@ Merb::Router.prepare do
   resources :users  
   resources :teams
   resources :invitations
-
+  
   match('/signup').to(:controller => :users, :action => :new)
   match('/dashboard').to(:controller => :dashboard).name(:dashboard)
-  match('/team-room').to(:controller => :team_room).name(:team_room)
+  match('/team-room').to(:controller => :team_room).name(:team_room) 
 
   # This is the default route for /:controller/:action/:id
   # This is fine for most cases.  If you're heavily using resource-based

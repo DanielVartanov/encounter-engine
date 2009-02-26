@@ -26,8 +26,7 @@ describe Dashboard, "#index" do
                   
       @expected_invitations = []
       @expected_invitations << create_invitation(:for => user)
-      @expected_invitations << create_invitation(:for => user)
-      
+      @expected_invitations << create_invitation(:for => user)      
       create_invitation :for => create_user
 
       @response = perform_request :as_user => user, :skip_authentication => true
