@@ -5,8 +5,19 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8" />
   </head>
-  <body>
-    <%#= message[:notice] %>
-    <%= catch_content :for_layout %>
+  <body>    
+    <br />
+    <div id="header">
+      <%= link_to "Домой", url(:dashboard), :class => "home-url" %> <br />
+      <%= link_to "Выйти", url(:logout), :class => "logout-url" if @current_user %>
+    </div>
+    <div id="message"><%= h(message) %></div>
+    <hr />
+    <br />
+    <div id="main">
+      <%= catch_content :for_layout %>
+    </div>
+    <br />
+    <hr />
   </body>
 </html>
