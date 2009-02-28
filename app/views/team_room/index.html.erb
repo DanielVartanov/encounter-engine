@@ -8,4 +8,4 @@
 <hr />
 <br />
 
-<%= link_to "Пригласить участников", resource(:invitations, :new) %>
+<%= link_to "Пригласить участников", resource(:invitations, :new) if @current_user.captain? %>

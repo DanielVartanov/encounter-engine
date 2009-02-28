@@ -16,12 +16,8 @@ Then %r{никакие письма не должны быть высланы$}i
   Merb::Mailer.should have(0).deliveries
 end
 
-Then %r{никакие письма не должны быть высланы на ([^/\s]+)$}i do |email|
-  Merb::Mailer.deliveries.each do |delivery|
-    delivery.to.each do |recepient|
-      recepient.should_not == email
-    end
-  end
+Then %r{никакие письма не должны быть высланы на (.*)$}i do |email|
+  deliveries_for(email).should be_empty
 end
 
 Given %r{все отосланные к этому моменту письма прочитаны$}i do

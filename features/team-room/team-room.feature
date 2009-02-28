@@ -35,6 +35,7 @@
     Если я логинюсь как aldor@diesel.kg
     И захожу в комнату команды
     То должен увидеть следующее:        
-        | текст    |
+        | текст           |
+        | noel@grib.kg    |
         | alisa@diesel.kg |
         | aldor@diesel.kg |
