@@ -1,6 +1,7 @@
 Before do
   clear_mail_deliveries
   recreate_database
+  @the_password = "1234"
 end
 
 def clear_mail_deliveries
