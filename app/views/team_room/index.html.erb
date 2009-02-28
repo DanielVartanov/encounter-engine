@@ -1,6 +1,11 @@
 Команда <%= @team.name %> <br />
-<%= @team.captain.email %> - капитан <br /><br />
-
-<hr /><br />
+<br />
+В составе: <br />
+<% @team.members.each do |member| %>
+  <%= member.email %> <%= "- капитан" if member.captain? %> <br />
+<% end %>
+<br />
+<hr />
+<br />
 
 <%= link_to "Пригласить участников", resource(:invitations, :new) %>

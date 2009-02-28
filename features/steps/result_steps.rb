@@ -6,6 +6,12 @@ Then /должен увидеть "(.*)"$/ do |text|
   response_body.to_s.should =~ /#{text}/m
 end
 
+Then /должен увидеть следующее:/ do |table|
+  table.hashes.each do |row|
+    То %{должен увидеть "#{row['текст']}"}
+  end
+end
+
 Then /должен увидеть ссылку на (.*)$/ do |text|
   response_body.to_s.should have_tag("a", :href => text)
 end
