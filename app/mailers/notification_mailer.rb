@@ -15,5 +15,10 @@ class NotificationMailer < Merb::MailController
     @user_email = params[:user_email]
     render_mail
   end
+
+  def accept_notification
+    @user_email = params[:user_email]
+    render_mail
+  end
   
 end

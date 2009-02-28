@@ -12,7 +12,8 @@
     <% @invitations.each do |invitation| %>
       <tr>
         <td>Вас пригласили в команду <%= invitation.to_team.name %></td>
-        <td><%= link_to "Отказаться", url(:controller => "invitations", :action => "reject", :id => invitation.id) %></td>
+        <td><%= link_to "Принять", url(:controller => "invitations", :action => "accept", :id => invitation.id), :id => "accept-invitation-#{invitation.id}" %></td>
+        <td><%= link_to "Отказаться", url(:controller => "invitations", :action => "reject", :id => invitation.id), :id => "reject-invitation-#{invitation.id}" %></td>
       </tr>
     <% end %>
   </table>
