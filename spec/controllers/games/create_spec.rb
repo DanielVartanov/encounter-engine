@@ -20,7 +20,7 @@ describe Games, "#create" do
 
         it "assigns current user as an author of the game" do
           @response = perform_request({ :as_user => @user }, @params)
-          Game.last.author.id == @user.id
+          Game.last.author.id.should == @user.id
         end
 
         it "redirects to game profile"

@@ -6,4 +6,6 @@ class Game < ActiveRecord::Base
 
   validates_presence_of :description,
     :message => "Вы не ввели описание"
+
+  validates_presence_of :author
 end
