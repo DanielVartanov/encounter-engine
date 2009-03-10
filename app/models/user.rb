@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   belongs_to :team
 
   validates_uniqueness_of :email, 
@@ -25,4 +24,8 @@ class User < ActiveRecord::Base
     member_of_any_team? && team.captain.id == id
   end
 
+  def nickname
+    username, server = self.email.split('@')
+    username.capitalize
+  end
 end
