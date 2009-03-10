@@ -28,4 +28,4 @@ if ARGV.first =~ /^_(.*)_$/ and Gem::Version.correct? $1 then
 end
 
 gem 'ZenTest', version
-load 'rails_test_audit'
+load 'multigem'
