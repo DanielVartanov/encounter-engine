@@ -1,0 +1,7 @@
+<%= error_messages_for @game, :header => "<h2>Ошибка</h2>" %>
+
+<%= form_for @game, :action => url(:games) do %>
+  <p><%= text_field :name, :label => "Название" %></p>
+  <p><%= text_area :description, :label => "Описание" %></p>
+  <%= submit "Создать игру" %>
+<% end =%>

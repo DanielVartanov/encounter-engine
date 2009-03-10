@@ -14,6 +14,9 @@ dependency "merb-exceptions", merb_gems_version
 
 dependency "do_sqlite3"
 
+dependency "activerecord", "2.2.2"
+
 dependency "webrat"
 dependency "nokogiri"
 dependency "cucumber", "0.1.16"
+#dependency "david-merb_cucumber", "0.5.1.2"

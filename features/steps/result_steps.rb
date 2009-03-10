@@ -16,6 +16,10 @@ Then /должен увидеть ссылку на (.*)$/ do |text|
   response_body.to_s.should have_tag("a", :href => text)
 end
 
+Then /должен увидеть кнопку "(.*)"$/ do |text|
+  response_body.to_s.should have_tag("input", :type => "submit", :value => text)
+end
+
 Then /должен быть перенаправлен на (.*)/ do |url|
   URI.parse(@response.url).path.should == url
 end
