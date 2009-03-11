@@ -4,13 +4,13 @@ class Invitation < ActiveRecord::Base
   
   named_scope :for, lambda { |user| { :conditions => { :for_user_id => user.id } } }
 
-  attr_accessor :recepient_email
+  attr_accessor :recepient_nickname
 
   validates_presence_of :for_user,
-    :message => "Пользователя с таким адресом не существует"
+    :message => "Пользователя с таким именем не существует"
 
-  validates_presence_of :recepient_email, 
-    :message => "Вы не ввели адрес пользователя"
+  validates_presence_of :recepient_nickname,
+    :message => "Вы не ввели имени пользователя"
 
   validates_uniqueness_of :for_user_id,
     :scope => [:to_team_id],
@@ -23,7 +23,7 @@ class Invitation < ActiveRecord::Base
 protected
 
   def find_user
-    self.for_user = User.find_by_email recepient_email
+    self.for_user = User.find_by_nickname(recepient_nickname)
   end
 
   def recepient_is_not_member_of_any_team

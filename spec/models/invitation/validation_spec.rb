@@ -7,7 +7,7 @@ describe Invitation do
       captain = create_user
       team = create_team :captain => captain
 
-      @invitation = Invitation.new(:to_team => team, :recepient_email => user.email)
+      @invitation = Invitation.new(:to_team => team, :recepient_nickname => user.nickname)
     end
 
     it "should be valid" do
@@ -22,7 +22,7 @@ describe Invitation do
       user = create_user
       create_team :captain => create_user, :members => [user]
 
-      @invitation = Invitation.new(:to_team => team, :recepient_email => user.email)
+      @invitation = Invitation.new(:to_team => team, :recepient_nickname => user.nickname)
     end
 
     it "should not be valid" do
@@ -36,7 +36,7 @@ describe Invitation do
       user = create_user
       team = create_team :captain => captain, :members => [user]
 
-      @invitation = Invitation.new(:to_team => team, :recepient_email => user.email)
+      @invitation = Invitation.new(:to_team => team, :recepient_nickname => user.nickname)
     end
 
     it "should not be valid" do
@@ -49,7 +49,7 @@ describe Invitation do
       captain = create_user
       team = create_team :captain => captain
 
-      @invitation = Invitation.new(:to_team => team, :recepient_email => captain.email)
+      @invitation = Invitation.new(:to_team => team, :recepient_nickname => captain.email)
     end
 
     it "should not be valid" do
@@ -62,9 +62,9 @@ describe Invitation do
       captain = create_user
       user = create_user
       team = create_team :captain => captain
-      Invitation.create!(:to_team => team, :recepient_email => user.email)
+      Invitation.create!(:to_team => team, :recepient_nickname => user.nickname)
 
-      @invitation = Invitation.new(:to_team => team, :recepient_email => user.email)
+      @invitation = Invitation.new(:to_team => team, :recepient_nickname => user.nickname)
     end
 
     it "should not be valid" do
@@ -80,9 +80,9 @@ describe Invitation do
       team2 = create_team :captain => captain2
 
       user = create_user
-      Invitation.create!(:to_team => team1, :recepient_email => user.email)
+      Invitation.create!(:to_team => team1, :recepient_nickname => user.nickname)
 
-      @invitation = Invitation.new(:to_team => team2, :recepient_email => user.email)
+      @invitation = Invitation.new(:to_team => team2, :recepient_nickname => user.nickname)
     end
 
     it "should be valid" do
@@ -95,7 +95,7 @@ describe Invitation do
       captain = create_user
       team = create_team :captain => captain
 
-      @invitation = Invitation.new(:to_team => team, :recepient_email => nil)
+      @invitation = Invitation.new(:to_team => team, :recepient_nickname => nil)
     end
 
     it "should not be valid" do
@@ -108,7 +108,7 @@ describe Invitation do
       captain = create_user
       team = create_team :captain => captain
 
-      @invitation = Invitation.new(:to_team => team, :recepient_email => "unexistent@email.com")
+      @invitation = Invitation.new(:to_team => team, :recepient_nickname => "unexistent@email.com")
     end
 
     it "should not be valid" do

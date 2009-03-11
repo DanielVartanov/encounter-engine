@@ -3,7 +3,7 @@ def deliveries_for(email)
   Merb::Mailer.deliveries.each do |delivery|
     deliveries << delivery if delivery.to.include? email
   end
-  deliveries
+  deliveries  
 end
 
 Then %r{одно письмо с текстом "(.*)" должно быть выслано на ([^/\s]+)$}i do |text, email|  

@@ -2,13 +2,14 @@ require File.join(File.dirname(__FILE__), '..', '..', 'spec_helper.rb')
 
 describe "resource(:users)" do
   describe "regular case" do
-    EMAIL = "valid@email.com"
+    NICKNAME = "valid"
+    EMAIL = "#{NICKNAME}@email.com"
     PASSWORD = "1234"
 
     before do
       User.delete_all
       clear_mail_deliveries
-      @response = perform_request(EMAIL, PASSWORD, PASSWORD)
+      @response = perform_request(NICKNAME, EMAIL, PASSWORD, PASSWORD)
     end
 
     it "redirects to dashboard" do
@@ -28,14 +29,15 @@ describe "resource(:users)" do
   end
 
   describe "email already registered" do
-    REGISTERED_EMAIL = "valid@email.com"
+    REGISTERED_NICKNAME = "valid"
+    REGISTERED_EMAIL = "#{REGISTERED_NICKNAME}@email.com"
 
     before(:each) do
       User.delete_all
       clear_mail_deliveries
-      User.create!(:email => REGISTERED_EMAIL, :password => "sekrit",
-        :password_confirmation => "sekrit")      
-      @response = perform_request(REGISTERED_EMAIL, "1234", "1234")
+      User.create!(:nickname => REGISTERED_NICKNAME, :email => REGISTERED_EMAIL,
+        :password => "sekrit", :password_confirmation => "sekrit")
+      @response = perform_request(REGISTERED_NICKNAME, REGISTERED_EMAIL, "1234", "1234")
     end
 
     it "responds successfully" do
@@ -59,7 +61,7 @@ describe "resource(:users)" do
     before(:each) do
       User.delete_all
       clear_mail_deliveries
-      @response = perform_request("valid@email.com", "1234", "oooops")
+      @response = perform_request("valid", "valid@email.com", "1234", "oooops")
     end
 
     it "responds successfully" do
@@ -83,7 +85,7 @@ describe "resource(:users)" do
     before(:each) do
       User.delete_all
       clear_mail_deliveries
-      @response = perform_request("invalid-mail-booooo", "1234", "1234")
+      @response = perform_request("valid", "invalid-mail-booooo", "1234", "1234")
     end
 
     it "responds successfully" do
@@ -104,8 +106,8 @@ describe "resource(:users)" do
   end
 end
 
-def perform_request(email, password, password_confirmation)
-  user = { :email => email, :password => password,
+def perform_request(nickname, email, password, password_confirmation)
+  user = { :nickname => nickname, :email => email, :password => password,
     :password_confirmation => password_confirmation }
   
   request(resource(:users), :method => "POST", :params => { :user => user })

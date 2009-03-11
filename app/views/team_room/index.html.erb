@@ -2,7 +2,7 @@
 <br />
 В составе: <br />
 <% @team.members.each do |member| %>
-  <%= member.email %> <%= "- капитан" if member.captain? %> <br />
+  <%= member.nickname %> <%= "- капитан" if member.captain? %> <br />
 <% end %>
 <br />
 <hr />

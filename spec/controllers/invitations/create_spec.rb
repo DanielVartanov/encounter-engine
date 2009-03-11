@@ -39,7 +39,7 @@ describe Invitations, "#create" do
       @user = create_user
       @captain = create_user
       @team = create_team :captain => @captain
-      @params = { :invitation => { :recepient_email => @user.email } }
+      @params = { :invitation => { :recepient_nickname => @user.nickname } }
     end
 
     it "redirects with notice" do

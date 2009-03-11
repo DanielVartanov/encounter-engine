@@ -13,7 +13,7 @@ When /иду по ссылке "(.*)"$/ do |link|
   @response = click_link(link)
 end
 
-When /^ввожу "(.*)" в поле "(.*)"$/ do |value, field|
+When /ввожу "(.*)" в поле "(.*)"$/ do |value, field|
   @response = fill_in(field, :with => value)
 end
 

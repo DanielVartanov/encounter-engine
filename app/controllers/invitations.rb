@@ -12,10 +12,10 @@ class Invitations < Application
     render
   end
 
-  def create    
+  def create
     if @invitation.save
       send_invitation_notification(@invitation)
-      redirect resource(:invitations, :new), :message => "Пользователю #{@invitation.recepient_email} выслано приглашение"
+      redirect resource(:invitations, :new), :message => "Пользователю #{@invitation.recepient_nickname} выслано приглашение"
     else
       render :new
     end
@@ -41,33 +41,28 @@ class Invitations < Application
 
 protected
 
-  def build_invitation
-    @invitation = Invitation.new(params[:invitation])
-    @invitation.to_team = @current_user.team
-  end
-
   def send_invitation_notification(invitation)
     send_mail NotificationMailer, :invitation_notification,
       { :to => invitation.for_user.email,
         :from => "noreply@bien.kg",
         :subject => "Вас пригласили вступить в команду #{invitation.to_team.name}" },
-      { :team_name => invitation.to_team.name }
+      { :team => invitation.to_team }
   end
 
   def send_reject_notification(invitation)
     send_mail NotificationMailer, :reject_notification,
       { :to => invitation.to_team.captain.email,
         :from => "noreply@bien.kg",
-        :subject => "Пользователь #{invitation.for_user.email} отказался от приглашения" },
-      { :user_email => invitation.for_user.email }
+        :subject => "Пользователь #{invitation.for_user.nickname} отказался от приглашения" },
+      { :user => invitation.for_user }
   end
 
   def send_accept_notification(invitation)
     send_mail NotificationMailer, :accept_notification,
       { :to => invitation.to_team.captain.email,
         :from => "noreply@bien.kg",
-        :subject => "Пользователь #{invitation.for_user.email} принял Ваше приглашение" },
-      { :user_email => invitation.for_user.email }
+        :subject => "Пользователь #{invitation.for_user.nickname} принял Ваше приглашение" },
+      { :user => invitation.for_user }
   end
 
   def add_user_to_team_members
@@ -80,6 +75,11 @@ protected
       invitation.delete
       send_reject_notification(invitation)
     end
+  end
+
+  def build_invitation
+    @invitation = Invitation.new(params[:invitation])
+    @invitation.to_team = @current_user.team    
   end
 
   def find_invitation    

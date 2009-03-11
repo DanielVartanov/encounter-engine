@@ -7,17 +7,17 @@ class NotificationMailer < Merb::MailController
   end
 
   def invitation_notification
-    @team_name = params[:team_name]
+    @team = params[:team]
     render_mail
   end
 
   def reject_notification
-    @user_email = params[:user_email]
+    @user = params[:user]
     render_mail
   end
 
   def accept_notification
-    @user_email = params[:user_email]
+    @user = params[:user]
     render_mail
   end
   

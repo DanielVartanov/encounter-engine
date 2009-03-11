@@ -38,7 +38,7 @@ describe Invitations, "#new" do
       @captain = create_user
       @team = create_team :captain => @captain
       @response = perform_request :as_user => @captain
-      @params = { :invitation => { :recepient_email => "" } }
+      @params = { :invitation => { :recepient_nickname => "" } }
     end
 
     it "does not raise error" do
@@ -53,7 +53,7 @@ describe Invitations, "#new" do
       @captain = create_user
       @team = create_team :captain => @captain
       @response = perform_request :as_user => @captain
-      @params = { :invitation => { :recepient_email => "some@email.com" } }
+      @params = { :invitation => { :recepient_nickname => "SomeUser" } }
     end
 
     it "does not raise error" do

@@ -27,9 +27,10 @@ end
 
 module FixtureHelper
   def create_user
-    random_email = "vaild" + rand(100000).to_s + "@email.com"
+    random_nickname = "valid" + rand(100000).to_s
+    random_email = random_nickname + "@diesel.kg"
     
-    User.create! :email => random_email, :password => "1234",
+    User.create! :nickname => random_nickname, :email => random_email, :password => "1234",
       :password_confirmation => "1234"
   end
 
@@ -44,7 +45,7 @@ module FixtureHelper
   def create_invitation(options={})
     for_user = options[:for] || create_user
     from_team = options[:from] || create_team(:captain => create_user)
-    Invitation.create! :to_team => from_team, :recepient_email => for_user.email
+    Invitation.create! :to_team => from_team, :recepient_nickname => for_user.nickname
   end
 end
 
