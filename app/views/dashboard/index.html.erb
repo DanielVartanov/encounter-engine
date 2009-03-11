@@ -31,4 +31,6 @@
 <% end %>
 
 <br /><br />
-Вы можете <%= link_to "Создать игру", resource(:games, :new) %>
+<%= link_to "Создать игру", resource(:games, :new) %>
+<br />
+<%= link_to "Мои игры", resource(@current_user, :games) %>

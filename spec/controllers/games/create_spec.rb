@@ -9,7 +9,7 @@ describe Games, "#create" do
 
       describe "data is valid" do
         before :each do
-          @params = { :game => { :name => "Blablabla", :description => "More blablablablabla" } }
+          @params = { :game => { :name => "Blablabla#{rand(10000)}", :description => "More blablablablabla" } }
         end
 
         it "crates a game" do

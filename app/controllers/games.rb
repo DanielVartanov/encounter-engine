@@ -3,6 +3,16 @@ class Games < Application
   before :build_game, :only => [:new, :create]
   before :find_game, :only => [:show]
 
+  def index
+    unless params[:user_id].blank?
+      user = User.find(params[:user_id])
+      @games = user.created_games
+    else
+      @games = Game.all
+    end
+    render
+  end
+
   def new
     render
   end
