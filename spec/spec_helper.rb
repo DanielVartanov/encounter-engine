@@ -47,6 +47,20 @@ module FixtureHelper
     from_team = options[:from] || create_team(:captain => create_user)
     Invitation.create! :to_team => from_team, :recepient_nickname => for_user.nickname
   end
+
+  def build_game(options={})
+    creation_params = {
+      :author => create_user,
+      :name => rand(10000).to_s,
+      :description => rand(10000).to_s,
+      :starts_at => "2099-01-01 00:00"
+    }.merge(options)
+    Game.new creation_params
+  end
+
+  def create_game(options={})
+    biuld_game(options).save!
+  end
 end
 
 module ExceptionsHelper

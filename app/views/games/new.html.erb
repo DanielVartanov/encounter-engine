@@ -1,7 +1,33 @@
+<% require_js 'calendar', 'calendar-setup', 'calendar-ru-UTF' %>
+<% require_css 'calendar' %>
+
+<div id="calendar-container" />
+
+<script type="text/javascript">
+  function dateChanged(calendar) {
+    if (calendar.dateClicked) {      
+      var y = calendar.date.getFullYear();
+      var m = calendar.date.getMonth();     // integer, 0..11
+      var d = calendar.date.getDate();      // integer, 1..31      
+      alert(y);
+    }
+  };
+
+  Calendar.setup(
+    {
+      flat         : "calendar-container", // ID of the parent element
+      flatCallback : dateChanged           // our callback function
+    }
+  );
+</script>
+
 <%= error_messages_for @game, :header => "<h2>Ошибка</h2>" %>
 
 <%= form_for @game, :action => url(:games) do %>
   <p><%= text_field :name, :label => "Название" %></p>
   <p><%= text_area :description, :label => "Описание" %></p>
+  <p><%= text_field :starts_at, :label => "Начало игры" %></p>
   <%= submit "Создать игру" %>
 <% end =%>
+
+<br />

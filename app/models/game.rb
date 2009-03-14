@@ -11,4 +11,14 @@ class Game < ActiveRecord::Base
     :message => "Вы не ввели описание"
 
   validates_presence_of :author
+
+  validate :game_starts_in_the_future
+
+protected
+
+  def game_starts_in_the_future
+    if self.starts_at and self.starts_at < Time.now
+      self.errors.add(:starts_at, "Вы выбрали дату из прошлого. Так нельзя :-)")
+    end
+  end
 end
