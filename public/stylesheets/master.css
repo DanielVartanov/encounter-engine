@@ -153,6 +153,11 @@ p {
   color: black;
   font-size: 10px;
 }
+.is-draft-message {
+  color: red;
+  font-weight:bold;
+  font-size:25px;
+}
 #main {
     margin-left: 20px;
 }

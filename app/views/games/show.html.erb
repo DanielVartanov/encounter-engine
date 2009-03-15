@@ -1,9 +1,20 @@
-Игра <%= @game.name %><br /><br />
+Игра "<%= @game.name %>"
+
+<br />
+<br />
+<% if @game.draft? %>
+  <div class="is-draft-message">Черновик</div>
+<% end %>
+<br />
+
 Автор - <%= @game.author.nickname %><br /><br />
+
 <% unless @game.starts_at.nil? %>
   Начало игры: <%= @game.starts_at.strftime("%Y-%m-%d %H:%M") %>
 <% else %>
   Дата начала игры ещё не назначена
 <% end %>
+
+<br />
 <br />
 <%= @game.description %>

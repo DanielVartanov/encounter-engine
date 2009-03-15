@@ -59,7 +59,9 @@ module FixtureHelper
   end
 
   def create_game(options={})
-    biuld_game(options).save!
+    game = build_game(options)
+    game.save!
+    game
   end
 end
 

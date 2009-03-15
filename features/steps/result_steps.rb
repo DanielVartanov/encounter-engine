@@ -20,10 +20,6 @@ Then /не должен видеть ссылку на (.*)$/ do |url|
   response_body.to_s.should_not have_tag("a", :href => url)
 end
 
-Then /должен увидеть галочку "(.*)"/ do |text|
-  response_body.to_s.should have_tag("input", :type => 'checkbox', :value => text)
-end
-
 Then /должен увидеть кнопку "(.*)"$/ do |text|
   response_body.to_s.should have_tag("input", :type => "submit", :value => text)
 end
