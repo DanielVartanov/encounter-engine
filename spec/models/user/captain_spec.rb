@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '..', '..', 'spec_helper.rb')
 
 describe User, '#captain?' do
-  describe "when use is captain of some team" do
+  describe "when user is captain of some team" do
     before :each do
       @user = create_user
       create_team :captain => @user
