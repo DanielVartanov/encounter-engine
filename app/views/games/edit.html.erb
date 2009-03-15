@@ -3,12 +3,12 @@
 
 <%= error_messages_for @game, :header => "<h2>Ошибка</h2>" %>
 
-<%= form_for @game, :action => resource(:games) do %>
+<%= form_for @game, :action => resource(@game) do %>
   <p><%= text_field :name, :label => "Название" %></p>
   <p><%= text_area :description, :label => "Описание" %></p>
-  <p><%= text_field :starts_at, :label => "Начало игры" %> <input id="calendar-switch" type="button" value="..." /> </p>  
+  <p><%= text_field :starts_at, :label => "Начало игры" %> <input id="calendar-switch" type="button" value="..." /> </p>
   <p><%= check_box :is_draft, :label => "Черновик?" %></p>
-  <%= submit "Создать игру" %>
+  <%= submit "Сохранить" %>
 <% end =%>
 
 <br />

@@ -8,8 +8,8 @@ Given /пользователем (.*) создана игра "(.*)"$/ do |user
   То %{должен быть перенаправлен в профиль игры "#{game_name}"}
 end
 
-When %r{захожу в профиль игры "(.*)"$}i do |game_name|
-  game = Game.find_by_name(game_name)
+When %r{захожу в профиль игры "(.*)"$}i do |game_name|  
+  game = Game.find_by_name(game_name)  
   То %{захожу по адресу #{resource(game)}}
 end
 
