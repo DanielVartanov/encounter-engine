@@ -17,12 +17,12 @@ When /ввожу "(.*)" в поле "(.*)"$/ do |value, field|
   @response = fill_in(field, :with => value)
 end
 
-When /^I select "(.*)" from "(.*)"$/ do |value, field|
-  @response = select(value, :from => field)
+When /отмечаю галочку "(.*)"$/ do |field|
+  @response = check(field)
 end
 
-When /^I check "(.*)"$/ do |field|
-  @response = check(field)
+When /^I select "(.*)" from "(.*)"$/ do |value, field|
+  @response = select(value, :from => field)
 end
 
 When /^I uncheck "(.*)"$/ do |field|

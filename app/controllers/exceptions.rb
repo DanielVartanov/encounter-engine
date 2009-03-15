@@ -1,4 +1,4 @@
-class Exceptions < Merb::Controller
+class Exceptions < Application
   
   # handle NotFound exceptions (404)
   def not_found
@@ -12,7 +12,7 @@ class Exceptions < Merb::Controller
 
   def unauthorized
     @message = request.exceptions.first.message
-    render
+    render :layout => false
   end
 
 end

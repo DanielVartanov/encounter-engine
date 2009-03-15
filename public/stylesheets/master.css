@@ -128,15 +128,30 @@ p {
     margin-bottom: 10px;
     font-family:  Verdana,Arial,Helvetica,sans-serif;
 }
-.home-url {
+.home-link {
     font-size: 18px;    
     font-style:  normal;
     color: navy;
 }
-.logout-url {    
+.logout-link {
     text-decoration: underline;
     color: black;
     font-size: 10px;
+}
+.login-link {
+    text-decoration: underline;
+    color: black;
+    font-size: 10px;
+}
+.index-page-link {
+  text-decoration: underline;
+  color: black;
+  font-size: 10px;
+}
+.signup-link {
+  text-decoration: underline;
+  color: black;
+  font-size: 10px;
 }
 #main {
     margin-left: 20px;

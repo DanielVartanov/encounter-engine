@@ -37,7 +37,7 @@ Merb::Router.prepare do
   resources :invitations
   resources :games
 
-  match('/signup').to(:controller => :users, :action => :new)
+  match('/signup').to(:controller => :users, :action => :new).name(:signup)
   match('/dashboard').to(:controller => :dashboard).name(:dashboard)
   match('/team-room').to(:controller => :team_room).name(:team_room)
 

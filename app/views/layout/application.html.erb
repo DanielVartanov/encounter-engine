@@ -10,8 +10,14 @@
   <body>    
     <br />
     <div id="header">
-      <%= link_to "Домой", url(:dashboard), :class => "home-url" %> <br />
-      <%= link_to "Выйти", url(:logout), :class => "logout-url" if @current_user %>
+      <%= link_to "Главная", url(:index_page), :class => "index-page-link" %> <br />
+      <% if logged_in? %>
+        <%= link_to "Личный кабинет", url(:dashboard), :class => "home-link" %> <br />
+        <%= link_to "Выйти", url(:logout), :class => "logout-link" %>
+      <% else %>
+        <%= link_to "Войти", url(:login), :class => "login-link"%> <br />
+        <%= link_to "Зарегистрироваться", url(:signup), :class => "signup-link"%> <br />
+      <% end %>
     </div>
     <div id="message"><%= h(message) %></div>
     <hr />
