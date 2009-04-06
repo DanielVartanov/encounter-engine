@@ -8,9 +8,8 @@ def clear_mail_deliveries
   Merb::Mailer.deliveries.clear
 end
 
-include ActiveRecordHelper
 def recreate_database
-  ActiveRecordHelper::ActiveRecordHelper.recreate_database!
+  ActiveRecordHelper.recreate_database!
 end
 
 def set_common_password

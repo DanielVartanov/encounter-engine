@@ -82,5 +82,4 @@ include ExceptionsHelper
 require Merb.root / "spec" / 'mail_controller_spec_helper'
 include MailControllerTestHelper
 
-include ActiveRecordHelper
-ActiveRecordHelper::ActiveRecordHelper.recreate_database!
+ActiveRecordHelper.recreate_database!
