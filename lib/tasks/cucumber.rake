@@ -1,7 +1,7 @@
 require 'cucumber/rake/task'
 
 cucumber_options = lambda do |t|
-  t.cucumber_opts = '-p default'
+  t.cucumber_opts = '-p rake'
   t.binary = 'bin/cucumber'
 end
 
