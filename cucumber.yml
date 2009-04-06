@@ -1,1 +1,1 @@
-default: --language ru -r features/steps -r features/support --format pretty features
+default: --language ru -r features -r features/support
