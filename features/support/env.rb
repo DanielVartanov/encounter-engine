@@ -10,7 +10,8 @@ if (local_gem_dir = File.join(File.dirname(__FILE__), '..', 'gems')) && $BUNDLE.
 end
 
 require "merb-core"
-require "spec"
+require "spec/expectations"
+require "spec/mocks"
 require "merb_cucumber/world/webrat"
 require "merb_cucumber/helpers/activerecord"
 

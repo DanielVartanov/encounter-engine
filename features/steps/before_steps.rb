@@ -4,6 +4,10 @@ Before do
   set_common_password
 end
 
+After do
+  Time.rspec_reset  
+end
+
 def clear_mail_deliveries
   Merb::Mailer.deliveries.clear
 end
