@@ -27,5 +27,5 @@ if ARGV.first =~ /^_(.*)_$/ and Gem::Version.correct? $1 then
   ARGV.shift
 end
 
-gem 'cucumber', version
-load 'cucumber'
+require 'cucumber/cli/main'
+Cucumber::Cli::Main.execute(ARGV) # The dup is to keep ARGV intact, so that tools like ruby-debug can respawn.
