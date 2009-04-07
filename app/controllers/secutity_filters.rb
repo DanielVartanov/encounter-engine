@@ -13,4 +13,10 @@ protected
       raise Unauthorized, "Вы должны быть капитаном чтобы выполнить это действие"
     end
   end
+
+  def ensure_author
+    unless logged_in? and @current_user.author_of?(@game)
+      raise Unauthorized, "Вы должны быть автором игры, чтобы видеть эту страницу"
+    end
+  end
 end

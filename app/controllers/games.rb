@@ -53,13 +53,7 @@ protected
 
   def find_game    
     @game = Game.find(params[:id])
-  end
-
-  def ensure_author    
-    unless logged_in? and @current_user.author_of?(@game)
-      raise Unauthorized, "Эта игра пока в черновиках, только её автор может войти в профиль"
-    end
-  end
+  end  
 
   def game_is_draft?
     @game.draft?

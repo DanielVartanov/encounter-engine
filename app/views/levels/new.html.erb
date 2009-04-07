@@ -1,0 +1,10 @@
+Новое задание для игры <%= @level.game.name %><br />
+<br />
+
+<%= error_messages_for @level, :header => "<h2>Ошибка</h2>" %>
+
+<%= form_for @level, :action => resource(@game, :levels) do %>
+  <p><%= text_area :text, :label => "Текст задания" %></p>
+  <p><%= text_field :correct_answers, :label => "Правильные ответы" %></p>
+  <%= submit "Добавить задание" %>
+<% end =%>

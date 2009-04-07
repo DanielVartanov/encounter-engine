@@ -25,7 +25,7 @@ describe Games, "#edit" do
       end
     end
 
-    describe "when a guest attempts to see game edit form" do
+    describe "when a guest attempts to see draft game edit form" do
       before :each do
         @game = create_game :is_draft => false
       end

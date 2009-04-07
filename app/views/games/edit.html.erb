@@ -12,6 +12,8 @@
 <% end =%>
 
 <br />
+<br />
+<%= link_to "Добавить новое задание в игру", resource(@game, :levels, :new) if logged_in? and @current_user.author_of?(@game) and ! @game.started? %>
 
 <script type="text/javascript">
   Calendar.setup(

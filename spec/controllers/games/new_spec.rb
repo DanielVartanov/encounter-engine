@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '..', '..', 'spec_helper.rb')
 
 describe Games, "#new" do
   describe "security filters" do
-    describe "registered user attempts to invite a new member" do
+    describe "registered user attempts to create a game" do
       before :each do
         @user = create_user
         @response = perform_request :as_user => @captain
@@ -13,7 +13,7 @@ describe Games, "#new" do
       end
     end
 
-    describe "a guest attempts to create an invitation" do
+    describe "a guest attempts to create game" do
       it "raises Unauthenticated exception" do
         assert_unauthenticated { perform_request }
       end
