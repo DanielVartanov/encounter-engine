@@ -14,9 +14,12 @@ class Game < ActiveRecord::Base
 
   validate :game_starts_in_the_future
 
-
   def draft?
     self.is_draft
+  end
+
+  def started?
+    self.starts_at.nil? ? false : Time.now > self.starts_at
   end
 
 protected

@@ -33,6 +33,20 @@ describe Games, "#update" do
     end
   end
 
+  describe "when author attempts to update game after beginning" do
+    before :each do
+      @author = create_user
+      tomorrow = DateTime.now + 1
+      @game = create_game :author => @author, :starts_at => tomorrow
+      day_after_tomorrow = tomorrow + 1
+      Time.stub!(:now => day_after_tomorrow)
+    end
+
+    it "raises Unauthorized exception" do
+      assert_unauthorized { perform_request(:as_user => @author) }
+    end
+  end
+
   def perform_request(opts={})
     dispatch_to Games, :update, { :id => @game.id } do |controller|
       controller.session.stub!(:authenticated?).and_return(opts.key?(:as_user))

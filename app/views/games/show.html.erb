@@ -20,4 +20,4 @@
 <%= @game.description %>
 <br />
 <br />
-<%= link_to "Редактировать эту игру", resource(@game, :edit) if logged_in? and @current_user.author_of?(@game) %>
+<%= link_to "Редактировать эту игру", resource(@game, :edit) if logged_in? and @current_user.author_of?(@game) and ! @game.started? %>
