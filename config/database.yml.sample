@@ -1,16 +1,20 @@
 ---
 :development: &defaults
-  :adapter: sqlite3
-  :database: schema/development.sqlite3
+  :adapter: mysql
+  :database: encounter
+  :username: root
+  :password:
+  :host: 127.0.0.1
   :encoding: utf8
 
 :test:
-  <<: *defaults
+  :adapter: sqlite3
   :database: ":memory:"
+  :encoding: utf8
 
 :production:
   <<: *defaults
-  :database: schema/production.sqlite3
+  :database: encounter_production
 
 :rake:
   <<: *defaults

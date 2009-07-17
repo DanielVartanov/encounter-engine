@@ -18,11 +18,7 @@ dependency "merb-auth-slice-password", merb_gems_version
 dependency "merb-param-protection", merb_gems_version
 dependency "merb-exceptions", merb_gems_version
 
-dependency "do_sqlite3"
+dependency "merb_activerecord"
+dependency "activerecord", "2.3.2"
 
-dependency "activerecord", "2.2.2"
-
-#dependency "cucumber", "0.2.0.2"
-#dependency "webrat"
-#dependency "nokogiri"
-#dependency "david-merb_cucumber", "0.5.1.2"
+dependency "mongrel"
