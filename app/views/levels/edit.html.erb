@@ -1,0 +1,11 @@
+<p>Игра: <%= @level.game.name %></p>
+<p>Задание: <%= @level.name %> </p>
+
+<%= error_messages_for @level, :header => "<h2>Ошибка</h2>" %>
+
+<%= form_for @level, :action => resource(@level.game, @level) do %>
+  <p><%= text_field :name, :label => "Название" %></p>
+  <p><%= text_area :text, :label => "Текст задания" %></p>
+  <p><%= text_field :correct_answers, :label => "Правильные ответы" %></p>
+  <%= submit "Сохранить" %>
+<% end =%>

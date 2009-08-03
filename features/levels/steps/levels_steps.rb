@@ -14,3 +14,8 @@ Then /должен быть перенаправлен в профиль зад�
   level = Level.find_by_name(level_name)
   То %{должен быть перенаправлен по адресу #{resource(level.game, level)}}
 end
+
+When %r{захожу в профиль задания "(.*)"$}i do |level_name|
+  level = Level.find_by_name(level_name)
+  То %{захожу по адресу #{resource(level.game, level)}}
+end

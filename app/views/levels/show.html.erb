@@ -1,3 +1,6 @@
 Задание "<%= @level.name %>" игры <%= @level.game.name %>
 <br />
 <%= @level.text  %>
+<br />
+<br />
+<%= link_to "Редактировать", resource(@level.game, @level, :edit) unless @level.game.started? %>

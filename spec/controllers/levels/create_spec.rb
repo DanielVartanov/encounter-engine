@@ -41,7 +41,7 @@ describe Levels, "#create" do
     before :each do
       @author = create_user
       @game = create_game :author => @author
-      @params = { :text => 'Level text', :correct_answers => 'the answer' }
+      @params = { :name => 'Test level', :text => 'Level text', :correct_answers => 'the answer' }
     end
 
     it "creates a new level" do

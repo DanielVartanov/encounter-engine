@@ -63,6 +63,16 @@ module FixtureHelper
     game.save!
     game
   end
+
+  def create_level(options={})
+    creation_params = {
+      :name => 'Test level',
+      :text => "Some text",
+      :correct_answers => "correct answers",
+      :game => create_game
+    }.merge(options)
+    Level.create! creation_params
+  end
 end
 
 module ExceptionsHelper
