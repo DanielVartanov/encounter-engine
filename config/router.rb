@@ -36,7 +36,10 @@ Merb::Router.prepare do
   resources :teams
   resources :invitations
   resources :games do |games|
-    games.resources :levels
+    games.resources :levels do
+      member :move_up, :method => :get
+      member :move_down, :method => :get
+    end
   end
 
   match('/signup').to(:controller => :users, :action => :new).name(:signup)

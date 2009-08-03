@@ -1,9 +1,9 @@
 class Levels < Application
   before :find_game
-  before :build_level, :only => [:create, :new]
-  before :find_level, :only => [:show, :edit, :update]
   before :ensure_author
-  before :ensure_game_was_not_started, :only => [:create, :update]
+  before :ensure_game_was_not_started, :only => [:create, :update]  
+  before :build_level, :only => [:create, :new]
+  before :find_level, :exclude => [:create, :new]
 
   def new
     render
@@ -12,8 +12,7 @@ class Levels < Application
   def create
     if @level.save
       redirect resource(@game, @level)
-    else
-      puts @level.errors.inspect
+    else      
       render :new
     end
   end
@@ -32,6 +31,16 @@ class Levels < Application
     else
       render :edit
     end
+  end
+
+  def move_up
+    @level.move_higher
+    redirect resource(@game)
+  end
+
+  def move_down
+    @level.move_lower
+    redirect resource(@game)
   end
 
 protected
