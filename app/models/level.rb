@@ -1,6 +1,9 @@
 class Level < ActiveRecord::Base
   belongs_to :game
 
+  validates_presence_of :name,
+    :message => "Вы не ввели название задания"
+
   validates_presence_of :text,
     :message => "Вы не ввели текст задания"
 
