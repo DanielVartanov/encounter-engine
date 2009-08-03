@@ -33,4 +33,6 @@
 <br /><br />
 <%= link_to "Создать игру", resource(:games, :new) %>
 <br />
-<%= link_to "Мои игры", resource(@current_user, :games) %>
+<br />
+Мои игры: <br />
+<%= partial 'games/list', :games => @current_user.created_games %>

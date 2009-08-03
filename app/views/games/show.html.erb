@@ -17,8 +17,14 @@
 
 <br />
 <br />
-<%= @game.description %>
+<%= @game.description %><br />
 <br />
+<% if logged_in? and @current_user.author_of?(@game) %>
+  Задания:
+  <br />
+  <%= partial 'levels/list', :levels => @game.levels  %>
+  <br />
+<% end %>
 <br />
-<%= link_to "Редактировать эту игру", resource(@game, :edit) if logged_in? and @current_user.author_of?(@game) and ! @game.started? %>
+<%= link_to "Редактировать эту игру", resource(@game, :edit) if logged_in? and @current_user.author_of?(@game) and ! @game.started? %> <br />
 <%= link_to "Добавить в неё новое задание", resource(@game, :levels, :new) if logged_in? and @current_user.author_of?(@game) and ! @game.started? %>
