@@ -1,2 +1,3 @@
-default: --language ru -r features -r features/support
+default: --language ru -r features -r features/support features
+task: --language ru -r features -r features/support
 rake: --language ru
