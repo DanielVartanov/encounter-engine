@@ -39,6 +39,23 @@ describe Levels, "#update" do
     end
   end
 
+  describe "when authour updates level correctly" do
+    before :each do
+      @author = create_user
+      @game = create_game :author => @author
+      create_level :game => @game
+      @level = create_level :game => @game
+      create_level :game => @game
+      @initial_level_position = @level.position
+      perform_request({ :as_user => @author }, { :level => { :text => "Some other text" } })
+    end
+
+    it "does not change position of level" do
+      @level.reload
+      @level.position.should == @initial_level_position
+    end
+  end
+
   def perform_request(opts={}, params={})
     params = params.merge(:id => @level.id, :game_id => @level.game.id)
     dispatch_to Levels, :update, params do |controller|

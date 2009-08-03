@@ -1,3 +1,3 @@
 <% levels.each do |level| %>
-  <%= link_to level.name, resource(level.game, level) %>
+  <%= level.position %>. <%= link_to level.name, resource(level.game, level) %>
 <% end %>

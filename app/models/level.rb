@@ -1,4 +1,6 @@
 class Level < ActiveRecord::Base
+  acts_as_list :scope => :game
+
   belongs_to :game
 
   validates_presence_of :name,

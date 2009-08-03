@@ -1,4 +1,4 @@
-Задание "<%= @level.name %>" игры <%= @level.game.name %>
+Задание "<%= @level.name %>" игры <%= link_to @level.game.name, resource(@level.game) %>
 <br />
 <%= @level.text  %>
 <br />

@@ -41,8 +41,7 @@ protected
   end
 
   def build_level
-    @level = Level.new(params[:level])
-    @level.order = 1
+    @level = Level.new(params[:level])    
     @level.game = @game
   end
 

@@ -20,5 +20,6 @@ dependency "merb-exceptions", merb_gems_version
 
 dependency "merb_activerecord"
 dependency "activerecord", "2.3.2"
+dependency "acts-as-list", "0.1.2", :require_as => 'acts_as_list'
 
 dependency "mongrel"

@@ -54,6 +54,31 @@ describe Levels, "#create" do
       perform_request({ :as_user => @author }, { :level => @params })
       Level.last.game.id.should == @game.id
     end
+
+    it "sets 'position' attribute" do
+      perform_request({ :as_user => @author }, { :level => @params })
+      Level.last.position.should == 1
+    end
+
+    describe "when several levels are created" do
+      before :each do
+        perform_request({ :as_user => @author }, { :level => @params })
+        @first_level = Level.last
+
+        perform_request({ :as_user => @author }, { :level => @params })
+        @second_level = Level.last
+
+        @game = create_game :author => @author
+        perform_request({ :as_user => @author }, { :level => @params })
+        @first_level_in_other_game = Level.last
+      end
+
+      it "sets an 'position' incrementally within the game" do
+        @first_level.position.should == 1
+        @second_level.position.should == 2
+        @first_level_in_other_game.position.should == 1
+      end
+    end
   end
   
   describe "when author entered incorrect data" do
