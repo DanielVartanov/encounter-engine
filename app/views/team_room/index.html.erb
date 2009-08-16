@@ -1,5 +1,7 @@
 Команда <%= @team.name %> <br />
 <br />
+<%= partial 'games/started_games' %>
+<br />
 В составе: <br />
 <% @team.members.each do |member| %>
   <%= member.nickname %> <%= "- капитан" if member.captain? %> <br />

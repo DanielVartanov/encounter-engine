@@ -12,7 +12,7 @@ When %r{пытаюсь создать команду "(.*)"}i do |team_name|
   Если %{нажимаю "Создать команду"}
 end
 
-Given %r{пользователь (.*) состоит в команде (.*)}i do |nickname, team_name|
+Given %r{пользователь (.*) состоит в команде "(.*)"}i do |nickname, team_name|
   captain_nickname = Team.find_by_name(team_name).captain.nickname
 
   Допустим %{зарегистрирован пользователь #{nickname}}
