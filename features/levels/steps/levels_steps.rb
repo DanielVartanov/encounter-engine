@@ -10,6 +10,11 @@ Given /добавляю задание "(.*)" в игру "(.*)"/ do |level_name
   И %{должен увидеть "#{level_name}"}
 end
 
+Given /(.*) добавляет задание "(.*)" в игру "(.*)"/ do |user_name, level_name, game_name|
+  Допустим %{я логинюсь как #{user_name}}
+  И %{добавляю задание "#{level_name}" в игру "#{game_name}"}
+end
+
 Then /должен быть перенаправлен в профиль задания "(.*)"/ do |level_name|
   level = Level.find_by_name(level_name)
   То %{должен быть перенаправлен по адресу #{resource(level.game, level)}}

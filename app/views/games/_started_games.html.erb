@@ -1,7 +1,10 @@
-<% Game.started.each do |game| %>
-  <% unless game.created_by?(current_user) %>
-    <p>
-      Началась игра "<%= link_to game.name, resource(game) %>". <%= link_to "Играть!", '#' %>
-    </p>
+<% if current_user.member_of_any_team? %>
+  <% Game.started.each do |game| %>
+    <% unless game.created_by?(current_user) %>
+      <p>
+        Началась игра "<%= link_to game.name, resource(game) %>".
+        <%= link_to "Играть!", url(:game_passing, :game_id => game.id) %>
+      </p>
+    <% end %>
   <% end %>
 <% end %>

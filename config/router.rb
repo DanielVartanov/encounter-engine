@@ -42,6 +42,7 @@ Merb::Router.prepare do
     end
   end
 
+  match('/game-passing/:game_id').to(:controller => :game_passing, :action => :index).name(:game_passing)
   match('/signup').to(:controller => :users, :action => :new).name(:signup)
   match('/dashboard').to(:controller => :dashboard).name(:dashboard)
   match('/team-room').to(:controller => :team_room).name(:team_room)

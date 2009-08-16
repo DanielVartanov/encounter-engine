@@ -5,7 +5,7 @@ Before do
 end
 
 After do
-  Time.rspec_reset  
+  Time.rspec_reset
 end
 
 def clear_mail_deliveries
