@@ -11,7 +11,7 @@ describe GamePassing, "#index" do
     Time.stub!(:now => now + 1)
 
     @team_member = create_user
-    create_team :captain => @team_member
+    @team = create_team :captain => @team_member
   end
 
   after :each do
@@ -62,21 +62,40 @@ describe GamePassing, "#index" do
   end
 
   describe "when a team member enters game passing" do
-    before :each do
-      @response = perform_request :as_user => @team_member, :game => @started_game
-    end
-
     it "responds successfully" do
+      @response = perform_request :as_user => @team_member, :game => @started_game
       @response.should be_successful
     end
 
-    it "assigns first level" do      
-      @response.assigns(:current_level).id.should == @first_level.id
+    it "creates and assigns game passing" do      
+      lambda do
+        @response = perform_request :as_user => @team_member, :game => @started_game
+      end.should change(GamePassing, :count).by(1)      
+    end
+
+    it "does not create game passing for any subsequent call" do
+      @response = perform_request :as_user => @team_member, :game => @started_game
+      initial_game_passing = @response.assigns(:game_passing)
+
+      lambda do
+        @response = perform_request :as_user => @team_member, :game => @started_game
+      end.should_not change(GamePassing, :count)
+
+      @response.assigns(:game_passing).id.should == initial_game_passing.id
+    end
+
+    it "assigns correct data to game passing attribute" do
+      @response = perform_request :as_user => @team_member, :game => @started_game
+
+      game_passing = @response.assigns(:game_passing)
+      game_passing.game.id.should == @started_game.id
+      game_passing.team.id.should == @team.id
+      game_passing.current_level.id.should == @first_level.id
     end
   end
 
   def perform_request(opts={})
-    dispatch_to GamePassing, :index, { :game_id => opts[:game].id} do |controller|
+    dispatch_to GamePassings, :show_current_level, { :game_id => opts[:game].id } do |controller|
       controller.session.stub!(:authenticated?).and_return(opts.key?(:as_user))
       controller.session.stub!(:user).and_return(opts[:as_user])
     end
