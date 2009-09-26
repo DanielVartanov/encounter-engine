@@ -36,3 +36,7 @@ end
 When /^I attach the file at "(.*)" to "(.*)" $/ do |path, field|
   @response = attach_file(field, path)
 end
+
+Then /^show me the page$/ do
+  save_and_open_page
+end

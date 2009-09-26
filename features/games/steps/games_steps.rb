@@ -3,6 +3,11 @@ Given /пользователем (.*) создана игра "(.*)"$/ do |user
   И %{#{user_name} создаёт игру "#{game_name}"}
 end
 
+Given /^создана игра "(.*)"$/ do |game_name|
+  author_name = 'Author'
+  Допустим %{пользователем #{author_name} создана игра "#{game_name}"}
+end
+
 Given /(.*) создаёт игру "(.*)"$/ do |user_name, game_name|
   Допустим %{я логинюсь как #{user_name}}
   Если %{я захожу в личный кабинет}
@@ -21,6 +26,12 @@ Given %r{(.*) назначает начало игры "(.*)" на "(.*)"} do |u
   Если %{нажимаю "Сохранить"}
   То %{должен быть перенаправлен в профиль игры "#{game_name}"}
   То %{должен увидеть "#{datetime}"}
+end
+
+Given /начало игры "(.*)" назначено на "(.*)"/ do |game_name, datetime|
+  game = Game.find_by_name(game_name)
+  author_name = game.author.nickname
+  Допустим %{#{author_name} назначает начало игры "#{game_name}" на "#{datetime}"}
 end
 
 When %r{захожу в профиль игры "(.*)"$}i do |game_name|  
