@@ -13,4 +13,8 @@ class Level < ActiveRecord::Base
     :message => "Вы не ввели правильные ответы"
 
   validates_presence_of :game
+
+  def next
+    lower_item
+  end
 end
