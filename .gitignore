@@ -26,3 +26,4 @@ merb_profile_results
 out.html
 config/database.yml
 nbproject
+webrat-*.html
