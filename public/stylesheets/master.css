@@ -3,15 +3,18 @@ body {
   font-size: 12px;
   background-color: #fff;
 }
+
 * {
   margin: 0px;
   padding: 0px;
   text-decoration: none;
 }
+
 html {
   height: 100%;
   margin-bottom: 1px;
 }
+
 #container {
   width: 80%;
   text-align: left;
@@ -19,10 +22,12 @@ html {
   margin-right: auto;
   margin-left: auto;
 }
+
 #header-container {
   width: 100%;
   padding-top: 15px;
 }
+
 #header-container h1, #header-container h2 {
   margin-left: 6px;
   margin-bottom: 6px;
@@ -64,9 +69,10 @@ h3 {
 
 #left-container {
   float: left;
-  width: 250px;
+  width: 200px;
   background-color: #FFFFFF;
   color: black;
+  margin-left: 10px;
 }
 
 #left-container h3 {
@@ -82,16 +88,13 @@ h3 {
 p {
   color: #000;
   background-color: #fff;
-  line-height: 20px;
-  padding: 5px;
+  line-height: 20px; 
 }
 a {
-  color: #4d9b12;
   background-color: #fff;
   text-decoration: none;
 }
-a:hover {
-  color: #4d9b12;
+a:hover {  
   background-color: #fff;
   text-decoration: underline;
 }
@@ -107,22 +110,22 @@ a:hover {
   color: #999;
   background-color: #fff;
 }
-.left {
+#left {
   float: left;
   font-size: 100%;
-  margin-top: 5px;
+  margin-top: 5px;  
   color: #999;
   background-color: #fff;
 }
+
 #main-container ul {
   margin-left: 3.0em;
 }
+
 .error {
   border: solid red 1px;  
 }
-p {
-    text-align: center;
-}
+
 #header {
     margin-left: 10px;
     margin-bottom: 10px;
@@ -161,14 +164,12 @@ p {
 #main {
     margin-left: 20px;
 }
-#message {
-    margin-left: 10px;
-    margin-bottom: 10px;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 1px;
-    padding-bottom: 1px;        
-    font-family:  Verdana,Arial,Helvetica,sans-serif;
-    background-color: lime;
-    width: 500px;
+
+fieldset {
+  border: solid 1px #ccc;
+  padding: 5px;
+}
+
+fieldset legend {  
+  font-weight: bold;
 }

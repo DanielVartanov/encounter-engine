@@ -1,31 +1,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
   <head>
-    <title>Энкаунтер</title>
+    <title>Активные городские игры</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="/stylesheets/master.css" type="text/css" media="screen" charset="utf-8" />
     <%= include_required_js %>
     <%= include_required_css %>
   </head>
-  <body>    
+  <body>
     <br />
-    <div id="header">
-      <%= link_to "Главная", url(:index_page), :class => "index-page-link" %> <br />
-      <% if logged_in? %>
-        <%= link_to "Личный кабинет", url(:dashboard), :class => "home-link" %> <br />
-        <%= link_to "Выйти", url(:logout), :class => "logout-link" %>
-      <% else %>
-        <%= link_to "Войти", url(:login), :class => "login-link"%> <br />
-        <%= link_to "Зарегистрироваться", url(:signup), :class => "signup-link"%> <br />
-      <% end %>
-    </div>
-    <div id="message"><%= h(message) %></div>
+    <div id="header-container">
+      <div id="header">        
+        <%= partial 'layout/header' %>
+      </div>
+   </div>
+    <%= h(message) %>
     <hr />
     <br />
-    <div id="main">
-      <%= catch_content :for_layout %>
+    
+    <div id="left-container">
+      <div class="left">        
+        <%= partial 'layout/left_menu' %>
+      </div>
     </div>
-    <br />
-    <hr />
+
+    <div id="main-container">
+      <div id="main">
+        <%= catch_content :for_layout %>
+      </div>
+    </div>
+    
   </body>
 </html>
