@@ -1,4 +1,8 @@
-module MailControllerTestHelper
+module MailerHelper
+  def assert_sends_email(&block)
+    block.should change(Merb::Mailer.deliveries, :size).by(1)
+  end
+
   def clear_mail_deliveries
     Merb::Mailer.deliveries.clear
   end
