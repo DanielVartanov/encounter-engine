@@ -1,9 +1,9 @@
 class GamePassings < Application
   before :find_game
-  before :ensure_authenticated  
-  before :ensure_team_member
+  before :ensure_authenticated, :exclude => [:show_results]
+  before :ensure_team_member, :exclude => [:show_results]
   before :ensure_game_is_started
-  before :ensure_not_author_of_the_game
+  before :ensure_not_author_of_the_game, :exclude => [:show_results]
   before :find_team
   before :find_or_create_game_passing
 
