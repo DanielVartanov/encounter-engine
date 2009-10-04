@@ -15,6 +15,8 @@ class Game < ActiveRecord::Base
 
   validate :game_starts_in_the_future
 
+  named_scope :by, lambda { |author| { :conditions => { :author_id => author.id } } }
+
   def self.started
     Game.all.select { |game| game.started? }
   end
