@@ -11,10 +11,16 @@ class Team < ActiveRecord::Base
 
   before_save :adopt_captain
 
+  def current_level_in(game)
+    game_passing = GamePassing.first :conditions => { :team_id => self.id, :game_id => game.id }
+    game_passing.try :current_level
+  end
+
+protected
+
   def adopt_captain
     unless captain.nil?
       self.members << captain unless members.include?(captain)
     end
   end 
-
 end
