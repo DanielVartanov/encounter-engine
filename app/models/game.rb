@@ -31,6 +31,10 @@ class Game < ActiveRecord::Base
     user.author_of?(self)
   end
 
+  def finished_teams
+    GamePassing.of_game(self).finished.map(&:team)
+  end
+
 protected
 
   def game_starts_in_the_future

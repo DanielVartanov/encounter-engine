@@ -3,6 +3,9 @@ class GamePassing < ActiveRecord::Base
   belongs_to :game
   belongs_to :current_level, :class_name => "Level"
 
+  named_scope :of_game, lambda { |game| { :conditions => { :game_id => game.id } } }
+  named_scope :finished, :conditions => ['finished_at IS NOT NULL']
+
   def check_answer!(answer)    
     if correct_answer?(answer)
       self.finished_at = Time.now if last_level?
