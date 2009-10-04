@@ -1,13 +1,25 @@
 Команда <%= @team.name %> <br />
 <br />
-<%= partial 'games/started_games' %>
-<br />
-В составе: <br />
-<% @team.members.each do |member| %>
-  <%= member.nickname %> <%= "- капитан" if member.captain? %> <br />
-<% end %>
-<br />
-<hr />
+
+<fieldset>
+  <legend>
+    Состав
+  </legend>
+
+  <% @team.members.each do |member| %>
+    <p>
+      <%= member.nickname %> <%= "- капитан" if member.captain? %>
+    </p>
+  <% end %>
+
+  <br />
+  <hr class="short-line" />
+
+  <p>
+    <%= link_to "Пригласить участников", resource(:invitations, :new) if @current_user.captain? %>
+  </p>
+</fieldset>
+
 <br />
 
-<%= link_to "Пригласить участников", resource(:invitations, :new) if @current_user.captain? %>
+<%= partial 'shared/current_games' %>
