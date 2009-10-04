@@ -173,3 +173,7 @@ fieldset {
 fieldset legend {  
   font-weight: bold;
 }
+
+hr#short-line {
+  width:150px;
+}

@@ -1,0 +1,21 @@
+<% if current_user.member_of_any_team? %>
+  <% unless Game.started.empty? %>
+    <fieldset>
+      <legend>
+        Текущие игры домена
+      </legend>
+
+      <% Game.started.each do |game| %>
+        <p>
+          Началась игра "<%= link_to game.name, resource(game) %>"
+          |
+          <% if current_user.team.finished?(game) or game.created_by?(current_user) %>
+            <%= link_to "Посмотреть результаты", url(:controller => :game_passings, :action => :show_results, :game_id => game.id) %>
+          <% else %>
+            <%= link_to "Играть!", url(:show_current_level, :game_id => game.id) %>
+          <% end %>
+        </p>
+      <% end %>
+    </fieldset>
+  <% end %>
+<% end %>

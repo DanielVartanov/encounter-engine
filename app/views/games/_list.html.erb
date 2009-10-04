@@ -1,5 +1,5 @@
 <% games.each do |game| %>
-  <%= link_to game.name, resource(game) %> <br />
+  <p>
+    <%= link_to game.name, resource(game) %>
+  </p>
 <% end %>
-<br />
-Всего игр: <%= games.size %>
