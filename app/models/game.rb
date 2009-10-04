@@ -35,6 +35,14 @@ class Game < ActiveRecord::Base
     GamePassing.of_game(self).finished.map(&:team)
   end
 
+  def place_of(team)
+    game_passing = GamePassing.of(team, self)
+    return nil unless game_passing and game_passing.finished?
+
+    count_of_finished_before = GamePassing.of_game(self).finished_before(game_passing.finished_at).count
+    count_of_finished_before + 1
+  end
+
 protected
 
   def game_starts_in_the_future
