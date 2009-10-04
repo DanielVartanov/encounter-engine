@@ -11,4 +11,8 @@ class GamePassing < ActiveRecord::Base
     end
     correct
   end
+
+  def finished?
+    self.current_level.nil?
+  end
 end
