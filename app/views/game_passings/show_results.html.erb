@@ -1,0 +1,20 @@
+Поздравляем, вы закончили игру!
+
+<table id="results">
+  <thead>
+    <tr>
+      <th>Место</th>
+      <th>Команда</th>
+      <th>Время финиша</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @game.finished_teams.each do |team| %>
+      <tr>
+        <td><%= @game.place_of(team) %></td>
+        <td><%= team.name %></td>
+        <td><%= GamePassing.of(team, @game).finished_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -4,8 +4,8 @@ Given %r(в игре "(.*)" следующие задания:$)i do |game_name,
 
   levels_table.hashes.each do |hash|
     level_name = hash['Название']
-    correct_answer = hash['Код']    
-    Допустим %{#{author_name} добавляет задание "#{level_name}"|#{correct_answer} в игру "#{game_name}"}   
+    correct_answer = hash['Код']
+    Допустим %{#{author_name} добавляет задание "#{level_name}"|#{correct_answer} в игру "#{game_name}"}
   end
 end
 

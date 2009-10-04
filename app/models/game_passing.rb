@@ -5,7 +5,7 @@ class GamePassing < ActiveRecord::Base
 
   named_scope :of_game, lambda { |game| { :conditions => { :game_id => game.id } } }
   named_scope :of_team, lambda { |team| { :conditions => { :team_id => team.id } } }
-  named_scope :finished, :conditions => ['finished_at IS NOT NULL'], :order => 'finished_at DESC'
+  named_scope :finished, :conditions => ['finished_at IS NOT NULL'], :order => 'finished_at ASC'
   named_scope :finished_before, lambda { |time| { :conditions => ['finished_at < ?', time] } }
 
   def self.of(team, game)

@@ -14,6 +14,8 @@ require "spec/expectations"
 require "spec/mocks"
 require "merb_cucumber/world/webrat"
 require "merb_cucumber/helpers/activerecord"
+require 'cucumber/webrat/element_locator'
+require 'webrat/core/matchers'
 
 # Uncomment if you want transactional fixtures
 # Merb::Test::World::Base.use_transactional_fixtures
