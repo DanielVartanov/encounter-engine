@@ -27,3 +27,4 @@ out.html
 config/database.yml
 nbproject
 webrat-*.html
+.idea
