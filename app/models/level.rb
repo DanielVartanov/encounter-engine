@@ -2,6 +2,7 @@ class Level < ActiveRecord::Base
   acts_as_list :scope => :game
 
   belongs_to :game
+  has_many :hints, :order => "delay ASC"
 
   validates_presence_of :name,
     :message => "Вы не ввели название задания"

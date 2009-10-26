@@ -6,9 +6,6 @@
       (<%= link_to current_user.team.name, url(:team_room) %>)
     <% end %>
   </legend>
-  <p>
-    <%= link_to "Выйти", url(:logout) %>    
-  </p>
 
   <p>
     <%= link_to "Личный кабинет", url(:dashboard) %>
@@ -24,6 +21,10 @@
 
   <p>
     <%= link_to "Все игры домена", resource(:games) %>
+  </p>
+
+  <p>
+    <%= link_to "Выйти", url(:logout) %>
   </p>
 <% else %>
   <legend>

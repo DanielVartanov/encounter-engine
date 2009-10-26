@@ -9,3 +9,7 @@
   <p><%= text_field :correct_answers, :label => "Правильные ответы" %></p>
   <%= submit "Сохранить" %>
 <% end =%>
+
+<p>
+  <%= link_to "Добавить подсказку", resource(@game, @level, :hints, :new) %>
+</p>

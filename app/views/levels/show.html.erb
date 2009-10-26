@@ -3,4 +3,23 @@
 <%= @level.text  %>
 <br />
 <br />
-<%= link_to "Редактировать", resource(@level.game, @level, :edit) unless @level.game.started? %>
+
+<p>
+  <%= link_to "Редактировать", resource(@level.game, @level, :edit) unless @level.game.started? %>
+</p>
+
+<br />
+
+<fieldset>
+  <legend>
+    Подсказки:
+  </legend>
+
+  <p>
+    <%= partial 'hints/list', :hints => @level.hints %>
+  </p>
+
+  <p>
+    <%= link_to "Добавить подсказку", resource(@game, @level, :hints, :new) %>
+  </p>
+</fieldset>

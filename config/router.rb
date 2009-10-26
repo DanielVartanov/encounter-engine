@@ -38,12 +38,14 @@ Merb::Router.prepare do
   resources :invitations
 
   resources :games do |games|
-    games.resources :levels do
-      member :move_up, :method => :get
-      member :move_down, :method => :get
+    games.resources :levels do |levels|
+      levels.resources :hints
+
+      levels.member :move_up, :method => :get
+      levels.member :move_down, :method => :get
     end
   end
-  
+ 
   match('/play/:game_id', :method => :get).to(:controller => :game_passings, :action => :show_current_level).name(:show_current_level)
   match('/play/:game_id', :method => :post).to(:controller => :game_passings, :action => :pass_level).name(:pass_level)
   match('/signup').to(:controller => :users, :action => :new).name(:signup)
@@ -52,12 +54,5 @@ Merb::Router.prepare do
 
   match('/').to(:controller => :index).name(:index_page)
 
-  # This is the default route for /:controller/:action/:id
-  # This is fine for most cases.  If you're heavily using resource-based
-  # routes, you may want to comment/remove this line to prevent
-  # clients from calling your create or destroy actions with a GET
-  default_routes    
-
-  # Change this for your home page to be available at /
-  # match('/').to(:controller => 'whatever', :action =>'index')
+  default_routes
 end

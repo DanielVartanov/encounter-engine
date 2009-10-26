@@ -1,0 +1,19 @@
+<p>
+    Новое подсказка для задания "<%= @level.name %>" в игре "<%= @game %>"
+</p>
+
+<br />
+
+<%= error_messages_for @hint, :header => "<h2>Ошибка</h2>" %>
+
+<%= form_for @hint, :action => resource(@game, @level, :hints) do %>
+  <p>
+    <%= text_field :text, :label => "Текст" %>
+  </p>
+
+  <p>
+    <%= text_field :delay, :label => "Через" %> минут
+  </p>
+  
+  <%= submit "Добавить подсказку" %>
+<% end =%>
