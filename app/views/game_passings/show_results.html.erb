@@ -13,7 +13,7 @@
       <tr>
         <td><%= @game.place_of(team) %></td>
         <td><%= team.name %></td>
-        <td><%= GamePassing.of(team, @game).finished_at %></td>
+        <td><%= GamePassing.of(team, @game).finished_at.strftime('%H:%M:%S') %></td>
       </tr>
     <% end %>
   </tbody>
