@@ -25,5 +25,25 @@ describe Hint, "#delay_in_minutes" do
         @hint.delay.should == 600
       end
     end
+
+    describe "when delay is nil" do
+      before :each do
+        @hint.delay = nil
+      end
+
+      it "should return nil" do
+        @hint.delay_in_minutes.should be_nil
+      end
+    end
+
+    describe "when delay_in_minutes is a string (came from controller)" do
+      before :each do
+        @hint.delay_in_minutes = '10'
+      end
+
+      it "should handle it correctly" do
+        @hint.delay.should == 600
+      end
+    end
   end
 end

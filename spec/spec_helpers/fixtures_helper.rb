@@ -1,6 +1,6 @@
 module FixturesHelper
   def random_string
-    rand(100000).to_s
+    rand(1000000).to_s
   end
 
   def create_user

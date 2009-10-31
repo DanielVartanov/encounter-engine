@@ -3,7 +3,7 @@
 <% else %>
     <% hints.each do |hint| %>
         <p>
-          Через <strong><%= hint.delay %></strong> минут:
+          Через <strong><%= hint.delay_in_minutes %></strong> минут:
         </p>
         <p>
           <em><%= hint.text %></em>
