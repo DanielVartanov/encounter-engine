@@ -2,6 +2,14 @@
 <p>Уровень #<%= @game_passing.current_level.position %>: <%= @game_passing.current_level.name %></p>
 <p><%= @game_passing.current_level.text %></p>
 
+<hr />
+
+<% @game_passing.hints_to_show.each_with_index do |hint, index| %>
+  <p>Подсказка #<%= index + 1 %>:</p>
+  <p><%= hint.text %></p>
+  <hr />
+<% end %>
+
 <br />
 
 <%= error_messages_for @game_passing, :header => "" %>

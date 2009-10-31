@@ -2,6 +2,9 @@ Given /команда (.*) находится на уровне "(.*)" игры 
   team = Team.find_by_name(team_name)
   game = Game.find_by_name(game_name)
 
+  Допустим %{я логинюсь как #{team.captain.nickname}}
+  И %{захожу в игру "#{game_name}"}
+
   current_level = team.current_level_in(game)
   current_position = current_level.nil? ? 1 : current_level.position
 
