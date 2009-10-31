@@ -50,4 +50,17 @@ module FixturesHelper
     }.merge(options)
     Level.create! creation_params
   end
+
+  def create_game_passing(options={})
+    game = options.delete(:game) || create_game
+    level = options.delete(:level) || create_level(:game => game)
+    
+    creation_params = {
+      :game => game,
+      :current_level => level,
+      :team => create_team
+    }.merge(options)
+    
+    GamePassing.create! creation_params
+  end    
 end
