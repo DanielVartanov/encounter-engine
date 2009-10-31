@@ -62,5 +62,15 @@ module FixturesHelper
     }.merge(options)
     
     GamePassing.create! creation_params
-  end    
+  end
+
+  def create_hint(options={})
+    creation_params = {
+      :level => create_level,
+      :text => 'Test hint',
+      :delay => rand(60) * 60
+    }.merge(options)
+
+    Hint.create! creation_params
+  end
 end
