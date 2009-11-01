@@ -2,7 +2,7 @@ class Hints < Application
   before :find_level
   before :find_game
   before :build_hint, :only => [:new, :create]
-  before :find_hint, :only => [:edit, :update]
+  before :find_hint, :only => [:edit, :update, :delete]
 
   before :ensure_author
   before :ensure_game_was_not_started, :only => [:new, :create, :edit, :update]  
@@ -29,6 +29,11 @@ class Hints < Application
     else
       render :edit
     end
+  end
+
+  def delete
+    @hint.destroy
+    redirect resource(@level.game, @level) 
   end
 
 protected
