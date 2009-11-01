@@ -1,7 +1,7 @@
 class Games < Application
   before :ensure_authenticated, :only => [:new, :create]
   before :build_game, :only => [:new, :create]
-  before :find_game, :only => [:show, :edit, :update]
+  before :find_game, :only => [:show, :edit, :update, :delete]
   before :ensure_author_if_game_is_draft, :only => [:show]
   before :ensure_author, :only => [:edit, :update]
   before :ensure_game_was_not_started, :only => [:edit, :update]
@@ -42,6 +42,11 @@ class Games < Application
     else
       render :edit
     end
+  end
+
+  def delete
+    @game.destroy
+    redirect url(:dashboard)
   end
 
 protected

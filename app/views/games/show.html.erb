@@ -26,5 +26,19 @@
   <br />
 <% end %>
 <br />
-<%= link_to "Редактировать эту игру", resource(@game, :edit) if logged_in? and @current_user.author_of?(@game) and ! @game.started? %> <br />
-<%= link_to "Добавить в неё новое задание", resource(@game, :levels, :new) if logged_in? and @current_user.author_of?(@game) and ! @game.started? %>
+
+<% if logged_in? and @current_user.author_of?(@game) %>
+    <p>
+      <%= link_to "Добавить новое задание", resource(@game, :levels, :new) if ! @game.started? %>
+    </p>
+
+    <p>
+      <%= link_to "Редактировать эту игру", resource(@game, :edit) if ! @game.started? %>
+    </p>
+
+    <p>
+      <%= link_to "Удалить эту игру", resource(@game, :delete) %> <br />
+    </p>
+<% else %>
+
+<% end %>
