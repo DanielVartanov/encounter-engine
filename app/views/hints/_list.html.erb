@@ -4,9 +4,16 @@
     <% hints.each do |hint| %>
         <p>
           Через <strong><%= hint.delay_in_minutes %></strong> минут:
+          <em>
+            <%= link_to "(редактировать)", resource(hint.level.game, hint.level, hint, :edit) unless @level.game.started? %>
+          </em>
+          <em>
+            <%= link_to "(удалить)", resource(hint.level.game, hint.level, hint, :delete) unless @level.game.started? %> 
+          </em>
         </p>
         <p>
           <em><%= hint.text %></em>
         </p>
+        <br />
     <% end %>
 <% end %>
