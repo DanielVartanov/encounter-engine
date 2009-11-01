@@ -62,8 +62,4 @@ protected
   def ensure_author_if_game_is_draft
     ensure_author if game_is_draft?
   end
-
-  def ensure_game_was_not_started
-    raise Unauthorized, "Нельзя редактировать игру после её начала" if @game.started?
-  end
 end

@@ -1,0 +1,14 @@
+<p>
+  Редактирование подсказки к заданию "<%= link_to @level.name, resource(@game, @level) %>" игры "<%= link_to @game.name, resource(@game) %>"
+</p>
+
+<br />
+
+<%= error_messages_for @hint, :header => "<h2>Ошибка</h2>" %>
+
+<%= form_for @hint, :action => resource(@game, @level, @hint) do %>
+
+  <%= partial 'form', :hint => @hint %>
+
+  <%= submit "Отредактировать" %>
+<% end =%>
