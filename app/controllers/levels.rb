@@ -1,9 +1,9 @@
 class Levels < Application
   before :find_game
   before :ensure_author
-  before :ensure_game_was_not_started, :only => [:create, :update]  
-  before :build_level, :only => [:create, :new]
-  before :find_level, :exclude => [:create, :new]
+  before :ensure_game_was_not_started, :only => [:new, :create, :edit, :update]  
+  before :build_level, :only => [:new, :create]
+  before :find_level, :exclude => [:new, :create]
 
   def new
     render
@@ -56,9 +56,5 @@ protected
 
   def find_level
     @level = Level.find(params[:id])
-  end
-  
-  def ensure_game_was_not_started
-    raise Unauthorized, "Нельзя редактировать игру после её начала" if @game.started?
   end
 end

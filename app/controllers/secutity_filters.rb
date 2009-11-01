@@ -19,4 +19,8 @@ protected
       raise Unauthorized, "Вы должны быть автором игры, чтобы видеть эту страницу"
     end
   end
+
+  def ensure_game_was_not_started
+    raise Unauthorized, "Нельзя редактировать игру после её начала" if @game.started?
+  end
 end
