@@ -1,5 +1,5 @@
 class Games < Application
-  before :ensure_authenticated, :only => [:new, :create]
+  before :ensure_authenticated, :exclude => [:index, :show]
   before :build_game, :only => [:new, :create]
   before :find_game, :only => [:show, :edit, :update, :delete]
   before :ensure_author_if_game_is_draft, :only => [:show]

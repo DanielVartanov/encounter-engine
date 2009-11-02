@@ -4,11 +4,14 @@
     Мои игры (<%= @my_games.count %>)
   </legend>
 
-  <%= partial 'games/list', :games => @my_games %>
+  <p>
+    <%= partial 'games/list', :games => @my_games %>
+  </p>
 
   <br />
-  <hr class="short-line" />
   
+  <hr class="short-line" />
+
   <p>
     <%= link_to "Создать игру >> ", resource(:games, :new) %>
   </p>

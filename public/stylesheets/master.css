@@ -177,3 +177,24 @@ fieldset legend {
 hr#short-line {
   width:150px;
 }
+
+label{
+  float: left;
+  width: 120px;
+  font-weight: bold;
+}
+
+input, textarea {  
+  margin-bottom: 5px;
+}
+
+textarea {
+  width: 350px;
+  height: 100px;
+}
+
+#submit {
+  margin-left: 120px;
+  margin-top: 5px;
+  width: 120px;
+}

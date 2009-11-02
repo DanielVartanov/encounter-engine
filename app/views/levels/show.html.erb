@@ -1,11 +1,25 @@
-Задание "<%= @level.name %>" игры <%= link_to @level.game.name, resource(@level.game) %>
-<br />
-<%= @level.text  %>
-<br />
+<h2>
+  Задание "<strong><%= @level.name %></strong>"
+</h2>
+
+<p>
+  <em>(игра "<%= link_to @level.game.name, resource(@level.game) %>")</em>
+</p>
+
 <br />
 
 <p>
-  <%= link_to "Редактировать задание", resource(@level.game, @level, :edit) unless @level.game.started? %>
+  <em>Текст задания:</em>
+</p>
+
+<p>
+  <%= @level.text %>
+</p>
+
+<br />
+
+<p>
+  <%= link_to "Редактировать это задание", resource(@level.game, @level, :edit) unless @level.game.started? %>
 </p>
 
 <br />

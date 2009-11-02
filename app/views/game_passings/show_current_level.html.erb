@@ -1,18 +1,31 @@
-<p>Игра: <%= @game_passing.game.name %></p>
-<p>Уровень #<%= @game_passing.current_level.position %>: <%= @game_passing.current_level.name %></p>
-<p><%= @game_passing.current_level.text %></p>
-
-<hr />
-
-<% @game_passing.hints_to_show.each_with_index do |hint, index| %>
-  <p>Подсказка #<%= index + 1 %>:</p>
-  <p><%= hint.text %></p>
-  <hr />
-<% end %>
+<h2>
+  Игра "<strong><%= @game.name %></strong>", Задание #<%= @game_passing.current_level.position %>
+</h2>
 
 <br />
 
-<%= error_messages_for @game_passing, :header => "" %>
+<fieldset>
+  <legend>
+    <%= @game_passing.current_level.name %>
+  </legend>
+
+  <%= @game_passing.current_level.text %>
+</fieldset>
+
+<br />
+
+<% @game_passing.hints_to_show.each_with_index do |hint, index| %>
+  <fieldset>
+    <legend>
+      Подсказка #<%= index + 1 %>
+    </legend>
+    <%= hint.text %>
+  </fieldset>
+
+  <br />
+<% end %>
+
+<%#= "Ответ неверный" if @result.false? %>
 
 <%= form :action => url(:pass_level), :method => :post do %>
   <p><%= text_field :name => 'answer', :label => "Ответ" %></p>

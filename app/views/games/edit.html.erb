@@ -9,11 +9,8 @@
   <p><%= text_field :starts_at, :label => "Начало игры" %> <input id="calendar-switch" type="button" value="..." /> </p>
   <p><%= check_box :is_draft, :label => "Черновик?" %></p>
   <%= submit "Сохранить" %>
+  <em><%= link_to "(отменить)", resource(@game) %></em>
 <% end =%>
-
-<br />
-<br />
-<%= link_to "Добавить новое задание в игру", resource(@game, :levels, :new) if logged_in? and @current_user.author_of?(@game) and ! @game.started? %>
 
 <script type="text/javascript">
   Calendar.setup(

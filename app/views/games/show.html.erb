@@ -1,44 +1,58 @@
-Игра "<%= @game.name %>"
+<h2>
+  Игра "<strong><%= @game.name %></strong>"
+</h2>
 
-<br />
-<br />
 <% if @game.draft? %>
   <div class="is-draft-message">Черновик</div>
 <% end %>
+
+
+<p>
+  <em>Автор</em> - <strong><%= @game.author.nickname %></strong>
+</p>
+
+<p>
+  <% unless @game.starts_at.nil? %>
+    <em>Начало игры</em>: <%= @game.starts_at.strftime("%Y-%m-%d %H:%M") %>
+  <% else %>
+    Дата начала игры ещё не назначена
+  <% end %>
+</p>
+
+<p>
+  <em>Описание:</em>
+</p>
+
+<p>
+  <%= @game.description %>
+</p>
+
 <br />
 
-Автор - <%= @game.author.nickname %><br /><br />
-
-<% unless @game.starts_at.nil? %>
-  Начало игры: <%= @game.starts_at.strftime("%Y-%m-%d %H:%M") %>
-<% else %>
-  Дата начала игры ещё не назначена
-<% end %>
-
-<br />
-<br />
-<%= @game.description %><br />
-<br />
 <% if logged_in? and @current_user.author_of?(@game) %>
-  Задания:
-  <br />
-  <%= partial 'levels/list', :levels => @game.levels  %>
-  <br />
-<% end %>
-<br />
 
-<% if logged_in? and @current_user.author_of?(@game) %>
+  <fieldset>
+    <legend>
+      Задания:
+    </legend>
+
+    <p>
+      <%= partial 'levels/list', :levels => @game.levels  %>
+    </p>
+
     <p>
       <%= link_to "Добавить новое задание", resource(@game, :levels, :new) if ! @game.started? %>
     </p>
+  </fieldset>
 
-    <p>
-      <%= link_to "Редактировать эту игру", resource(@game, :edit) if ! @game.started? %>
-    </p>
+  <br />
 
-    <p>
-      <%= link_to "Удалить эту игру", resource(@game, :delete) %> <br />
-    </p>
-<% else %>
+  <p>
+    <%= link_to "Редактировать эту игру", resource(@game, :edit) if ! @game.started? %>
+  </p>
+
+  <p>
+    <%= link_to "Удалить эту игру", resource(@game, :delete) %> <br />
+  </p>
 
 <% end %>

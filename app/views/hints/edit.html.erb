@@ -10,5 +10,6 @@
 
   <%= partial 'form', :hint => @hint %>
 
-  <%= submit "Отредактировать" %>
+  <%= submit "Отредактировать", :style => "width:150px" %>
+  <em><%= link_to "(отменить)", resource(@hint.level.game, @hint.level) %></em>
 <% end =%>
