@@ -7,8 +7,22 @@ class GamePassings < Application
   before :find_team
   before :find_or_create_game_passing
 
+  provides :json
+
   def show_current_level
     render
+  end
+
+  def get_current_level_tip
+    #level = @game.levels.first.hints.;
+    #tip = {:id => 2, :text => 'bla-bla-bla'}
+
+    next_hint = @game_passing.upcoming_hints.first;
+
+    #level.to_json
+    { :hint_num => @game_passing.hints_to_show.length,
+      :hint_text => @game_passing.hints_to_show.last.text,
+      :next_available_in => next_hint.nil? ? nil : next_hint.available_in(@game_passing.current_level_entered_at)}.to_json
   end
 
   def pass_level

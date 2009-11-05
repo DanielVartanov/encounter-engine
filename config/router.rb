@@ -46,6 +46,7 @@ Merb::Router.prepare do
     end
   end
  
+  match('/play/:game_id/tip', :method => :get).to(:controller => :game_passings, :action => :get_current_level_tip).name(:get_current_level_tip)
   match('/play/:game_id', :method => :get).to(:controller => :game_passings, :action => :show_current_level).name(:show_current_level)
   match('/play/:game_id', :method => :post).to(:controller => :game_passings, :action => :pass_level).name(:pass_level)
   match('/signup').to(:controller => :users, :action => :new).name(:signup)

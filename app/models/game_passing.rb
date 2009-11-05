@@ -33,6 +33,10 @@ class GamePassing < ActiveRecord::Base
   def hints_to_show
     current_level.hints.select { |hint| hint.ready_to_show?(current_level_entered_at) }
   end
+
+  def upcoming_hints
+    current_level.hints.select { |hint| !hint.ready_to_show?(current_level_entered_at) }
+  end
   
 protected
 

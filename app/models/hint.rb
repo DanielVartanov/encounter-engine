@@ -13,4 +13,8 @@ class Hint < ActiveRecord::Base
     seconds_passed = Time.now - current_level_entered_at
     seconds_passed >= self.delay
   end
+
+  def available_in(current_level_entered_at)
+    (current_level_entered_at - Time.now).to_i + self.delay
+  end
 end
