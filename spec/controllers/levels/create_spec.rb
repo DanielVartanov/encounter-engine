@@ -60,6 +60,16 @@ describe Levels, "#create" do
       Level.last.position.should == 1
     end
 
+    describe "when author enters correct answer with redundant spaces"  do
+      before :each do
+        perform_request({ :as_user => @author }, { :level => @params.merge(:correct_answers => '  the answer   ') })
+      end
+
+      it "should strip them" do
+        Level.last.correct_answers.should == 'the answer'
+      end
+    end
+
     describe "when several levels are created" do
       before :each do
         perform_request({ :as_user => @author }, { :level => @params })

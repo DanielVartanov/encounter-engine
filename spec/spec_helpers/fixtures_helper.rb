@@ -41,14 +41,20 @@ module FixturesHelper
     game
   end
 
-  def create_level(options={})
-    creation_params = {
+  def build_level(options={})
+    params = {
       :name => 'Test level',
       :text => "Some text",
       :correct_answers => "correct answers",
       :game => create_game
     }.merge(options)
-    Level.create! creation_params
+    Level.new(params)
+  end
+
+  def create_level(options={})
+    level = build_level(options)
+    level.save!
+    level
   end
 
   def create_game_passing(options={})

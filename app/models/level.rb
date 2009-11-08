@@ -15,7 +15,15 @@ class Level < ActiveRecord::Base
 
   validates_presence_of :game
 
+  before_save :strip_spaces
+
   def next
     lower_item
+  end
+
+protected
+
+  def strip_spaces
+    self.correct_answers.strip!
   end
 end
