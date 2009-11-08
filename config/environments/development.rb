@@ -9,7 +9,7 @@ Merb::Config.use { |c|
   c[:log_level] = :debug
 
   c[:log_stream] = STDOUT
-  c[:log_file]   = nil
+#  c[:log_file]   = nil
   # Or redirect logging into a file:
-  # c[:log_file]  = Merb.root / "log" / "development.log"
+  c[:log_file]  = Merb.root / "log" / "development.log"
 }
