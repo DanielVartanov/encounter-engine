@@ -26,7 +26,8 @@ class GamePassings < Application
   end
 
   def pass_level
-    @result = @game_passing.check_answer!(params[:answer])
+    @answer = params[:answer]
+    @result = @game_passing.check_answer!(@answer)
     unless @game_passing.finished?
       render :show_current_level
     else

@@ -148,6 +148,13 @@ var LevelHintUpdater = function() {
 
 <br />
 
+<% unless @result or ! @answer %>
+  <p>
+    Ответ неверный, вы ввели '<%= @answer %>'.
+  </p>
+  <br />
+<% end %>
+
 <%#= "Ответ неверный" if @result.false? %>
 
 <%= form :action => url(:pass_level), :method => :post do %>
