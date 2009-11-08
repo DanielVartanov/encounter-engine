@@ -44,6 +44,16 @@ describe GamePassing do
           @game_passing.finished_at.should be_nil
         end
       end
+
+      describe "when answer contains redundant spaces" do
+        before :each do
+          @result = @game_passing.check_answer!("   #{@first_level.correct_answers}   ")
+        end
+
+        it "should return true" do
+          @result.should be_true
+        end
+      end
     end
 
     describe "when current level is the last level" do

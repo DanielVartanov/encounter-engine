@@ -10,7 +10,7 @@ describe GamePassing, "#current_level_entered_at" do
 
     describe "given a game passing" do
       before :each do
-        @game_passing = create_game_passing :game => @game, :current_level => @game.levels.first
+        @game_passing = create_game_passing :current_level => @game.levels.first
       end
 
       describe "when game passing created" do

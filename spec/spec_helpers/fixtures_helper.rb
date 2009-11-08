@@ -52,12 +52,12 @@ module FixturesHelper
   end
 
   def create_game_passing(options={})
-    game = options.delete(:game) || create_game
-    level = options.delete(:level) || create_level(:game => game)
+    current_level = options.delete(:level) || create_level
+    game = current_level.game
     
     creation_params = {
       :game => game,
-      :current_level => level,
+      :current_level => current_level,
       :team => create_team
     }.merge(options)
     

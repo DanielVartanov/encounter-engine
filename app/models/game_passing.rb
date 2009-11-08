@@ -38,14 +38,14 @@ class GamePassing < ActiveRecord::Base
     current_level.hints.select { |hint| !hint.ready_to_show?(current_level_entered_at) }
   end
   
+  def correct_answer?(answer)
+    answer.strip == current_level.correct_answers
+  end
+
 protected
 
   def last_level?
     self.current_level.next.nil?
-  end
-
-  def correct_answer?(answer)
-    answer == current_level.correct_answers
   end
 
   def update_current_level_entered_at
