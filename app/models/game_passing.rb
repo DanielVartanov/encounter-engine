@@ -42,6 +42,12 @@ class GamePassing < ActiveRecord::Base
     answer.strip == current_level.correct_answers
   end
 
+  def time_at_level
+    difference = Time.now - self.current_level_entered_at
+    hours, minutes, seconds = seconds_fraction_to_time(difference)
+    "#{hours}:#{minutes}:#{seconds}"
+  end
+
 protected
 
   def last_level?
@@ -51,4 +57,20 @@ protected
   def update_current_level_entered_at
     self.current_level_entered_at = Time.now
   end
+
+  # TODO: keep SRP, extract this to a separate helper
+  def seconds_fraction_to_time(seconds)
+    hours = mins = 0
+    if seconds >=  60 then
+      mins = (seconds / 60).to_i
+      seconds = (seconds % 60 ).to_i
+
+      if mins >= 60 then
+        hours = (mins / 60).to_i
+        mins = (mins % 60).to_i
+      end
+    end
+    [hours,mins,seconds]
+  end
+
 end

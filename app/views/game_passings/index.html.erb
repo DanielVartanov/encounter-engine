@@ -1,0 +1,27 @@
+Игра "<%= @game.name %>"
+
+SOOOOOOOOOOOOOOOOOOORT
+
+<table id="stats">
+  <thead>
+    <tr>
+      <th>Команда</th>
+      <th>Уровень</th>
+      <th>Время на уровне</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @game_passings.each do |game_passings| %>
+      <tr>
+        <td><%= game_passings.team.name %></td>
+        <% if game_passings.finished? %>
+          <td>(закончили игру)</td>
+          <td>--:--:--</td>
+        <% else %>
+          <td><%= game_passings.current_level.name %></td>
+          <td><%= game_passings.time_at_level %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

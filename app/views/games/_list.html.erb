@@ -2,6 +2,9 @@
   <p>
     <strong><%= link_to game.name, resource(game) %></strong>
     <em><%= link_to "(просмотреть)", resource(game) %></em>
-    <em><%= link_to "(редактировать)", resource(game, :edit) if logged_in? and current_user.author_of?(game) %></em>
+    <% if logged_in? and current_user.author_of?(game) %>
+        <em><%= link_to "(редактировать)", resource(game, :edit) %></em>
+        <em><%= link_to "(статистика)", url(:game_stats, :game_id => game.id) if game.started? %></em>
+    <% end %>
   </p>
 <% end %>

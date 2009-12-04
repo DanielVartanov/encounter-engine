@@ -1,15 +1,21 @@
 class GamePassings < Application
+  before :ensure_authenticated, :exclude => [:index, :show_results]
   before :find_game
-  before :ensure_authenticated, :exclude => [:show_results]
-  before :ensure_team_member, :exclude => [:show_results]
   before :ensure_game_is_started
-  before :ensure_not_author_of_the_game, :exclude => [:show_results]
-  before :find_team
-  before :find_or_create_game_passing
+  before :ensure_team_member, :exclude => [:index, :show_results]
+  before :ensure_not_author_of_the_game, :exclude => [:index, :show_results]
+  before :find_team, :exclude => [:show_results, :index]
+  before :find_or_create_game_passing, :exclude => [:show_results, :index]
+  before :ensure_author, :only => [:index]
 
   provides :json
 
   def show_current_level
+    render
+  end
+
+  def index
+    @game_passings = GamePassing.of_game(@game)
     render
   end
 

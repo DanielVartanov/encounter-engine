@@ -56,5 +56,9 @@ When /захожу в игру "Котлованы Бишкека"/ do
 end
 
 Then /список победителей должен быть следующим:$/ do |expected_results_table|
-  expected_results_table.diff!(element_at('#results').to_table, :missing_col => false)
+  expected_results_table.diff!(table_at('#results').to_table, :missing_col => false)
+end
+
+Then /должен увидеть следующие позиции команд:$/ do |expected_stats_table|
+  expected_stats_table.diff!(table_at('#stats')).to_table
 end
