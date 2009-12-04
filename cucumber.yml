@@ -1,3 +1,0 @@
-default: --language ru -r features -r features/support
-all: --language ru -r features -r features/support features
-rake: --language ru

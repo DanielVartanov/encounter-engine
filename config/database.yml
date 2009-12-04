@@ -1,10 +1,7 @@
 ---
 :development: &defaults
-  :adapter: mysql
-  :database: en
-  :username: root
-  :password:
-  :host: localhost
+  :adapter: sqlite3
+  :database: db/development.sqlite
   :encoding: utf8
 
 :test:
@@ -14,7 +11,7 @@
 
 :production:
   <<: *defaults
-  :database: encounter_production
+  :database: db/production.sqlite
 
 :rake:
   <<: *defaults

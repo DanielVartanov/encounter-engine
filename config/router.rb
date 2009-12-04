@@ -49,6 +49,10 @@ Merb::Router.prepare do
   match('/play/:game_id/tip', :method => :get).to(:controller => :game_passings, :action => :get_current_level_tip).name(:get_current_level_tip)
   match('/play/:game_id', :method => :get).to(:controller => :game_passings, :action => :show_current_level).name(:show_current_level)
   match('/play/:game_id', :method => :post).to(:controller => :game_passings, :action => :pass_level).name(:pass_level)
+
+#  match('/stats/:game_id', :method => :get).to(:controller => :game_passings, :action => :index).name(:game_stats)
+  match('/stats/:action/:game_id').to(:controller => :game_passings).name(:game_stats)
+
   match('/signup').to(:controller => :users, :action => :new).name(:signup)
   match('/dashboard').to(:controller => :dashboard).name(:dashboard)
   match('/team-room').to(:controller => :team_room).name(:team_room)
