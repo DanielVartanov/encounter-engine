@@ -8,7 +8,7 @@ end
 
 Then /должен увидеть следующее:/ do |table|
   table.hashes.each do |row|
-    То %{должен увидеть "#{row['текст']}"}
+    Then %{должен увидеть "#{row['текст']}"}
   end
 end
 
