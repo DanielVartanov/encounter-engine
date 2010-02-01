@@ -2,6 +2,7 @@ require "rubygems"
 
 require "merb-core"
 require 'spec/expectations'
+require 'spec/mocks'
 require "merb_cucumber/world/webrat"
 require "merb_cucumber/helpers/activerecord"
 

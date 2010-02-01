@@ -1,3 +1,5 @@
+# language: ru
+
 Функционал: Текущие позиции команд
   http://daniel-vartanov.lighthouseapp.com/projects/22863-encounter-engine/tickets/79-ebd2fa09ffe8c18d984cc2003c356b319f7f5d17
 

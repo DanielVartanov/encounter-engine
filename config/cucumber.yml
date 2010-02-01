@@ -1,2 +1,8 @@
-default: --language ru -r features/support --format pretty
-all: --language ru -r features/support features
+<%
+rerun = File.file?('rerun.txt') ? IO.read('rerun.txt') : ""
+rerun_opts = rerun.to_s.strip.empty? ? "--format progress features" : "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} #{rerun}"
+std_opts = "#{rerun_opts} --format rerun --out rerun.txt --strict --tags ~@wip"
+%>
+default: <%= std_opts %> -r features/support
+wip: --tags @wip:3 --wip features
+all: -r features/support features
