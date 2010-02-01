@@ -28,3 +28,5 @@ config/database.yml
 nbproject
 webrat-*.html
 .idea
+output
+rerun.txt
