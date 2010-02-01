@@ -6,6 +6,8 @@ require 'spec/mocks'
 require "merb_cucumber/world/webrat"
 require "merb_cucumber/helpers/activerecord"
 
+require 'cucumber/web/tableish'
+
 if (local_gem_dir = File.join(File.dirname(__FILE__), '..', 'gems')) && $BUNDLE.nil?
   $BUNDLE = true; Gem.clear_paths; Gem.path.unshift(local_gem_dir)
 end

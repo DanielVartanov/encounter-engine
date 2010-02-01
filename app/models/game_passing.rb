@@ -45,7 +45,7 @@ class GamePassing < ActiveRecord::Base
   def time_at_level
     difference = Time.now - self.current_level_entered_at
     hours, minutes, seconds = seconds_fraction_to_time(difference)
-    "#{hours}:#{minutes}:#{seconds}"
+    "%02d:%02d:%02d" % [hours, minutes, seconds]
   end
 
 protected
@@ -60,17 +60,17 @@ protected
 
   # TODO: keep SRP, extract this to a separate helper
   def seconds_fraction_to_time(seconds)
-    hours = mins = 0
+    hours = minutes = 0
     if seconds >=  60 then
-      mins = (seconds / 60).to_i
+      minutes = (seconds / 60).to_i
       seconds = (seconds % 60 ).to_i
 
-      if mins >= 60 then
-        hours = (mins / 60).to_i
-        mins = (mins % 60).to_i
+      if minutes >= 60 then
+        hours = (minutes / 60).to_i
+        minutes = (minutes % 60).to_i
       end
     end
-    [hours,mins,seconds]
+    [hours, minutes, seconds]
   end
 
 end

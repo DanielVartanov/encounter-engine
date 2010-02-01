@@ -9,7 +9,18 @@
     </tr>
   </thead>
   <tbody>
-    <% @game_passings.each do |game_passings| %>
+    <%
+      game_passings_sorted_by_current_level_position = @game_passings.sort do |left, right|
+        if left.finished?
+          -1
+        elsif right.finished?
+          1
+        else
+          right.current_level.position <=> left.current_level.position
+        end
+      end
+    %>
+    <% game_passings_sorted_by_current_level_position.each do |game_passings| %>
       <tr>
         <td><%= game_passings.team.name %></td>
         <% if game_passings.finished? %>
