@@ -3,7 +3,12 @@ Then /должен увидеть сообщение "(.*)"$/ do |text|
 end
 
 Then /должен увидеть "(.*)"$/ do |text|
-  webrat_session.response.body.to_s.should =~ /#{text}/m
+#  webrat_session.response.body.to_s.should =~ /#{text}/m
+  webrat_session.response.body.to_s.should contain(text)
+end
+
+Then /должен увидеть \/(.*)\/$/ do |regex|
+  webrat_session.response.body.to_s.should =~ /#{regex}/m
 end
 
 Then /должен увидеть следующее:/ do |table|
