@@ -4,9 +4,9 @@ describe Level do
   before :each do
     @game = create_game
     @another_game = create_game    
-    @first_level = create_level :game => @game, :correct_answers => "enfirst"
+    @first_level = create_level :game => @game, :correct_answer => "enfirst"
     create_level :game => @another_game
-    @second_level = create_level :game => @game, :correct_answers => "ensecond"            
+    @second_level = create_level :game => @game, :correct_answer => "ensecond"
   end
 
   describe "#next" do

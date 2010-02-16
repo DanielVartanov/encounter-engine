@@ -103,6 +103,7 @@ var LevelHintUpdater = function() {
 }();
 
 </script>
+
 <h2>
   Игра "<strong><%= @game.name %></strong>", Задание #<%= @game_passing.current_level.position %>
 </h2>
@@ -132,30 +133,41 @@ var LevelHintUpdater = function() {
   <% end %>
 </div>
 
-<% if @game_passing.upcoming_hints.length > 0  %>
+<% unless @game_passing.upcoming_hints.empty?  %>
   <div id="LevelHintCountdownContainer">До следующей подсказки <span id="LevelHintCountdownTimerText">3 минуты</span></div>
   <div id="LevelHintCountdownLoadIndicator" style="display: none;">Загрузка...</div>
 
   <script>
   LevelHintUpdater.setup({
-    initialCountdownValue: <%= @game_passing.upcoming_hints.first.available_in(@game_passing.current_level_entered_at) %>
+    initialCountdownValue: <%= @game_passing.upcoming_hints.first.available_in(@game_passingelse.current_level_entered_at) %>
     ,gameId: <%= @game_passing.game_id %>
   })
   </script>
 <% else %>
-  <div>Подсказок больше не будет</div>
+  <div>
+  	Подсказок больше не будет
+  </div>
 <% end %>
 
 <br />
 
-<% unless @result or ! @answer %>
-  <p>
-    Ответ неверный, вы ввели '<%= @answer %>'.
-  </p>
-  <br />
+<% if answer_posted? %>
+	<% if answer_was_correct? %>
+		<div>
+			Код '<%= @answer %>' -- верный.
+		</div>
+	<% else %>
+		<p>
+		  Код неверный, вы ввели '<%= @answer %>'.
+		</p>
+	<% end %>
 <% end %>
 
-<%#= "Ответ неверный" if @result.false? %>
+<% if @game_passing.current_level.more_than_one_question? %>
+	<div>
+		На этом уровне <%= "#{questions_count} #{questions_count.pluralize('код', 'кода', 'кодов')}" %>, вы правильно ввели <%= @game_passing.answered_questions.size %>
+	</div>
+<% end %>
 
 <%= form :action => url(:pass_level), :method => :post do %>
   <p><%= text_field :name => 'answer', :label => "Ответ" %></p>

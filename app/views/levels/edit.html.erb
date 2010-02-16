@@ -13,7 +13,7 @@
 <%= form_for @level, :action => resource(@level.game, @level) do %>
   <p><%= text_field :name, :label => "Название" %></p>
   <p><%= text_area :text, :label => "Текст задания" %></p>
-  <p><%= text_field :correct_answers, :label => "Правильные ответы" %></p>
+  <p><%= text_field :correct_answer, :label => "Код" %></p>
   <%= submit "Сохранить" %>
   <em><%= link_to "(отменить)", resource(@level.game, @level) %></em>
 <% end =%>

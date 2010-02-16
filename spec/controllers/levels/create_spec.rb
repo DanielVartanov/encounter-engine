@@ -41,7 +41,7 @@ describe Levels, "#create" do
     before :each do
       @author = create_user
       @game = create_game :author => @author
-      @params = { :name => 'Test level', :text => 'Level text', :correct_answers => 'the answer' }
+      @params = { :name => 'Test level', :text => 'Level text', :correct_answer => 'the answer' }
     end
 
     it "creates a new level" do
@@ -62,11 +62,11 @@ describe Levels, "#create" do
 
     describe "when author enters correct answer with redundant spaces"  do
       before :each do
-        perform_request({ :as_user => @author }, { :level => @params.merge(:correct_answers => '  the answer   ') })
+        perform_request({ :as_user => @author }, { :level => @params.merge(:correct_answer => '  the answer   ') })
       end
 
       it "should strip them" do
-        Level.last.correct_answers.should == 'the answer'
+        Level.last.questions.first.should == 'the answer'
       end
     end
 

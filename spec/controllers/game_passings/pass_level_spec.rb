@@ -7,7 +7,7 @@ describe GamePassing, "#index" do
     @game = create_game :starts_at => now
 
     @correct_answer = "enfirstlevel"
-    @first_level = create_level :game => @game, :correct_answers => @correct_answer
+    @first_level = create_level :game => @game, :correct_answer => @correct_answer
     @second_level = create_level :game => @game
     @final_level = create_level :game => @game
 

@@ -40,6 +40,7 @@ Merb::Router.prepare do
   resources :games do |games|
     games.resources :levels do |levels|
       levels.resources :hints
+      levels.resources :questions
 
       levels.member :move_up, :method => :get
       levels.member :move_down, :method => :get

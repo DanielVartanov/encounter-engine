@@ -2,6 +2,7 @@ class Level < ActiveRecord::Base
   acts_as_list :scope => :game
 
   belongs_to :game
+  has_many :questions
   has_many :hints, :order => "delay ASC"
 
   validates_presence_of :name,
@@ -10,20 +11,23 @@ class Level < ActiveRecord::Base
   validates_presence_of :text,
     :message => "Вы не ввели текст задания"
 
-  validates_presence_of :correct_answers,
-    :message => "Вы не ввели правильные ответы"
-
   validates_presence_of :game
-
-  before_save :strip_spaces
 
   def next
     lower_item
   end
 
-protected
+  def correct_answer=(answer)
+    self.questions.build(:answer => answer)
+  end
 
-  def strip_spaces
-    self.correct_answers.strip!
+  def correct_answer
+    self.questions.empty? ?
+      nil :
+      self.questions.first.answer
+  end
+
+  def multi_question?
+    self.questions.count > 1
   end
 end

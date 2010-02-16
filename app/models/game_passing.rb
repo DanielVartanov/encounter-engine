@@ -1,4 +1,6 @@
 class GamePassing < ActiveRecord::Base
+  serialize :answered_questions
+
   belongs_to :team
   belongs_to :game
   belongs_to :current_level, :class_name => "Level"
@@ -14,16 +16,37 @@ class GamePassing < ActiveRecord::Base
     self.of_team(team).of_game(game).first
   end
 
-  def check_answer!(answer)    
+  # Spec that answered-questions is cleared in pass_level!
+  # Specs for pass_level
+  	# increase #passed_questions_count
+  	# какой именно вопрос был отвечен -- это _похуй_, не надо это проверять
+  # Specs for pass_question!
+
+  # specs for GamePassings#post_answer + helper 
+  	# #answer_was_correct?  def answer_was_correct?  whataver; end
+  	# answer_posted?
+
+  def check_answer!(answer)
     if correct_answer?(answer)
-      self.finished_at = Time.now if last_level?
-      self.current_level = self.current_level.next
-      update_current_level_entered_at
-      save!
-      true
-    else
-      false
-    end    
+    	answered_question = current_level.questions.find_by_answer(answer)
+    	pass_question!(answered_question)
+    	pass_level! if all_questions_answered?
+    	true
+   	else
+    	false
+    end
+  end
+
+  def pass_question!(question)
+		answered_questions << question
+		save!
+  end
+
+  def pass_level!
+    self.current_level = self.current_level.next
+    set_finish_time if last_level?
+    update_current_level_entered_at
+    save!
   end
 
   def finished?
@@ -37,9 +60,9 @@ class GamePassing < ActiveRecord::Base
   def upcoming_hints
     current_level.hints.select { |hint| !hint.ready_to_show?(current_level_entered_at) }
   end
-  
+
   def correct_answer?(answer)
-    answer.strip == current_level.correct_answers
+    unanswered_questions.any? { |question| answer.strip == question.answer }
   end
 
   def time_at_level
@@ -47,6 +70,10 @@ class GamePassing < ActiveRecord::Base
     hours, minutes, seconds = seconds_fraction_to_time(difference)
     "%02d:%02d:%02d" % [hours, minutes, seconds]
   end
+
+  def unanswered_questions
+		current_level.questions - answered_questions
+	end
 
 protected
 
@@ -56,6 +83,10 @@ protected
 
   def update_current_level_entered_at
     self.current_level_entered_at = Time.now
+  end
+  
+  def set_finish_time
+  	self.finished_at = Time.now
   end
 
   # TODO: keep SRP, extract this to a separate helper

@@ -6,6 +6,7 @@
 <%= form_for @level, :action => resource(@game, :levels) do %>
   <p><%= text_field :name, :label => "Название" %></p>
   <p><%= text_area :text, :label => "Текст задания" %></p>
-  <p><%= text_field :correct_answers, :label => "Правильные ответы" %></p>
+  <p><%= text_field :correct_answer, :label => "Код" unless @level.multi_question? %></p>
   <%= submit "Добавить задание" %>
+  <em><%= link_to "(отменить)", resource(@level.game) %></em>
 <% end =%>

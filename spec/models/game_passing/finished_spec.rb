@@ -3,9 +3,9 @@ require File.join(File.dirname(__FILE__), '..', '..', 'spec_helper.rb')
 describe GamePassing do
   before :each do
     @game = create_game
-    @first_level = create_level :game => @game, :correct_answers => "enfirst"
-    @second_level = create_level :game => @game, :correct_answers => "ensecond"
-    @final_level = create_level :game => @game, :correct_answers => "enfinish"
+    @first_level = create_level :game => @game, :correct_answer => "enfirst"
+    @second_level = create_level :game => @game, :correct_answer => "ensecond"
+    @final_level = create_level :game => @game, :correct_answer => "enfinish"
     @team = create_team
   end
 
@@ -23,7 +23,8 @@ describe GamePassing do
     describe "when we passed the last level" do
       before :each do
         @game_passing = GamePassing.create! :game => @game, :team => @team, :current_level => @final_level
-        @game_passing.check_answer!(@final_level.correct_answers)
+#        @game_passing.check_answer!(@final_level.questions.first.correct_answer)
+        @game_passing.pass_level!
       end
 
       it "should return true" do

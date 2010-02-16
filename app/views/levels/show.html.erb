@@ -16,11 +16,31 @@
   <%= @level.text %>
 </p>
 
+<p>
+  <%= link_to "Редактировать текст и название задания", resource(@level.game, @level, :edit) unless @level.game.started? %>
+</p>
+
 <br />
 
+<% unless @level.multi_question? %>
+  <p>
+    <em>Код:</em>
+    <%= @level.correct_answer %>
+  </p>
+<% else %>
+  <p>
+    <em>Коды (<%= @level.questions.count %>):</em>
+  </p>
+  <% @level.questions.each do |question| %>
+    <p><%= question.answer %></p>
+  <% end %>
+<% end %>
+
 <p>
-  <%= link_to "Редактировать это задание", resource(@level.game, @level, :edit) unless @level.game.started? %>
+  <%= link_to "Добавить ещё один код", resource(@game, @level, :questions, :new) %>
 </p>
+
+
 
 <br />
 
@@ -37,3 +57,9 @@
     <%= link_to "Добавить подсказку", resource(@game, @level, :hints, :new) %>
   </p>
 </fieldset>
+
+<br />
+
+<p>
+  <%= link_to "Вернуться к игре \"#{@level.game.name}\"", resource(@level.game) %>
+</p>
