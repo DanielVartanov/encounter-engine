@@ -1,5 +1,6 @@
 class GamePassing < ActiveRecord::Base
   serialize :answered_questions
+  default_value_for :answered_questions, []
 
   belongs_to :team
   belongs_to :game
