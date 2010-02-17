@@ -1,4 +1,6 @@
 class GamePassings < Application
+  include GamePassingsHelper
+
   before :ensure_authenticated, :exclude => [:index, :show_results]
   before :find_game
   before :ensure_game_is_started
@@ -28,7 +30,7 @@ class GamePassings < Application
   end
 
   def post_answer
-    @answer = params[:answer]
+    @answer = params[:answer].strip
     @answer_was_correct = @game_passing.check_answer!(@answer)
     unless @game_passing.finished?
       render :show_current_level

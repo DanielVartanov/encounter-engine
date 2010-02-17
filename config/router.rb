@@ -49,7 +49,7 @@ Merb::Router.prepare do
  
   match('/play/:game_id/tip', :method => :get).to(:controller => :game_passings, :action => :get_current_level_tip).name(:get_current_level_tip)
   match('/play/:game_id', :method => :get).to(:controller => :game_passings, :action => :show_current_level).name(:show_current_level)
-  match('/play/:game_id', :method => :post).to(:controller => :game_passings, :action => :pass_level).name(:pass_level)
+  match('/play/:game_id', :method => :post).to(:controller => :game_passings, :action => :post_answer).name(:post_answer)
 
 #  match('/stats/:game_id', :method => :get).to(:controller => :game_passings, :action => :index).name(:game_stats)
   match('/stats/:action/:game_id').to(:controller => :game_passings).name(:game_stats)

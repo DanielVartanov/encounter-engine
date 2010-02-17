@@ -5,7 +5,7 @@ Given %r(в игре "(.*)" следующие задания:$)i do |game_name,
   levels_table.hashes.each do |hash|
     level_name = hash['Название']
     correct_answer = hash['Код']
-    Given %{#{author_name} добавляет задание "#{level_name}"|#{correct_answer} в игру "#{game_name}"}
+    Given %{#{author_name} добавляет задание "#{level_name}" с кодом "#{correct_answer}" в игру "#{game_name}"}
   end
 end
 
@@ -29,7 +29,7 @@ Given %r{^(.*) добавляет задание "([\w\s]+)" в игру "(.*)"}
   Given %{добавляю задание "#{level_name}" в игру "#{game_name}"}
 end
 
-Given %r{^(.*) добавляет задание "([\w\s]+)" c кодом "(\S*)" в игру "(.*)"$}i do |user_name, level_name, correct_answer, game_name|
+Given %r{^(.+) добавляет задание "([^\"]*)" с кодом "([^\"]*)" в игру "([^\"]*)"$}i do |user_name, level_name, correct_answer, game_name|
   Given %{я логинюсь как #{user_name}}
   Given %{добавляю задание "#{level_name}" с кодом "#{correct_answer}" в игру "#{game_name}"}
 end

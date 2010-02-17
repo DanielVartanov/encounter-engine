@@ -3,7 +3,6 @@ Then /должен увидеть сообщение "(.*)"$/ do |text|
 end
 
 Then /должен увидеть "(.*)"$/ do |text|
-#  webrat_session.response.body.to_s.should =~ /#{text}/m
   webrat_session.response.body.to_s.should contain(text)
 end
 
@@ -30,7 +29,7 @@ Then /должен увидеть кнопку "(.*)"$/ do |text|
 end
 
 Then /должен быть перенаправлен по адресу (.*)/ do |url|
-  
+  # WTF?!
 end
 
 Then /не должен видеть "(.*)"$/ do |text|

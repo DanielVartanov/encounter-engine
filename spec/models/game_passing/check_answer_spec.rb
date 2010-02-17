@@ -30,7 +30,7 @@ describe GamePassing, "#check_answer!" do
 
     describe "when answer is correct" do
       before :each do
-        @result = @game_passing.check_answer!(@first_level.questions.first.correct_answer)
+        @result = @game_passing.check_answer!(@first_level.questions.first.answer)
       end
 
       it "should return true" do
@@ -48,7 +48,7 @@ describe GamePassing, "#check_answer!" do
 
     describe "when answer contains redundant spaces" do
       before :each do
-        @result = @game_passing.check_answer!("   #{@first_level.questions.first.correct_answer}   ")
+        @result = @game_passing.check_answer!("   #{@first_level.questions.first.answer}   ")
       end
 
       it "should return true" do
@@ -121,7 +121,7 @@ describe GamePassing, "#check_answer!" do
 
     describe "when answer is correct" do
       before :each do
-        @result = @game_passing.check_answer!(@final_level.questions.first.answers)
+        @result = @game_passing.check_answer!(@final_level.questions.first.answer)
       end
 
       it "should return true" do

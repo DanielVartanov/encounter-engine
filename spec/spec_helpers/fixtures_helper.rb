@@ -45,7 +45,7 @@ module FixturesHelper
     params = {
       :name => 'Test level',
       :text => "Some text",
-      :correct_answer => "correct_answer",
+      :correct_answer => random_string,
       :game => create_game
     }.merge(options)
     Level.new(params)

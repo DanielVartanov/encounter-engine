@@ -17,16 +17,6 @@ class GamePassing < ActiveRecord::Base
     self.of_team(team).of_game(game).first
   end
 
-  # Spec that answered-questions is cleared in pass_level!
-  # Specs for pass_level
-  	# increase #passed_questions_count
-  	# какой именно вопрос был отвечен -- это _похуй_, не надо это проверять
-  # Specs for pass_question!
-
-  # specs for GamePassings#post_answer + helper 
-  	# #answer_was_correct?  def answer_was_correct?  whataver; end
-  	# answer_posted?
-
   def check_answer!(answer)
     if correct_answer?(answer)
     	answered_question = current_level.questions.find_by_answer(answer)
@@ -44,9 +34,12 @@ class GamePassing < ActiveRecord::Base
   end
 
   def pass_level!
+    if last_level?
+      set_finish_time
+    else
+      update_current_level_entered_at
+    end
     self.current_level = self.current_level.next
-    set_finish_time if last_level?
-    update_current_level_entered_at
     save!
   end
 
@@ -76,6 +69,10 @@ class GamePassing < ActiveRecord::Base
 		current_level.questions - answered_questions
 	end
 
+  def all_questions_answered?
+    (current_level.questions - self.answered_questions).empty?
+  end
+
 protected
 
   def last_level?
@@ -85,7 +82,7 @@ protected
   def update_current_level_entered_at
     self.current_level_entered_at = Time.now
   end
-  
+
   def set_finish_time
   	self.finished_at = Time.now
   end

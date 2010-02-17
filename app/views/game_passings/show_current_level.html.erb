@@ -139,7 +139,7 @@ var LevelHintUpdater = function() {
 
   <script>
   LevelHintUpdater.setup({
-    initialCountdownValue: <%= @game_passing.upcoming_hints.first.available_in(@game_passingelse.current_level_entered_at) %>
+    initialCountdownValue: <%= @game_passing.upcoming_hints.first.available_in(@game_passing.current_level_entered_at) %>
     ,gameId: <%= @game_passing.game_id %>
   })
   </script>
@@ -163,13 +163,13 @@ var LevelHintUpdater = function() {
 	<% end %>
 <% end %>
 
-<% if @game_passing.current_level.more_than_one_question? %>
+<% if @game_passing.current_level.multi_question? %>
 	<div>
 		На этом уровне <%= "#{questions_count} #{questions_count.pluralize('код', 'кода', 'кодов')}" %>, вы правильно ввели <%= @game_passing.answered_questions.size %>
 	</div>
 <% end %>
 
-<%= form :action => url(:pass_level), :method => :post do %>
+<%= form :action => url(:post_answer), :method => :post do %>
   <p><%= text_field :name => 'answer', :label => "Ответ" %></p>
   <%= submit "Отправить!" %>
 <% end =%>
