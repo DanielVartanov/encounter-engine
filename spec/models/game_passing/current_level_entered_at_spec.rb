@@ -23,7 +23,7 @@ describe GamePassing, "#current_level_entered_at" do
         before :each do
           Time.stub! :now => @game_passing.created_at + 1.hour
           @game_passing.stub! :correct_answer? => true
-          @game_passing.check_answer!('correct-answer')
+          @game_passing.check_answer!(@game.levels.first.questions.first.answer)
         end
 
         it "should be equal to time of level changing" do

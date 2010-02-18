@@ -66,17 +66,18 @@ describe GamePassing, "#check_answer!" do
 
 			@game_passing = GamePassing.create! :game => @game, :team => @team, :current_level => @second_level
 		end
-		
+
 		describe "at the beginning" do
 			describe "when answer is correct" do
-				it "should increase count of passed questions" do
-					lambda { @game_passing.check_answer!('encode1') }.should change(@game_passing, :passed_questions_count).by(1)
+				it "should add an element to #answered_questions" do
+          @game_passing.check_answer!('encode1')
+          @game_passing.answered_questions.should == [@second_level.questions.first]
 				end
 			end
 
 			describe "when answer is wrong" do
-				it "should not increas count of passed questions" do
-					lambda { @game_passing.check_answer!('enblablablabla') }.should_not change(@game_passing, :passed_questions_count)
+				it "should not add an element to #answered_questions" do
+					lambda { @game_passing.check_answer!('enblablablabla') }.should_not change(@game_passing.answered_questions, :size)
 				end
 			end
 		end
@@ -100,7 +101,7 @@ describe GamePassing, "#check_answer!" do
 				end
 			end
 
-			describe "when last answer is entered" do
+			describe "when all level questions are answered" do
 				before :each do
 					@game_passing.check_answer!('encode2')
 				end
@@ -108,6 +109,10 @@ describe GamePassing, "#check_answer!" do
 				it "should pass the whole level" do
 					@game_passing.current_level.should == @final_level
 				end
+
+        it "should reset answered_questions" do
+          @game_passing.answered_questions.should be_empty
+        end
 			end
 		end
 	end

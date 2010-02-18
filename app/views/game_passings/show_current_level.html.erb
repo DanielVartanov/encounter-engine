@@ -165,11 +165,11 @@ var LevelHintUpdater = function() {
 
 <% if @game_passing.current_level.multi_question? %>
 	<div>
-		На этом уровне <%= "#{questions_count} #{questions_count.pluralize('код', 'кода', 'кодов')}" %>, вы правильно ввели <%= @game_passing.answered_questions.size %>
+    Правильных кодов введено: <%= @game_passing.answered_questions.size %> из <%= @game_passing.current_level.questions.count %>
 	</div>
 <% end %>
 
 <%= form :action => url(:post_answer), :method => :post do %>
-  <p><%= text_field :name => 'answer', :label => "Ответ" %></p>
+  <p><%= text_field :name => 'answer', :label => "Код" %></p>
   <%= submit "Отправить!" %>
 <% end =%>

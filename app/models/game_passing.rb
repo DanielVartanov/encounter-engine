@@ -18,6 +18,8 @@ class GamePassing < ActiveRecord::Base
   end
 
   def check_answer!(answer)
+    answer.strip!
+
     if correct_answer?(answer)
     	answered_question = current_level.questions.find_by_answer(answer)
     	pass_question!(answered_question)
@@ -39,6 +41,9 @@ class GamePassing < ActiveRecord::Base
     else
       update_current_level_entered_at
     end
+
+    reset_answered_questions
+
     self.current_level = self.current_level.next
     save!
   end
@@ -85,6 +90,10 @@ protected
 
   def set_finish_time
   	self.finished_at = Time.now
+  end
+
+  def reset_answered_questions
+    self.answered_questions.clear
   end
 
   # TODO: keep SRP, extract this to a separate helper

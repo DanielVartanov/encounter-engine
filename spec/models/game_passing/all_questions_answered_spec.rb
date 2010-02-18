@@ -7,9 +7,7 @@ describe GamePassing, "#all_questions_answered?" do
       @level.questions.create! :answer => random_string
     end
 
-    subject do
-      GamePassing.new :current_level => @level
-    end
+    subject { GamePassing.new :current_level => @level }
 
     context "when no questions were answered" do
       it "should return false" do
