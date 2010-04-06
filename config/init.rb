@@ -1,5 +1,4 @@
 # Go to http://wiki.merbivore.com/pages/init-rb 
-require 'config/dependencies.rb'
 
 use_orm :activerecord
 use_test :rspec
