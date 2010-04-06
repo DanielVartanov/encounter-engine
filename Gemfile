@@ -1,7 +1,7 @@
 # A sample Gemfile
 source :gemcutter
 
-merb_gems_version = "1.0.15"
+merb_gems_version = "1.1"
 
 gem "merb-core", merb_gems_version
 #gem "merb-action-args", merb_gems_version
@@ -20,3 +20,4 @@ gem "activerecord", "2.3.2"
 gem "acts-as-list", "0.1.2", :require => 'acts_as_list'
 
 gem "mongrel"
+gem "sqlite3-ruby"
