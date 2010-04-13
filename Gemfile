@@ -16,8 +16,16 @@ gem "merb-param-protection", merb_gems_version
 gem "merb-exceptions", merb_gems_version
 
 gem "merb_activerecord"
-gem "activerecord", "2.3.2"
+gem "activerecord", "2.3.5"
 gem "acts-as-list", "0.1.2", :require => 'acts_as_list'
 
 gem "mongrel"
 gem "sqlite3-ruby"
+
+group :test do
+  gem 'cucumber', '0.6.3'
+  gem 'merb_cucumber'
+  gem 'webrat', '0.5.3'
+  gem 'nokogiri', '1.4.1'
+  gem 'rspec', '1.3.0', :require => 'spec'
+end
