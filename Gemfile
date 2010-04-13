@@ -23,7 +23,8 @@ gem "mongrel"
 gem "sqlite3-ruby"
 
 group :test do
-  gem 'cucumber', '0.6.3'
+  gem 'cucumber', '0.6.4'
+  gem 'cucumber-rails', '0.3.0'
   gem 'merb_cucumber'
   gem 'webrat', '0.5.3'
   gem 'nokogiri', '1.4.1'

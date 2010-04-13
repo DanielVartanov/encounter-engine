@@ -1,3 +1,4 @@
+# Sets up the Merb environment for Cucumber (thanks to krzys and roman)
 require "rubygems"
 
 require "merb-core"
@@ -5,12 +6,6 @@ require 'spec/expectations'
 require 'spec/mocks'
 require "merb_cucumber/world/webrat"
 require "merb_cucumber/helpers/activerecord"
-
-require 'cucumber/web/tableish'
-
-if (local_gem_dir = File.join(File.dirname(__FILE__), '..', 'gems')) && $BUNDLE.nil?
-  $BUNDLE = true; Gem.clear_paths; Gem.path.unshift(local_gem_dir)
-end
 
 # Recursively Load all steps defined within features/**/*_steps.rb
 Dir["#{Merb.root}" / "features" / "**" / "*_steps.rb"].each { |f| require f }
