@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '..', '..', 'spec_helper.rb')
 describe GamePassing, "correct_answer?" do
 	context "when there is one question" do
     subject do
-      @correct_answer = "answer"
+      @correct_answer = random_string
 		  @level = create_level :correct_answer => @correct_answer
 
       GamePassing.create! :current_level => @level
