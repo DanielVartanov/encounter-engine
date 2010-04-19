@@ -22,9 +22,14 @@ gem "acts-as-list", "0.1.2", :require => 'acts_as_list'
 gem "mongrel"
 gem "sqlite3-ruby"
 
+group :development do
+  gem 'ruby-debug'
+end
+
 group :test do
   gem 'cucumber', '0.6.4'
   gem 'cucumber-rails', '0.3.0'
+  gem 'launchy'
   gem 'merb_cucumber'
   gem 'webrat', '0.5.3'
   gem 'nokogiri', '1.4.1'
