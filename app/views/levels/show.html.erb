@@ -3,7 +3,7 @@
 </h2>
 
 <p>
-  <em>(игра "<%= link_to @level.game.name, resource(@level.game) %>")</em>
+  <em>(игра "<%= link_to @game.name, resource(@game) %>")</em>
 </p>
 
 <br />
@@ -17,7 +17,7 @@
 </p>
 
 <p>
-  <%= link_to "Редактировать текст и название задания", resource(@level.game, @level, :edit) unless @level.game.started? %>
+  <%= link_to "Редактировать текст и название задания", resource(@game, @level, :edit) unless @level.game.started? %>
 </p>
 
 <br />
@@ -55,6 +55,12 @@
     <%= link_to "Добавить подсказку", resource(@game, @level, :hints, :new) %>
   </p>
 </fieldset>
+
+<br />
+
+<p>
+  <%= link_to "Удалить этот уровень", resource(@game, @level, :delete) %> <br />
+</p>
 
 <br />
 

@@ -10,9 +10,10 @@ Then /должен увидеть \/(.*)\/$/ do |regex|
   webrat_session.response.body.to_s.should =~ /#{regex}/m
 end
 
-Then /должен увидеть следующее:/ do |table|
-  table.hashes.each do |row|
-    Then %{должен увидеть "#{row['текст']}"}
+Then /должен увидеть следующее:/ do |strings_table|
+  strings = strings_table.raw.map(&:first)
+  strings.each do |string|
+    Then %{должен увидеть "#{string}"}
   end
 end
 

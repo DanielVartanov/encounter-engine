@@ -9,11 +9,11 @@ Given %r(в игре "(.*)" следующие задания:$)i do |game_name,
   end
 end
 
-Given /добавляю задание "([\w\s]+)" в игру "(.*)"$/ do |level_name, game_name|
+Given /добавляю задание "([^\"]*)" в игру "([^\"]*)"$/ do |level_name, game_name|
   Given %{добавляю задание "#{level_name}" с кодом "enКраблеБумц" в игру "#{game_name}"}
 end
 
-Given /добавляю задание "([\w\s]+)" с кодом "(\S+)" в игру "(.*)"$/ do |level_name, code, game_name|
+Given /добавляю задание "([^\"]*)" с кодом "([^\"]*)" в игру "([^\"]*)"$/ do |level_name, code, game_name|
   Given %{захожу в профиль игры "#{game_name}"}  
   Given %{иду по ссылке "Добавить новое задание"}
   When %{я ввожу "#{level_name}" в поле "Название"}
@@ -67,6 +67,15 @@ Given /^([^\"]*) добавляет код "([^\"]*)" в задание "([^\"]*
   And %{нажимаю "Добавить"}
   Then %{должен быть перенаправлен в профиль задания "#{level_name}"}
   And %{должен увидеть "#{code}"}
+end
+
+Given /^пользователем (.*) создана игра "(.*)" со следующими заданиями:$/ do |author_name, game_name, levels_table|
+  Given %{пользователем #{author_name} создана игра "#{game_name}"}
+
+  levels = levels_table.raw.map(&:first)
+  levels.each.each do |level_name|
+    Given %{в игру "#{game_name}" добавлено задание "#{level_name}" с кодом "крабле-крабле-бумц"}
+  end
 end
 
 When %r{захожу в профиль задания "(.*)"$}i do |level_name|
