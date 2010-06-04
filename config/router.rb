@@ -53,10 +53,12 @@ Merb::Router.prepare do
 
 #  match('/stats/:game_id', :method => :get).to(:controller => :game_passings, :action => :index).name(:game_stats)
   match('/stats/:action/:game_id').to(:controller => :game_passings).name(:game_stats)
+  match('/logs/livechannel/:game_id').to(:controller => :logs, :action => :show_live_channel).name(:logs) # прямой эфир
 
   match('/signup').to(:controller => :users, :action => :new).name(:signup)
   match('/dashboard').to(:controller => :dashboard).name(:dashboard)
   match('/team-room').to(:controller => :team_room).name(:team_room)
+
 
   match('/').to(:controller => :index).name(:index_page)
 
