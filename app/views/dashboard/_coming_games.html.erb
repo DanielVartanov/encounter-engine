@@ -1,0 +1,14 @@
+<fieldset>
+  <legend>
+   Предстоящие игры (<%= Game.notstarted.count  %>)
+  </legend>
+  <% Game.notstarted.each do |game | %>
+    Предстоит игра <b><%= link_to game.name, resource(game) %></b> |
+    <% if game.created_by?(current_user) %>
+      <b>Вы автор игры</b>
+    <% else %>
+      <%= link_to "Войти!", resource(game) %>
+    <% end %>
+    <br/>
+  <% end %>
+</fieldset>
