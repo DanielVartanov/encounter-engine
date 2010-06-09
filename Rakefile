@@ -36,6 +36,6 @@
 
 desc "run after commit"
 task :dev_build do
-  puts %{Hello world!}
+  puts  `bundle exec cucumber features/games/game-draft.feature`
 end
 
