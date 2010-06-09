@@ -6,6 +6,7 @@
       <th>Команда</th>
       <th>Уровень</th>
       <th>Время на уровне</th>
+      <th>#</th>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +31,7 @@
           <td><%= game_passings.current_level.name %></td>
           <td><%= game_passings.time_at_level %></td>
         <% end %>
+        <td><em><%= link_to "(лог по уровню)", "/logs/level/#{game_passings.game_id}/#{game_passings.team_id}" %></em></td>
       </tr>
     <% end %>
   </tbody>
