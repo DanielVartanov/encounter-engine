@@ -32,10 +32,25 @@ class GamePassings < Application
   def post_answer
     @answer = params[:answer].strip
     @answer_was_correct = @game_passing.check_answer!(@answer)
+    save_log
     unless @game_passing.finished?
       render :show_current_level
     else
       render :show_results
+    end
+  end
+
+  def save_log
+    if @game_passing.current_level.id
+      @level = Level.find(@game_passing.current_level.id)
+      Log.new do |l|
+        l.game_id = @game.id
+        l.level = @level.name
+        l.team = @team.name
+        l.time = Time.now
+        l.answer = @answer
+        l.save
+      end
     end
   end
 
