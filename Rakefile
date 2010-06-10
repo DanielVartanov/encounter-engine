@@ -33,3 +33,9 @@ task :default => 'spec'
 # ADD YOUR CUSTOM TASKS IN /lib/tasks
 # NAME YOUR RAKE FILES file_name.rake
 ##############################################################################
+
+# desc "run after commit"
+# task :dev_build do
+#  puts  `bundle exec cucumber features/games/game-draft.feature`
+# end
+

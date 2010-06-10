@@ -45,6 +45,10 @@ class Game < ActiveRecord::Base
     count_of_finished_before + 1
   end
 
+  def self.notstarted
+    Game.all.select { |game| !game.started? }
+  end
+
 protected
 
   def game_starts_in_the_future
