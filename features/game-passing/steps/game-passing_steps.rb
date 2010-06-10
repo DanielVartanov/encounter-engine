@@ -71,3 +71,9 @@ end
 Then /должен увидеть следующие позиции команд:$/ do |expected_stats_table|
   expected_stats_table.diff!(tableish('table#stats tr', 'td,th'))
 end
+
+When /захожу в статистику игры "(.*)"$/ do |game_name|
+  Given %{захожу в личный кабинет}
+  Then %{должен увидеть "#{game_name}"}
+  Given %{иду по ссылке "(статистика)"}
+end

@@ -2,8 +2,8 @@ class Logs < Application
   before :ensure_authenticated
   before :find_game
   before :ensure_author, :only => [:show_live_channel]
-  before :find_team, :only => [:show_level_log]
-  before :find_level, :only => [:show_level_log]
+  before :find_team, :only => [:show_level_log, :show_game_log]
+  before :find_level, :only => [:show_level_log, :show_game_log]
 
   def index
     render
@@ -15,7 +15,12 @@ class Logs < Application
   end
 
   def show_level_log
-    @logs = Log.all :conditions => { :game_id => @game.id, :level => @level.name }
+    @logs = Log.all :conditions => { :game_id => @game.id, :team => @team.name, :level => @level.name }
+    render
+  end
+
+  def show_game_log
+    @logs = Log.all :conditions => { :game_id => @game.id, :team => @team.name}
     render
   end
 

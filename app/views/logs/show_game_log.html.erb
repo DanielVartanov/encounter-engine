@@ -1,0 +1,27 @@
+<p>
+  Лог ответов команды "<%= @team.name %>" по игре "<%= @game.name %>"
+</p>
+
+<br />
+
+<% @game.levels.each do |level| %>
+  <p>
+    <strong><%= level.name %></strong><br />
+    <% size = level.questions.size %>
+      <% if size == 1 %>
+        <strong>Верный код:</strong>&nbsp;<%= level.questions[0].answer %><br />
+      <% elsif size > 1 %>
+        <strong>Верные коды:</strong><br />
+        <% level.questions.each do |q| %>
+          <%= q.answer %><br />
+        <% end %>
+      <% end %>
+    <% logs = @logs.find_all { |log| log.level == level.name } %>
+    <% logs.each do |log| %>
+      <%= log.time.strftime("%H:%M:%S") %>&nbsp;<%= log.answer %><br />
+    <% end %>
+  </p>
+
+  <br />
+
+<%  end %>

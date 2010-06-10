@@ -31,8 +31,8 @@ class GamePassings < Application
 
   def post_answer
     @answer = params[:answer].strip
-    @answer_was_correct = @game_passing.check_answer!(@answer)
     save_log
+    @answer_was_correct = @game_passing.check_answer!(@answer)
     unless @game_passing.finished?
       render :show_current_level
     else

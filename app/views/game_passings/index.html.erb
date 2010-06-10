@@ -7,6 +7,7 @@
       <th>Уровень</th>
       <th>Время на уровне</th>
       <th>#</th>
+      <th>#</th>
     </tr>
   </thead>
   <tbody>
@@ -32,7 +33,8 @@
           <td><%= game_passings.time_at_level %></td>
         <% end %>
         <td><em><%= link_to "(лог по уровню)", "/logs/level/#{game_passings.game_id}/#{game_passings.team_id}" %></em></td>
-      </tr>
+        <td><em><%= link_to "(лог по игре)", "/logs/game/#{game_passings.game_id}/#{game_passings.team_id}" %></em></td>
+        </tr>
     <% end %>
   </tbody>
 </table>
