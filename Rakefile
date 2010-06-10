@@ -58,10 +58,12 @@ task :dev_build do
     puts scenarios_failed_line
     puts steps_failed_line
     puts "\n\n"
+    exit 1
   else 
     puts "\n\n"
     puts "Прошли все тесты!"
     puts "\n\n"
+    exit 0
   end
 end
 
