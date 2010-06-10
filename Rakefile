@@ -36,34 +36,23 @@ task :default => 'spec'
 
 desc "run after commit"
 task :dev_build do
+  text = `bundle exec rake db:migrate`
+  puts text
+
+  if text =~ /rake aborted/
+    exit 1
+  end 
+
   text = `bundle exec cucumber`
-
-  lines = text.split "\n"
-
-  puts "\n\n"
-  puts "Потраченное время : " + lines.pop
-
-  last = lines.pop
-  if last =~ /failed/
-    steps_failed_line = last
-    scenarios_failed_line = lines.pop
-  
-    puts "\n\n"
-    puts "Проваленные сценарии:"
-    while !((line = lines.pop) =~ /Failing Scenarios:/) do
-      puts line
-    end
-  
-    puts "\n\n"
-    puts scenarios_failed_line
-    puts steps_failed_line
-    puts "\n\n"
+  puts text
+  if text =~ /\(\d+ failed, \d+/
     exit 1
   else 
-    puts "\n\n"
-    puts "Прошли все тесты!"
-    puts "\n\n"
-    exit 0
+    if text =~ /(\d+ scenarios .*\d+ steps.*)$/msi
+      exit 0
+    else
+      exit 1
+    end
   end
 end
 
