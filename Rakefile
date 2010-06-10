@@ -34,8 +34,34 @@ task :default => 'spec'
 # NAME YOUR RAKE FILES file_name.rake
 ##############################################################################
 
-# desc "run after commit"
-# task :dev_build do
-#  puts  `bundle exec cucumber features/games/game-draft.feature`
-# end
+desc "run after commit"
+task :dev_build do
+  text = `bundle exec cucumber`
+
+  lines = text.split "\n"
+
+  puts "\n\n"
+  puts "Потраченное время : " + lines.pop
+
+  last = lines.pop
+  if last =~ /failed/
+    steps_failed_line = last
+    scenarios_failed_line = lines.pop
+  
+    puts "\n\n"
+    puts "Проваленные сценарии:"
+    while !((line = lines.pop) =~ /Failing Scenarios:/) do
+      puts line
+    end
+  
+    puts "\n\n"
+    puts scenarios_failed_line
+    puts steps_failed_line
+    puts "\n\n"
+  else 
+    puts "\n\n"
+    puts "Прошли все тесты!"
+    puts "\n\n"
+  end
+end
 
