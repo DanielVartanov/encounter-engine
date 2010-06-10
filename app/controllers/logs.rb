@@ -24,6 +24,11 @@ class Logs < Application
     render
   end
 
+  def show_full_log
+    @logs = Log.all :conditions => { :game_id => @game.id}
+    render
+  end
+
   def find_game
     @game = Game.find(params[:game_id])
   end  
