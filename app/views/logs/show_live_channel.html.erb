@@ -1,0 +1,22 @@
+Прямой эфир игры "<%= @game.name %>"
+
+<table id="livechannel">
+  <thead>
+    <tr>
+      <th>Время</th>
+      <th>Команда</th>
+      <th>Задание</th>
+      <th>Код</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @game.logs.each do |log| %>
+      <tr>
+        <td><%= log.time.strftime("%H:%M:%S") %></td>
+        <td><%= log.team %></td>
+        <td><%= log.level %></td>
+        <td><%= log.answer %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

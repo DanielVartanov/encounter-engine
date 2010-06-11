@@ -53,10 +53,15 @@ Merb::Router.prepare do
 
 #  match('/stats/:game_id', :method => :get).to(:controller => :game_passings, :action => :index).name(:game_stats)
   match('/stats/:action/:game_id').to(:controller => :game_passings).name(:game_stats)
+  match('/logs/livechannel/:game_id').to(:controller => :logs, :action => :show_live_channel).name(:show_live_channel) # прямой эфир
+  match('/logs/level/:game_id/:team_id').to(:controller => :logs, :action => :show_level_log).name(:show_level_log) # лог по уровню
+  match('/logs/game/:game_id/:team_id').to(:controller => :logs, :action => :show_game_log).name(:show_game_log) # лог по игре
+  match('/logs/full/:game_id').to(:controller => :logs, :action => :show_full_log).name(:show_full_log) # полный лог по игре
 
   match('/signup').to(:controller => :users, :action => :new).name(:signup)
   match('/dashboard').to(:controller => :dashboard).name(:dashboard)
   match('/team-room').to(:controller => :team_room).name(:team_room)
+
 
   match('/').to(:controller => :index).name(:index_page)
 

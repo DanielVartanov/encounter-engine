@@ -1,0 +1,12 @@
+<h1>Лог ответов команды "<%= @team.name %>" по игре "<%= @game.name %>"</h1>
+
+<% @game.levels.each do |level| %>
+  <h2><%= level.name %></h2>
+  <strong>Верный код:</strong>&nbsp;<%= level.questions.first.answer %>
+  <ul>
+  <% logs = @logs.find_all { |log| log.level == level.name } %>
+  <% logs.each do |log| %>
+    <li><%= log.time.strftime("%H:%M:%S") %>&nbsp;<%= log.answer %></li>
+  <% end %>
+  </ul>
+<%  end %>

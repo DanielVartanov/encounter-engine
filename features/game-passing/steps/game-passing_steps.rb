@@ -71,3 +71,19 @@ end
 Then /должен увидеть следующие позиции команд:$/ do |expected_stats_table|
   expected_stats_table.diff!(tableish('table#stats tr', 'td,th'))
 end
+
+When /захожу в статистику игры "(.*)"$/ do |game_name|
+  Given %{захожу в личный кабинет}
+  Then %{должен увидеть "#{game_name}"}
+  Given %{иду по ссылке "(статистика)"}
+end
+
+Given /в "(.*)" команда "(.*)" на задании "(.*)" игры "(.*)" ввела код "(.*)"$/ do |datetime, team_name, level_name, game_name, code|
+  team = Team.find_by_name(team_name)
+
+  Given %{сейчас "#{datetime}"}
+  Given %{я логинюсь как #{team.captain.nickname}}
+  Given %{команда #{team_name} находится на уровне "#{level_name}" игры "#{game_name}"}
+  And %{ввожу код "#{code}"}
+end
+

@@ -1,0 +1,27 @@
+<h1>Полный лог ответов</h1>
+
+<table id="stats" border="1">
+  <tbody>
+    <% @levels.each do |level| %>
+      <tr align="center">
+        <td colspan="0">
+          <h2><%= level.name %></h2>
+          <strong>Верный код:</strong><%= level.questions.first.answer %>
+        </td>
+      </tr>
+      <tr valign="top">
+        <% @teams.each do |team| %>
+        <td>
+          <%= team.name %>
+          <% team_logs = @logs.find_all { |log| log.team == team.name and log.level == level.name } %>
+          <ul>
+          <% team_logs.each do |team_log| %>
+            <li><%= team_log.time.strftime("%H:%M:%S") %>&nbsp;<%= team_log.answer %></li>
+          <% end %>
+          </ul>
+        </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
