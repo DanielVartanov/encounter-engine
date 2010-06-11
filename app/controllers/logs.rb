@@ -26,6 +26,8 @@ class Logs < Application
 
   def show_full_log
     @logs = Log.all :conditions => { :game_id => @game.id}
+    @levels = Level.all :conditions => { :game_id => @game.id }
+    @teams = Team.find_by_sql("select * from teams t inner join game_passings gp on t.id = gp.team_id where gp.game_id = #{@game.id}")
     render
   end
 
