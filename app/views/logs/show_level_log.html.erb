@@ -1,28 +1,8 @@
-<p>
-Лог ответов команды "<%= @team.name %>" по уровню "<%= @level.name %>" игры "<%= @game.name %>"
-</p>
+<h1>Лог ответов команды "<%= @team.name %>" по уровню "<%= @level.name %>" игры "<%= @game.name %>"</h1>
 
-<br />
-
-<p>
-  <% size = @level.questions.size %>
-  <% if size == 1 %>
-    <strong>Верный код</strong><br />
-    <%= @level.questions[0].answer %>
-  <% elsif size > 1 %>
-    <strong>Верные коды</strong><br />
-    <% @level.questions.each do |q| %>
-      <%= q.answer %><br />
-    <% end %>
-  <% end %>
-</p>
-
-<br />
-
-<p>
-  <% @logs.each do |log| %>
-    <p>
-      <%= log.time.strftime("%H:%M:%S") %>  <%= log.answer %>
-    </p>
-  <% end %>
-</p>
+<strong>Верный код:</strong>&nbsp;<%= @level.questions.first.answer %>
+<ul>
+<% @logs.each do |log| %>
+  <li><%= log.time.strftime("%H:%M:%S") %>&nbsp;<%= log.answer %></li>
+<% end %>
+</ul>

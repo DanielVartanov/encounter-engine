@@ -78,16 +78,12 @@ When /захожу в статистику игры "(.*)"$/ do |game_name|
   Given %{иду по ссылке "(статистика)"}
 end
 
-Given /команда "(.*)" на задании "(.*)" игры "(.*)" вводит код "(.*)"$/ do |team_name, level_name, game_name, code|
+Given /в "(.*)" команда "(.*)" на задании "(.*)" игры "(.*)" ввела код "(.*)"$/ do |datetime, team_name, level_name, game_name, code|
   team = Team.find_by_name(team_name)
-  
+
+  Given %{сейчас "#{datetime}"}
   Given %{я логинюсь как #{team.captain.nickname}}
   Given %{команда #{team_name} находится на уровне "#{level_name}" игры "#{game_name}"}
   And %{ввожу код "#{code}"}
-end
-
-Given /в "(.*)" команда "(.*)" на задании "(.*)" игры "(.*)" ввела код "(.*)"$/ do |datetime, team_name, level_name, game_name, code|
-  Given %{сейчас "#{datetime}"}
-  And %{команда "#{team_name}" на задании "#{level_name}" игры "#{game_name}" вводит код "#{code}"}
 end
 
