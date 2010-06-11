@@ -10,7 +10,16 @@
     </tr>
   </thead>
   <tbody>
-    <% @game.logs.each do |log| %>
+    <%
+      logs_sorted_by_date = @logs.sort do |left, right|
+        if left.time <= right.time
+          1
+        else
+          -1
+        end
+      end
+    %>
+    <% logs_sorted_by_date.each do |log| %>
       <tr>
         <td><%= log.time.strftime("%H:%M:%S") %></td>
         <td><%= log.team %></td>
