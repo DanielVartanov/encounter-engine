@@ -20,7 +20,7 @@ gem "activerecord", "2.3.5"
 gem "acts-as-list", "0.1.2", :require => 'acts_as_list'
 
 gem "mongrel"
-gem "sqlite3-ruby"
+gem "sqlite3-ruby", "1.2.5"
 
 group :development do
   gem 'ruby-debug'

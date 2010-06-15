@@ -34,8 +34,25 @@ task :default => 'spec'
 # NAME YOUR RAKE FILES file_name.rake
 ##############################################################################
 
-# desc "run after commit"
-# task :dev_build do
-#  puts  `bundle exec cucumber features/games/game-draft.feature`
-# end
+desc "run after commit"
+task :dev_build do
+  text = `bundle exec rake db:migrate`
+  puts text
+
+  if text =~ /rake aborted/
+    exit 1
+  end 
+
+  text = `bundle exec cucumber`
+  puts text
+  if text =~ /\(\d+ failed, \d+/
+    exit 1
+  else 
+    if text =~ /(\d+ scenarios .*\d+ steps.*)$/msi
+      exit 0
+    else
+      exit 1
+    end
+  end
+end
 

@@ -1,0 +1,31 @@
+Прямой эфир игры "<%= @game.name %>"
+
+<table id="livechannel">
+  <thead>
+    <tr>
+      <th>Время</th>
+      <th>Команда</th>
+      <th>Задание</th>
+      <th>Код</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%
+      logs_sorted_by_date = @logs.sort do |left, right|
+        if left.time <= right.time
+          1
+        else
+          -1
+        end
+      end
+    %>
+    <% logs_sorted_by_date.each do |log| %>
+      <tr>
+        <td><%= log.time.strftime("%H:%M:%S") %></td>
+        <td><%= log.team %></td>
+        <td><%= log.level %></td>
+        <td><%= log.answer %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
