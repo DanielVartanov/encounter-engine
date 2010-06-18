@@ -7,6 +7,9 @@
     <% if game.created_by?(current_user) %>
       <b>Вы автор игры</b>
     <% else %>
+      <% if @current_user.captain? %>
+        <%= link_to "Подать заявку на регистрацию", resource(game) %>
+      <% end %>
       <%= link_to "Войти!", resource(game) %>
     <% end %>
     <br/>
