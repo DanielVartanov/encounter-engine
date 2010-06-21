@@ -4,13 +4,30 @@ class GameEntries < Application
   before :find_team
 
   def new
-    @game_entry = GameEntry.all(:conditions => { :team_id => @team.id, :game_id => @game.id }).first
+    @game_entry = GameEntry.all(:conditions =>
+        { :team_id => @team.id, :game_id => @game.id }).first
     if !@game_entry
       @game_entry = GameEntry.new
     end
     @game_entry.status = "new"
     @game_entry.game = @game
     @game_entry.team_id = @team.id
+    @game_entry.save
+    redirect url(:dashboard)
+  end
+  
+  def accept
+    @game_entry = GameEntry.all(:conditions =>
+        { :team_id => @team.id, :game_id => @game.id }).first
+    @game_entry.status = "accepted"
+    @game_entry.save
+    redirect url(:dashboard)
+  end
+  
+  def reject
+    @game_entry = GameEntry.all(:conditions =>
+        { :team_id => @team.id, :game_id => @game.id }).first
+    @game_entry.status = "rejected"
     @game_entry.save
     redirect url(:dashboard)
   end

@@ -1,0 +1,21 @@
+<fieldset>
+  <legend>
+    Заявки на регистрацию:
+  </legend>
+
+  <p>
+
+<% game_entries.each do |game| %>
+<%
+@team = Team.find(game.team_id)
+@game = Game.find(game.game_id)
+%>
+  <p>
+    <strong><%= @team.name %> <%= @game.name %></strong>
+    <em><%= link_to "(принять)", "/game_entries/accept/#{game.id}/#{@team.id}" %></em>
+    <em><%= link_to "(отказать)", "/game_entries/reject/#{game.id}/#{@team.id}" %></em>
+  </p>
+<% end %>
+
+</p>
+</fieldset>
