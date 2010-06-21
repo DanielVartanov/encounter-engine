@@ -57,6 +57,7 @@ Merb::Router.prepare do
   match('/logs/level/:game_id/:team_id').to(:controller => :logs, :action => :show_level_log).name(:show_level_log) # лог по уровню
   match('/logs/game/:game_id/:team_id').to(:controller => :logs, :action => :show_game_log).name(:show_game_log) # лог по игре
   match('/logs/full/:game_id').to(:controller => :logs, :action => :show_full_log).name(:show_full_log) # полный лог по игре
+  match('/game_entries/new/:game_id/:team_id').to(:controller => :game_entries, :action => :new).name(:new) # отправка заявки
 
   match('/signup').to(:controller => :users, :action => :new).name(:signup)
   match('/dashboard').to(:controller => :dashboard).name(:dashboard)
