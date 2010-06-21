@@ -4,7 +4,6 @@ class Dashboard < Application
   before :find_team
 
   def index
-    #debugger
     render
   end
 

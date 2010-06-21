@@ -4,7 +4,7 @@ class GameEntry < ActiveRecord::Base
   validates_presence_of :game,
     :message => "Вы не выбрали игру"
 
-  validates_presence_of :team,
+  validates_presence_of :team_id,
     :message => "Вы не указали команду"
 
 end

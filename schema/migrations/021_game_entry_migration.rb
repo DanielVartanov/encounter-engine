@@ -2,7 +2,7 @@ class GameEntryMigration < ActiveRecord::Migration
   def self.up
     create_table :game_entries do |t|
       t.integer :game_id
-      t.integer :team
+      t.integer :team_id
       t.string :status
     end
   end
