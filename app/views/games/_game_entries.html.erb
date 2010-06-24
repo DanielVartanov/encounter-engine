@@ -12,8 +12,8 @@
 %>
   <p>
     <strong><%= @team.name %> <%= @game.name %></strong>
-    <em><%= link_to "(принять)", "/game_entries/accept/#{game.id}/#{@team.id}" %></em>
-    <em><%= link_to "(отказать)", "/game_entries/reject/#{game.id}/#{@team.id}" %></em>
+    <em><%= link_to "(принять)", "/game_entries/accept/#{@game.id}/#{@team.id}" %></em>
+    <em><%= link_to "(отказать)", "/game_entries/reject/#{@game.id}/#{@team.id}" %></em>
   </p>
 <% end %>
 
