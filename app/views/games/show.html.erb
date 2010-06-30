@@ -152,3 +152,4 @@
     prefix:'До начала осталось: '
   });
 </script>
+<%= partial 'teams', :teams => @teams if (!logged_in?) || (logged_in? && !@current_user.author_of?(@game)) %>
