@@ -44,7 +44,12 @@
       <%= link_to "Добавить новое задание", resource(@game, :levels, :new) if ! @game.started? %>
     </p>
   </fieldset>
+  <br/>
+      <%= partial 'games/game_entries', :game_entries => @game_entries  %>
 
+    <br/>
+
+    <%= partial 'games/teams', :teams => @teams  %>
   <br />
 
   <p>

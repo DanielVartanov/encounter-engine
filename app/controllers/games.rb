@@ -29,6 +29,13 @@ class Games < Application
   end
 
   def show    
+    @game_entries = GameEntry.all(:conditions =>
+        {:game_id => @game.id, :status => "new"})
+    @teams = []
+    GameEntry.all(:conditions =>
+        {:game_id => @game.id, :status => "accepted"}).each do |entry|
+      @teams << Team.find(entry.team_id)
+    end
     render
   end
 
