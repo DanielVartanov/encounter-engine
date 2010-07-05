@@ -1,6 +1,7 @@
 Given /пользователем (.*) создана игра "(.*)"$/ do |user_name, game_name|
-  Given %{я зарегистрирован как #{user_name}}
+  #Given %{я зарегистрирован как #{user_name}}
   Given %{#{user_name} создаёт игру "#{game_name}"}
+  Given %{я разлогиниваюсь}
 end
 
 Given /^создана игра "(.*)"$/ do |game_name|
@@ -27,6 +28,15 @@ Given %r{(.*) назначает начало игры "(.*)" на "(.*)"} do |u
   Then %{должен быть перенаправлен в профиль игры "#{game_name}"}  
   Then %{должен увидеть "#{datetime}"}
 end
+Given %r{(.*) назначает крайний срок регистрации на игру "(.*)" на "(.*)"} do |user_name, game_name, datetime|
+  Given %{Я логинюсь как #{user_name}}
+  When %{захожу в профиль игры "#{game_name}"}
+  When %{иду по ссылке "Редактировать эту игру"}
+  When %{ввожу "#{datetime}" в поле "Крайний срок регистрации"}
+  When %{нажимаю "Сохранить"}
+  Then %{должен быть перенаправлен в профиль игры "#{game_name}"}
+  Then %{должен увидеть "#{datetime}"}
+end
 
 Given /начало игры "(.*)" назначено на "(.*)"/ do |game_name, datetime|
   game = Game.find_by_name(game_name)
@@ -51,7 +61,6 @@ end
 
 Given /^(.*) добавил задание "([^\"]*)" в игру "([^\"]*)"$/ do |author_name, level_name, game_name|
   game = Game.find_by_name(game_name)
-
   Given %{я логинюсь как #{author_name}}
   Given %{добавляю задание "#{level_name}" в игру "#{game_name}"}
 end
@@ -159,24 +168,27 @@ Given /^есть задание "([^\"]*)" в игре "([^\"]*)"$/ do |level_na
   Given %{#{author_name} добавляет задание "#{level_name}" в игру "#{game_name}"}
 end
 
-
 Given /^команда "(.*)" под руководством "(.*)" подала заявку на участие в игре "(.*)"$/ do |team_name, captain_name, game_name|
   Given %{я логинюсь как #{captain_name}}
   When %{я захожу в комнату команды}
   Given %{иду по ссылке "Подать заявку на регистрацию"}
 end
 Given /^(.*) подтвердил участие команды "(.*)" в игре "(.*)"$/ do |author_name, team_name, game_name|
-  
   Given %{я залогинился как автор игры "#{game_name}"}
   When %{захожу в личный кабинет}
   Given %{иду по ссылке "(принять)"}
 end
 
-
 Given /^я залогинился как автор игры "(.*)"$/ do |game_name|
   game=Game.find_by_name(game_name)
   author=User.find :first, :conditions=>{:id=>game.author_id}
   Given %{я логинюсь как #{author.nickname}}
+end
+
+Given /([^\s]+) создал игру "([^\"]*)" с началом в "([^\"]*)" и с крайним сроком регистрации в "([^\"]*)"$/ do |author_name, game_name, starts_at, deadline_at|
+  Given %{пользователем #{author_name} создана игра "#{game_name}"}
+  Given %{#{author_name} назначает начало игры "#{game_name}" на "#{starts_at}"}
+  Given %{#{author_name} назначает крайний срок регистрации на игру "#{game_name}" на "#{deadline_at}"}
 end
 
 

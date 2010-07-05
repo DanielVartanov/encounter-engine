@@ -18,6 +18,14 @@
     Дата начала игры ещё не назначена
   <% end %>
 </p>
+<p>
+  <% unless @game.registration_deadline.nil? %>
+    <em>Крайний срок регистрации</em>: <%= @game.registration_deadline.strftime("%Y-%m-%d %H:%M") %>
+        
+  <% else %>
+    Крайний срок регистрации ещё не назначен
+  <% end %>
+</p>
 
 <p>
   <em>Описание:</em>
@@ -51,7 +59,6 @@
 
     <%= partial 'games/teams', :teams => @teams  %>
   <br />
-
   <p>
     <%= link_to "Редактировать эту игру", resource(@game, :edit) if ! @game.started? %>
   </p>

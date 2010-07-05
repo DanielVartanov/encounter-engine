@@ -6,8 +6,10 @@
 <%= form_for @game, :action => resource(:games) do %>
   <p><%= text_field :name, :label => "Название" %></p>
   <p><%= text_area :description, :label => "Описание" %></p>
-  <p><%= text_field :starts_at, :label => "Начало игры" %> <input id="calendar-switch" type="button" value="..." /> </p>  
-  <p><%= check_box :is_draft, :label => "Черновик?" %></p>
+  <p><%= text_field :starts_at, :label => "Начало игры" %> <input id="calendar-switch" type="button" value="..." /> </p>
+  <p><%= text_field :registration_deadline, :label => "Крайний срок регистрации " %> <input id="calendar-switch2" type="button" value="..." /></p>
+  <p><br/><%= check_box :is_draft, :label => "Черновик?" %></p>
+  <br/>
   <%= submit "Создать игру" %>
 <% end =%>
 
@@ -21,5 +23,13 @@
       button      : "calendar-switch",
       showsTime   : true
     }
+  );
+  Calendar.setup(
+  {
+     inputField  : "game_registration_deadline",
+     ifFormat    : "%Y-%m-%d %H:%M",
+     button      : "calendar-switch2",
+     showsTime   : true
+  }
   );
 </script>

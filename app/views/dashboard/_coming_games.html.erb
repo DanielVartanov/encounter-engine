@@ -23,12 +23,21 @@
         <%
             when "recalled", "rejected", "canceled", nil
         %>
-          <%= link_to "Подать заявку на регистрацию", "/game_entries/new/#{game.id}/#{@team.id}" %>
+            <% if game.registration_deadline > Time.now %>
+              <%= link_to "Подать заявку на регистрацию", "/game_entries/new/#{game.id}/#{@team.id}" %>
+            <% else %>
+            Вы не можете зарегистрироваться
+            <%  end %>
           <% end %>
         <% else %>
-          <%= link_to "Подать заявку на регистрацию", "/game_entries/new/#{game.id}/#{@team.id}" %>
+          <% if game.registration_deadline > Time.now %>
+            <%= link_to "Подать заявку на регистрацию", "/game_entries/new/#{game.id}/#{@team.id}" %>
+          <% else %>
+            Вы не можете зарегистрироваться
+          <%  end %>
         <% end %>
       <% end %>
+          
       <%= link_to "Войти!", resource(game) %>
     <% end %>
     <br/>

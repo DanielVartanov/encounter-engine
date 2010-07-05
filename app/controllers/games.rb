@@ -11,7 +11,7 @@ class Games < Application
       user = User.find(params[:user_id])
       @games = user.created_games
     else
-      @games = Game.all :conditions => { :is_draft => false }
+      @games = Game.all :conditions => {:is_draft => false}
     end
     render
   end
@@ -74,4 +74,5 @@ protected
   def ensure_author_if_game_is_draft
     ensure_author if game_is_draft?
   end
+  
 end
