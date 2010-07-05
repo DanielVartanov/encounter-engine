@@ -179,4 +179,19 @@ Given /^я залогинился как автор игры "(.*)"$/ do |game_n
   Given %{я логинюсь как #{author.nickname}}
 end
 
+Given /^команда "([^\"]*)" отозвала заявку на участие в игре$/ do |team_name|
+  team = Team.find_by_name(team_name)
+  captain_name = team.captain.nickname
+  Given %{я логинюсь как #{captain_name}}
+  Given %{захожу в личный кабинет}
+  Given %{иду по ссылке "Отозвать"}
+end
+
+Given /^команда "([^\"]*)" отменила регистрацию в игре$/ do |team_name|
+  team = Team.find_by_name(team_name)
+  captain_name = team.captain.nickname
+  Given %{я логинюсь как #{captain_name}}
+  Given %{захожу в личный кабинет}
+  Given %{иду по ссылке "Отменить"}
+end
 

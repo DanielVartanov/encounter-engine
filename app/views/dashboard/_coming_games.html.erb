@@ -15,15 +15,15 @@
             when "new"
         %>
           Заявка подана
-          <%= link_to "Отозвать", "/game_entries/recall/#{game.id}/#{@team.id}" %>
+          <%= link_to "Отозвать", "/game_entries/recall/#{@game_entry.id}" %>
         <%
             when "accepted"
         %>
-          <%= link_to "Отказаться", "/game_entries/cancel/#{game.id}/#{@team.id}" %>
+          <%= link_to "Отказаться", "/game_entries/cancel/#{@game_entry.id}" %>
         <%
             when "recalled", "rejected", "canceled", nil
         %>
-          <%= link_to "Подать заявку на регистрацию", "/game_entries/new/#{game.id}/#{@team.id}" %>
+          <%= link_to "Подать заявку на регистрацию заново", "/game_entries/reopen/#{@game_entry.id}" %>
           <% end %>
         <% else %>
           <%= link_to "Подать заявку на регистрацию", "/game_entries/new/#{game.id}/#{@team.id}" %>
