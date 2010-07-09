@@ -2,6 +2,7 @@ class Games < Application
   before :ensure_authenticated, :exclude => [:index, :show]
   before :build_game, :only => [:new, :create]
   before :find_game, :only => [:show, :edit, :update, :delete]
+  before :find_team, :only => [:show]
   before :ensure_author_if_game_is_draft, :only => [:show]
   before :ensure_author, :only => [:edit, :update]
   before :ensure_game_was_not_started, :only => [:edit, :update]
@@ -28,7 +29,7 @@ class Games < Application
     end
   end
 
-  def show    
+  def show
     @game_entries = GameEntry.all(:conditions =>
         {:game_id => @game.id, :status => "new"})
     @teams = []
@@ -69,6 +70,14 @@ protected
 
   def game_is_draft?
     @game.draft?
+  end
+
+  def find_team
+    if @current_user
+      @team = @current_user.team
+    else
+      @team = nil
+    end
   end
 
   def ensure_author_if_game_is_draft

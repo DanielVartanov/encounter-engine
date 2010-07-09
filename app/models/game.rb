@@ -51,7 +51,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.notstarted
-    Game.all.select { |game| !game.started? }
+    Game.all.select { |game| !game.draft? && !game.started? }
   end
 
   def free_place_of_team!

@@ -17,6 +17,13 @@ Then /должен увидеть следующее:/ do |strings_table|
   end
 end
 
+Then /не должен видеть следующее:/ do |strings_table|
+  strings = strings_table.raw.map(&:first)
+  strings.each do |string|
+    Then %{не должен видеть "#{string}"}
+  end
+end
+
 Then /должен увидеть ссылку на (.*)$/ do |url|
   webrat_session.response.body.to_s.should have_tag("a", :href => url)
 end
