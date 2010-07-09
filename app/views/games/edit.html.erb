@@ -7,6 +7,7 @@
   <p><%= text_field :name, :label => "Название" %></p>
   <p><%= text_area :description, :label => "Описание" %></p>
   <p><%= text_field :starts_at, :label => "Начало игры" %> <input id="calendar-switch" type="button" value="..." /> </p>
+  <p><%= text_field :max_team_number, :label => "Максимальное количество команд" %></p>
   <p><%= check_box :is_draft, :label => "Черновик?" %></p>
   <%= submit "Сохранить" %>
   <em><%= link_to "(отменить)", resource(@game) %></em>

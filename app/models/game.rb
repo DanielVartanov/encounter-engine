@@ -12,9 +12,13 @@ class Game < ActiveRecord::Base
   validates_presence_of :description,
     :message => "Вы не ввели описание"
 
+  validates_presence_of :max_team_number,
+    :message => "Вы не ввели максимальное количество команд"
+
   validates_presence_of :author
 
   validate :game_starts_in_the_future
+  validate :valid_max_num
 
   named_scope :by, lambda { |author| { :conditions => { :author_id => author.id } } }
 
@@ -50,11 +54,38 @@ class Game < ActiveRecord::Base
     Game.all.select { |game| !game.started? }
   end
 
+  def free_place_of_team!
+    if self.requested_teams_number>0
+      self.requested_teams_number-=1
+      self.save
+    end
+  end
+
+  def reserve_place_for_team!
+    self.requested_teams_number+=1;
+    self.save
+  end
+
+  def can_request?
+    self.requested_teams_number < self.max_team_number
+  end
+
 protected
 
   def game_starts_in_the_future
     if self.starts_at and self.starts_at < Time.now
       self.errors.add(:starts_at, "Вы выбрали дату из прошлого. Так нельзя :-)")
+    end
+  end
+
+  def valid_max_num
+    if self.max_team_number
+      if self.max_team_number <= 0
+        self.errors.add(:max_team_number, "Максимальное количество команд должно быть больше нуля")
+      end
+      if self.max_team_number > 10000
+        self.errors.add(:max_team_number, "Максимальное количество команд должно быть меньше 10000")
+      end
     end
   end
 end

@@ -7,63 +7,62 @@ class GameEntries < Application
   before :ensure_captain, :exclude => [:accept, :reject]
 
   def new
-    @game_entry = GameEntry.new
-    @game_entry.status = "new"
-    @game_entry.game = @game
-    @game_entry.team_id = @team.id
-    @game_entry.save
+    if @game.can_request?
+      @game_entry = GameEntry.new
+      @game_entry.status = "new"
+      @game_entry.game = @game
+      @game_entry.team_id = @team.id
+      @game_entry.save
+      @game.reserve_place_for_team!
+    end
     redirect url(:dashboard)
   end
 
   def reopen
-    if @entry.status != "accepted"
-      @entry.status = "new"
-      @entry.save
-      redirect url(:dashboard)
-    else
-      redirect url(:dashboard)
+    if @game.can_request?
+      if @entry.status != "accepted"
+        @entry.status = "new"
+        @entry.save
+      end
+      @game.reserve_place_for_team!
     end
+    redirect url(:dashboard)
   end
   
   def accept
     if @entry.status == "new"
        @entry.status = "accepted"
        @entry.save
-       redirect url(:dashboard)
-    else
-       redirect url(:dashboard)
     end
+    redirect url(:dashboard)
   end
   
   def reject
     if @entry.status == "new"
        @entry.status = "rejected"
        @entry.save
-       redirect url(:dashboard)
-    else
-       redirect url(:dashboard)
     end
+    @game.free_place_of_team!
+    redirect url(:dashboard)
   end
 
   def recall
     if @entry.status == "new"
        @entry.status = "recalled"
        @entry.save
-       redirect url(:dashboard)
-    else
-       redirect url(:dashboard)
     end
+    @game.free_place_of_team!
+    redirect url(:dashboard)
   end
 
   def cancel
     if @entry.status == "accepted"
       @entry.status = "canceled"
       @entry.save
-      redirect url(:dashboard)
-    else
-      redirect url(:dashboard)
     end
-end
+    @game.free_place_of_team!
+    redirect url(:dashboard)
+  end
 
 protected
   def find_game
