@@ -86,6 +86,9 @@ protected
       if self.max_team_number > 10000
         self.errors.add(:max_team_number, "Максимальное количество команд должно быть меньше 10000")
       end
+      if self.max_team_number < self.requested_teams_number
+        self.errors.add(:max_team_number, "Количество команд, подавших заявку превышает заданное число")
+      end
     end
   end
 end

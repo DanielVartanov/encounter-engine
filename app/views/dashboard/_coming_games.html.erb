@@ -19,12 +19,13 @@
               <%
                   when "accepted"
               %>
+                Вы зарегистрированы 
                 <%= link_to "Отказаться", "/game_entries/cancel/#{@game_entry.id}" %>
               <%
                   when "recalled", "rejected", "canceled", nil
               %>
                   <%  if game.requested_teams_number < game.max_team_number %>
-                    <%= link_to "Подать заявку на регистрацию заново", "/game_entries/new/#{game.id}/#{@team.id}" %>
+                    <%= link_to "Подать заявку на регистрацию заново", "/game_entries/reopen/#{@game_entry.id}" %>
                   <% else %>
                     Вы не можете зарегистрироваться так как превышено количество участников
                   <% end %>
