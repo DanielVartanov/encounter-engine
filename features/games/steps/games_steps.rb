@@ -1,7 +1,7 @@
 Given /пользователем (.*) создана игра "(.*)"$/ do |user_name, game_name|
   Given %{я зарегистрирован как #{user_name}}
   Given %{#{user_name} создаёт игру "#{game_name}"}
-  Given %{я разлогиниваюсь}
+  #Given %{я разлогиниваюсь}
 end
 
 Given /^создана игра "(.*)"$/ do |game_name|
@@ -10,14 +10,17 @@ Given /^создана игра "(.*)"$/ do |game_name|
 end
 
 Given /(.*) создаёт игру "(.*)"$/ do |user_name, game_name|
+  starts= Time.now + 7.days
+  deadline= Time.now + 6.days
   Given %{я логинюсь как #{user_name}}
   When %{я захожу в личный кабинет}
   When %{иду по ссылке "Создать игру"}
   When %{ввожу "#{game_name}" в поле "Название"}
   When %{ввожу "Описание #{game_name}" в поле "Описание"}
+  When %{ввожу "#{starts}" в поле "Начало игры"}
+  When %{ввожу "#{deadline}" в поле "Крайний срок регистрации"}
   When %{нажимаю "Создать"}
   Then %{должен быть перенаправлен в профиль игры "#{game_name}"}
-  Given %{я разлогиниваюсь}
 end
 
 Given %r{(.*) назначает начало игры "(.*)" на "(.*)"} do |user_name, game_name, datetime|
@@ -45,6 +48,11 @@ Given /начало игры "(.*)" назначено на "(.*)"/ do |game_nam
   game = Game.find_by_name(game_name)
   author_name = game.author.nickname
   Given %{#{author_name} назначает начало игры "#{game_name}" на "#{datetime}"}
+end
+Given /крайний срок регистрации игры "(.*)" назначено на "(.*)"/ do |game_name, datetime|
+  game = Game.find_by_name(game_name)
+  author_name = game.author.nickname
+  Given %{#{author_name} назначает крайний срок регистрации на игру "#{game_name}" на "#{datetime}"}
 end
 
 When %r{захожу в профиль игры "(.*)"$}i do |game_name|  
@@ -98,14 +106,16 @@ Given /^я залогинён как "([^\"]*)"$/ do |user_name|
 end
 
 Given /^игра "([^\"]*)" не начата$/ do |game_name|
-  Given %{сейчас "2010-01-01 00:00"}
-  Given %{начало игры "#{game_name}" назначено на "2010-01-01 02:00"}
+  game=Game.find_by_name(game_name)
+  game.starts_at=Time.now+3.days
+  game.registration_deadline = Time.now+2.days
+  game.save
 end
 
 Given /^игра "([^\"]*)" уже начата$/ do |game_name|
-  Given %{сейчас "2010-01-01 00:00"}
-  Given %{начало игры "#{game_name}" назначено на "2010-01-01 01:00"}
-  Given %{сейчас "2010-01-01 02:00"}
+  game=Game.find_by_name(game_name)
+  Given %{сейчас "#{game.starts_at+1.hour}"}
+  
 end
 
 When /^я нахожусь на странице "([^\"]*)"$/ do |page|
@@ -189,9 +199,15 @@ Given /^я залогинился как автор игры "(.*)"$/ do |game_n
 end
 
 Given /([^\s]+) создал игру "([^\"]*)" с началом в "([^\"]*)" и с крайним сроком регистрации в "([^\"]*)"$/ do |author_name, game_name, starts_at, deadline_at|
-  Given %{пользователем #{author_name} создана игра "#{game_name}"}
-  Given %{#{author_name} назначает начало игры "#{game_name}" на "#{starts_at}"}
-  Given %{#{author_name} назначает крайний срок регистрации на игру "#{game_name}" на "#{deadline_at}"}
+  Given %{я зарегистрирован как #{author_name}}
+  When %{я захожу в личный кабинет}
+  When %{иду по ссылке "Создать игру"}
+  When %{ввожу "#{game_name}" в поле "Название"}
+  When %{ввожу "Описание #{game_name}" в поле "Описание"}
+  When %{ввожу "#{starts_at}" в поле "Начало игры"}
+  When %{ввожу "#{deadline_at}" в поле "Крайний срок регистрации"}
+  When %{нажимаю "Создать"}
+  Then %{должен быть перенаправлен в профиль игры "#{game_name}"}
 end
 
 

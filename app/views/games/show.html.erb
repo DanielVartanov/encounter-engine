@@ -21,7 +21,6 @@
 <p>
   <% unless @game.registration_deadline.nil? %>
     <em>Крайний срок регистрации</em>: <%= @game.registration_deadline.strftime("%Y-%m-%d %H:%M") %>
-        
   <% else %>
     Крайний срок регистрации ещё не назначен
   <% end %>

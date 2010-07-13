@@ -50,7 +50,7 @@ class Game < ActiveRecord::Base
   end
 
   def self.notstarted
-    Game.all.select { |game| !game.started? }
+    Game.all.select {|game| !game.started?}
   end
 
 protected
@@ -61,7 +61,7 @@ protected
     end
   end
   def deadline_is_in_future
-    if self.registration_deadline and self.registration_deadline < Date.today
+    if self.registration_deadline and self.registration_deadline < Time.now
         self.errors.add(:registration_deadline,"Вы указали крайний срок регистрации из прошлого, так нельзя :-)")
     end
   end
