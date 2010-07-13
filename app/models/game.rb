@@ -20,10 +20,13 @@ class Game < ActiveRecord::Base
   validate :game_starts_in_the_future
   validate :valid_max_num
 
-  named_scope :by, lambda { |author| { :conditions => { :author_id => author.id } } }
+  validate :deadline_is_in_future
+  validate :deadline_is_before_game_start
+  
+  named_scope :by, lambda {|author|{:conditions =>{:author_id => author.id}}}
 
   def self.started
-    Game.all.select { |game| game.started? }
+    Game.all.select {|game| game.started?}
   end
 
   def draft?
@@ -68,6 +71,7 @@ class Game < ActiveRecord::Base
 
   def can_request?
     self.requested_teams_number < self.max_team_number
+    Game.all.select {|game| !game.started?}
   end
 
 protected
@@ -91,4 +95,16 @@ protected
       end
     end
   end
+  def deadline_is_in_future
+    if self.registration_deadline and self.registration_deadline < Time.now
+        self.errors.add(:registration_deadline,"Вы указали крайний срок регистрации из прошлого, так нельзя :-)")
+    end
+  end
+  def deadline_is_before_game_start
+    if self.registration_deadline and
+        self.starts_at and self.registration_deadline > self.starts_at
+      self.errors.add(:registration_deadline,"Вы указали крайний срок регистрации больше даты начала игры, так нельзя :-)")
+    end
+  end
 end
+

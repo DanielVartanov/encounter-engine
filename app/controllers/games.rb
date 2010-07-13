@@ -4,6 +4,7 @@ class Games < Application
   before :find_game, :only => [:show, :edit, :update, :delete]
   before :find_team, :only => [:show]
   before :ensure_author_if_game_is_draft, :only => [:show]
+  before :ensure_author_if_no_start_time,:only =>[:show]
   before :ensure_author, :only => [:edit, :update]
   before :ensure_game_was_not_started, :only => [:edit, :update]
 
@@ -12,7 +13,7 @@ class Games < Application
       user = User.find(params[:user_id])
       @games = user.created_games
     else
-      @games = Game.all :conditions => { :is_draft => false }
+      @games = Game.all :conditions => {:is_draft => false}
     end
     render
   end
@@ -80,7 +81,13 @@ protected
     end
   end
 
+  def no_start_time?
+    @game.starts_at.nil?
+  end
   def ensure_author_if_game_is_draft
     ensure_author if game_is_draft?
+  end
+  def ensure_author_if_no_start_time
+    ensure_author if no_start_time?
   end
 end
