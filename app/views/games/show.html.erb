@@ -18,6 +18,13 @@
     Дата начала игры ещё не назначена
   <% end %>
 </p>
+<p>
+  <% unless @game.registration_deadline.nil? %>
+    <em>Крайний срок регистрации</em>: <%= @game.registration_deadline.strftime("%Y-%m-%d %H:%M") %>
+  <% else %>
+    Крайний срок регистрации ещё не назначен
+  <% end %>
+</p>
 
 <p>
   <em>Описание:</em>
@@ -25,6 +32,12 @@
 
 <p>
   <%= @game.description %>
+</p>
+<p>
+  <em>Максимальное количество команд:</em>
+</p>
+<p>
+  <%= @game.max_team_number %>
 </p>
 
 <br />
@@ -51,7 +64,6 @@
 
     <%= partial 'games/teams', :teams => @teams  %>
   <br />
-
   <p>
     <%= link_to "Редактировать эту игру", resource(@game, :edit) if ! @game.started? %>
   </p>
@@ -88,10 +100,27 @@
          <% unless @game.levels && @game.levels.count > 0 %>
             return
          <% end %>
+         <% if @game.draft? %>
+            return
+         <% end %>
 
-         var game_id = <%= @game.id %>
+         <%
+          @game_entry = GameEntry.first(:conditions => { :game_id => @game.id, :team_id => @team.id })
 
-         return window.location = "/play/"+game_id+"/";
+          if @game_entry
+            if @game_entry.status == "accepted"
+              %>
+              var game_id = <%= @game.id %>
+              return window.location = "/play/"+game_id+"/";
+              <%
+            else
+              %> document.write("<h1>You are not registered</h1>"); <%
+            end
+          else
+             %> document.write("<h1>You are not registered</h1>"); <%
+          end
+          %>
+         
         }
       };
       countdown_settings = jQuery.extend(countdown_settings, settings);
@@ -152,3 +181,6 @@
     prefix:'До начала осталось: '
   });
 </script>
+
+<br />
+<%= partial 'teams', :teams => @teams if (!logged_in?) || (logged_in? && !@current_user.author_of?(@game)) %>

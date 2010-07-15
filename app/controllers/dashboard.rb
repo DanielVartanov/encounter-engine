@@ -27,7 +27,7 @@ protected
   end
 
   def find_team
-    if @current_user.captain?
+    if @current_user.team
       @team = Team.find(@current_user.team.id)
     else
       @team = nil
