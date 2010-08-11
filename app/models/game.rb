@@ -2,6 +2,7 @@ class Game < ActiveRecord::Base
   belongs_to :author, :class_name => "User"
   has_many :levels, :order => "position"
   has_many :logs, :order => "time"
+  has_many :game_entries, :class_name => "GameEntry"
 
   validates_presence_of :name,
     :message => "Вы не ввели название"
