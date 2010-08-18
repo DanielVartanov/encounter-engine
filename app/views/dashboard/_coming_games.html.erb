@@ -8,7 +8,7 @@
       <b>Вы автор игры</b>
     <% else %>
       <% if @current_user.captain? %>
-        <% @game_entry = GameEntry.all(:conditions => {:team_id => @team.id, :game_id => game.id}).first %>
+        <% @game_entry = GameEntry.of(@team,game)%>
         <%= partial 'shared/game_entry_controls', :game_entry => @game_entry,  :game => game, :team => @team %>
       <% end %>
       <%= link_to "Войти!", resource(game) %>

@@ -13,7 +13,7 @@ class Games < Application
       user = User.find(params[:user_id])
       @games = user.created_games
     else
-      @games = Game.all :conditions => {:is_draft => false}
+      @games = Game.non_drafts
     end
     render
   end
@@ -31,11 +31,9 @@ class Games < Application
   end
 
   def show
-    @game_entries = GameEntry.all(:conditions =>
-        {:game_id => @game.id, :status => "new"})
+    @game_entries = GameEntry.of_game(@game).with_status("new")
     @teams = []
-    GameEntry.all(:conditions =>
-        {:game_id => @game.id, :status => "accepted"}).each do |entry|
+    GameEntry.of_game(@game).with_status("accepted").each do |entry|
       @teams << Team.find(entry.team_id)
     end
     render

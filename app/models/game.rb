@@ -25,6 +25,7 @@ class Game < ActiveRecord::Base
   validate :deadline_is_before_game_start
   
   named_scope :by, lambda {|author|{:conditions =>{:author_id => author.id}}}
+  named_scope :non_drafts, :conditions => {:is_draft => false} 
 
   def self.started
     Game.all.select {|game| game.started?}

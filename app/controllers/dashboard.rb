@@ -4,18 +4,17 @@ class Dashboard < Application
   before :find_team
 
   def index
-    @games = Game.all(:conditions => {:author_id => @current_user.id})
+    @games =Game.by(@current_user)
     @game_entries = []
     @teams = []
     @games.each do |game|
-      GameEntry.all(:conditions =>
-          {:game_id => game.id, :status => "new"}).each do |entry|
-        @game_entries << entry
+      GameEntry.of_game(game).with_status("new").each do |entry|
+         @game_entries << entry
       end
-      GameEntry.all(:conditions =>
-          {:game_id => game.id, :status => "accepted"}).each do |entry|
-        @teams << Team.find(entry.team_id)
-      end
+
+      GameEntry.of_game(game).with_status("accepted").each do |entry|
+         @teams << Team.find(entry.team_id)
+       end
     end
     render
   end

@@ -66,7 +66,7 @@ protected
 
   # TODO: must be a critical section, double creation is possible!
   def find_or_create_game_passing
-    @game_passing = GamePassing.first :conditions => { :team_id => @team.id, :game_id => @game.id }
+    @game_passing = GamePassing.of(@team,@game)
 
     if @game_passing.nil?
       @game_passing = GamePassing.create! :team => @team, 
