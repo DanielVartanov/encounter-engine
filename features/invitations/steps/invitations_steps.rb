@@ -30,8 +30,7 @@ When %r{как пользователь (.*) принимаю приглашен
 
   user = User.find_by_nickname(nickname)
   team = Team.find_by_name(team_name)
-  invitation = Invitation.find :first, :conditions => { :for_user_id => user.id, :to_team_id => team.id }
-
+  invitation = Invitation.for_user(user).to_team(team).first
   When %{я иду по ссылке "accept-invitation-#{invitation.id}"}
   Then %{должен быть перенаправлен в личный кабинет}
 end
@@ -42,7 +41,7 @@ When %r{как пользователь (.*) отказываюсь от при�
 
   user = User.find_by_nickname(nickname)
   team = Team.find_by_name(team_name)
-  invitation = Invitation.find :first, :conditions => { :for_user_id => user.id, :to_team_id => team.id }
+  invitation = Invitation.for_user(user).to_team(team).first  
 
   When %{я иду по ссылке "reject-invitation-#{invitation.id}"}
   Then %{должен быть перенаправлен в личный кабинет}
