@@ -1,6 +1,6 @@
 class GameEntry < ActiveRecord::Base
-  belongs_to :game, :class_name => "Game"
-  belongs_to :team, :class_name => "Team"
+  belongs_to :game
+  belongs_to :team
 
   validates_presence_of :game,
     :message => "Вы не выбрали игру"

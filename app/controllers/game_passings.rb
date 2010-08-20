@@ -43,14 +43,11 @@ class GamePassings < Application
   def save_log
     if @game_passing.current_level.id
       @level = Level.find(@game_passing.current_level.id)
-      Log.new do |l|
-        l.game_id = @game.id
-        l.level = @level.name
-        l.team = @team.name
-        l.time = Time.now
-        l.answer = @answer
-        l.save
-      end
+      Log.create! :game_id => @game.id,
+                  :level => @level.name,
+                  :team => @team.name,
+                  :time => Time.now,
+                  :answer => @answer
     end
   end
 

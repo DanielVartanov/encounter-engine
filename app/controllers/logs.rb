@@ -31,6 +31,8 @@ class Logs < Application
     render
   end
 
+protected
+
   def find_game
     @game = Game.find(params[:game_id])
   end  

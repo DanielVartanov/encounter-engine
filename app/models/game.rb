@@ -13,8 +13,8 @@ class Game < ActiveRecord::Base
   validates_presence_of :description,
     :message => "Вы не ввели описание"
 
-  validates_presence_of :max_team_number,
-    :message => "Вы не ввели максимальное количество команд"
+  validates_numericality_of :max_team_number, :greater_than => 0, :less_than => 10000,
+    :message => "Диапазон количества команд от 1 до 10000"
 
   validates_presence_of :author
 
@@ -86,12 +86,6 @@ protected
 
   def valid_max_num
     if self.max_team_number
-      if self.max_team_number <= 0
-        self.errors.add(:max_team_number, "Максимальное количество команд должно быть больше нуля")
-      end
-      if self.max_team_number > 10000
-        self.errors.add(:max_team_number, "Максимальное количество команд должно быть меньше 10000")
-      end
       if self.max_team_number < self.requested_teams_number
         self.errors.add(:max_team_number, "Количество команд, подавших заявку превышает заданное число")
       end
