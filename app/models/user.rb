@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, 
     :message => "Пароль и его подтверждение не совпадают",
     :if => :password_required?
-  
 
+  
   def member_of_any_team?
     !! team
   end

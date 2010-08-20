@@ -11,9 +11,8 @@ class Dashboard < Application
       GameEntry.of_game(game).with_status("new").each do |entry|
          @game_entries << entry
       end
-
       GameEntry.of_game(game).with_status("accepted").each do |entry|
-         @teams << Team.find(entry.team_id)
+         @teams << entry.team
        end
     end
     render
@@ -26,10 +25,6 @@ protected
   end
 
   def find_team
-    if @current_user.team
-      @team = Team.find(@current_user.team.id)
-    else
-      @team = nil
-    end
+    @team = @current_user.team if @current_user.team
   end
 end

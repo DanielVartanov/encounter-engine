@@ -13,6 +13,9 @@ class Level < ActiveRecord::Base
 
   validates_presence_of :game
 
+  named_scope :of_game, lambda { |game| { :conditions => { :game_id => game.id } } }
+  
+
   def next
     lower_item
   end
