@@ -13,7 +13,7 @@
         <% @teams.each do |team| %>
         <td>
           <%= team.name %>
-          <% team_logs = @logs.find_all { |log| log.team == team.name and log.level == level.name } %>
+          <% team_logs = Log.of_team(team).of_level(level) %>
           <ul>
           <% team_logs.each do |team_log| %>
             <li><%= team_log.time.strftime("%H:%M:%S") %>&nbsp;<%= team_log.answer %></li>

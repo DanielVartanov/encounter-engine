@@ -19,7 +19,9 @@ class Invitation < ActiveRecord::Base
   validate :recepient_is_not_member_of_any_team
 
   before_validation :find_user
-
+  
+  named_scope :for_user, lambda { |user| { :conditions => { :for_user_id => user.id } } }
+  named_scope :to_team, lambda { |team| { :conditions => { :to_team_id => team.id } } }
 protected
 
   def find_user

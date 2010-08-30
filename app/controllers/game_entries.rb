@@ -4,15 +4,11 @@ class GameEntries < Application
   before :find_team, :only=>:new
   before :find_entry, :exclude =>:new
   before :ensure_author, :only => [:accept, :reject]
-  before :ensure_captain, :exclude => [:accept, :reject]
+  before :ensure_team_captain, :exclude => [:accept, :reject]
 
   def new
     if @game.can_request?
-      @game_entry = GameEntry.new
-      @game_entry.status = "new"
-      @game_entry.game = @game
-      @game_entry.team_id = @team.id
-      @game_entry.save
+      @game_entry = GameEntry.create! :status => 'new', :game => @game, :team => @team
       @game.reserve_place_for_team!
     end
     redirect url(:dashboard)
@@ -21,8 +17,7 @@ class GameEntries < Application
   def reopen
     if @game.can_request?
       if @entry.status != "accepted"
-        @entry.status = "new"
-        @entry.save
+        @entry.reopen!
       end
       @game.reserve_place_for_team!
     end
@@ -31,16 +26,14 @@ class GameEntries < Application
   
   def accept
     if @entry.status == "new"
-       @entry.status = "accepted"
-       @entry.save
+       @entry.accept!
     end
     redirect url(:dashboard)
   end
   
   def reject
     if @entry.status == "new"
-       @entry.status = "rejected"
-       @entry.save
+       @entry.reject!
     end
     @game.free_place_of_team!
     redirect url(:dashboard)
@@ -48,8 +41,7 @@ class GameEntries < Application
 
   def recall
     if @entry.status == "new"
-       @entry.status = "recalled"
-       @entry.save
+       @entry.recall!
     end
     @game.free_place_of_team!
     redirect url(:dashboard)
@@ -57,8 +49,7 @@ class GameEntries < Application
 
   def cancel
     if @entry.status == "accepted"
-      @entry.status = "canceled"
-      @entry.save
+      @entry.cancel!
     end
     @game.free_place_of_team!
     redirect url(:dashboard)
@@ -80,11 +71,4 @@ protected
     end
   end
 
-  def ensure_captain
-    if current_user.captain? && @game.created_by?(current_user)
-      return true
-    else
-      return false
-    end
-  end
 end
