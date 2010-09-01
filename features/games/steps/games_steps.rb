@@ -251,3 +251,11 @@ Given /^задано максимальное количество команд 
   Given %{ввожу "#{max_num}" в поле "Максимальное количество команд"}
   Given %{нажимаю "Сохранить"}
 end
+
+When /вижу "(.*)" в поле "(.*)"$/ do |value,  field|
+  field_labeled(field).value.should == value
+end
+
+When /поле "(.*)" имеет тип "(.*)"$/ do |field, type|
+  field_labeled(field).class.to_s.should match(/#{type}/i)
+end
