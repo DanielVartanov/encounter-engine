@@ -10,7 +10,14 @@ class Questions < Application
 
   def create
     if @question.save
-      redirect resource(@level.game, @level)
+      @answer = @question.answers.first
+      if @answer.save
+        redirect resource(@level.game, @level)
+      else
+        @question.destroy
+        build_question
+        render :new
+      end
     else
       render :new
     end

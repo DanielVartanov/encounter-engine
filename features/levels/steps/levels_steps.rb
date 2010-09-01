@@ -69,6 +69,11 @@ Given /^([^\"]*) добавляет код "([^\"]*)" в задание "([^\"]*
   And %{должен увидеть "#{code}"}
 end
 
+Given /^добавляю код "([^\"]*)" в задание "([^\"]*)"$/ do |code, level_name|
+  author = Level.find_by_name(level_name).game.author.nickname
+  Given %{#{author} добавляет код "#{code}" в задание "#{level_name}"}
+end
+
 Given /^пользователем (.*) создана игра "(.*)" со следующими заданиями:$/ do |author_name, game_name, levels_table|
   Given %{пользователем #{author_name} создана игра "#{game_name}"}
 

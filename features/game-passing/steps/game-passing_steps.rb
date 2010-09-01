@@ -40,7 +40,7 @@ When /команда (.*) вводит правильный код текуще�
   current_level = team.current_level_in(game) || game.levels.first
 
   Given %{я логинюсь как #{team.captain.nickname}}
-  When %{ввожу код "#{current_level.questions.first.answer}" в игре "#{game_name}"}
+  When %{ввожу код "#{current_level.questions.first.answers.first.value}" в игре "#{game_name}"}
   Then %{должен увидеть "#{current_level.next.name}"}
 end
 
@@ -50,7 +50,7 @@ When /команда (.*) вводит правильный код послед�
   current_level = game.levels.last
 
   Given %{я логинюсь как #{team.captain.nickname}}
-  When %{ввожу код "#{current_level.questions.first.answer}" в игре "#{game_name}"}
+  When %{ввожу код "#{current_level.questions.first.answers.first.value}" в игре "#{game_name}"}
   Then %{должен увидеть "Поздравляем"}
 end
 

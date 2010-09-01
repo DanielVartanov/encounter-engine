@@ -25,14 +25,20 @@
 <% unless @level.multi_question? %>
   <p>
     <em>Код:</em>
-    <%= @level.correct_answer %>
+    <div id="question-<%= @level.questions.first.id %>">
+      <%= @level.correct_answer %>
+      <%= link_to "(редактировать)", resource(@game, @level, @level.questions.first, :answers) %>
+    </div>
   </p>
 <% else %>
   <p>
     <em>Коды (<%= @level.questions.count %>):</em>
   </p>
   <% @level.questions.each do |question| %>
-    <p><%= question.answer %></p>
+    <div id="question-<%=  question.id %>">
+      <p><%= question.correct_answer %></p>
+      <%= link_to "(редактировать)", resource(@game, @level, question, :answers) %>
+    </div>
   <% end %>
 <% end %>
 

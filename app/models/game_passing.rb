@@ -21,7 +21,7 @@ class GamePassing < ActiveRecord::Base
     answer.strip!
 
     if correct_answer?(answer)
-    	answered_question = current_level.questions.find_by_answer(answer)
+    	answered_question = current_level.find_question_by_answer(answer)
     	pass_question!(answered_question)
     	pass_level! if all_questions_answered?
     	true
@@ -61,7 +61,7 @@ class GamePassing < ActiveRecord::Base
   end
 
   def correct_answer?(answer)
-    unanswered_questions.any? { |question| answer.strip == question.answer }
+    unanswered_questions.any? { |question| question.matches_any_answer(answer) }
   end
 
   def time_at_level

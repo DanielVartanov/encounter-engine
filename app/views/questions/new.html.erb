@@ -8,10 +8,10 @@
 
 <br />
 
-<%= error_messages_for @question, :header => "<h2>Ошибка</h2>" %>
+<%= error_messages_for @answer, :header => "<h2>Ошибка</h2>" %>
 
 <%= form_for @question, :action => resource(@game, @level, :questions) do %>
-  <p><%= text_field :answer, :label => "Код" %></p>
+  <p><%= text_field :correct_answer, :label => "Код" %></p>
   <%= submit "Добавить код" %>
   <em><%= link_to "(отменить)", resource(@game, @level) %></em>
 <% end =%>
