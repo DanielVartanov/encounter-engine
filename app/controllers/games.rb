@@ -1,7 +1,7 @@
 class Games < Application
   before :ensure_authenticated, :exclude => [:index, :show]
   before :build_game, :only => [:new, :create]
-  before :find_game, :only => [:show, :edit, :update, :delete]
+  before :find_game, :only => [:show, :edit, :update, :delete, :end_game]
   before :find_team, :only => [:show]
   before :ensure_author_if_game_is_draft, :only => [:show]
   before :ensure_author_if_no_start_time,:only =>[:show]
@@ -53,6 +53,16 @@ class Games < Application
 
   def delete
     @game.destroy
+    redirect url(:dashboard)
+  end
+
+  def end_game
+    @game.finish_game!
+    @gp = GamePassing.of_game(@game)
+    @gp.each do |g|
+      g.status = "ended"
+      g.save!
+    end
     redirect url(:dashboard)
   end
 

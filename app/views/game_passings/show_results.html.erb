@@ -9,16 +9,25 @@
     </tr>
   </thead>
   <tbody>
-    <% @game.finished_teams.each do |team| %>
+    <% game_passings = GamePassing.of_game(@game) %>
+    <% game_passings.finished.each do |game_passing| %>
       <tr>
-        <td><%= @game.place_of(team) %></td>
-        <td><%= team.name %></td>
-        <% game_passing = GamePassing.of(team, @game) %>
+        <td><%= @game.place_of(game_passing.team) %></td>
+        <td><%= game_passing.team.name %></td>
         <td>
           <%= game_passing.finished_at.strftime('%H:%M:%S') %> <%= game_passing.finished_at.strftime('(%d.%m)') if game_passing.finished_at.day != @game.starts_at.day %>
         </td>
       </tr>
     <% end %>
+    <% (game_passings.ended_by_author - game_passings.finished).each do |game_passing| %>
+        <tr>
+          <td>#</td>
+          <td><%= game_passing.team.name %></td>
+          <td>
+            Не финишировали
+          </td>
+        </tr>
+      <% end %>
   </tbody>
 </table>
 

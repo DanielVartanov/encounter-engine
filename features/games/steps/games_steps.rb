@@ -255,3 +255,10 @@ end
 When /поле "(.*)" имеет тип "(.*)"$/ do |field, type|
   field_labeled(field).class.to_s.should match(/#{type}/i)
 end
+
+Given /^игра завершена автором "(.*)"$/ do |author_name|
+  Given %{я логинюсь как #{author_name}}
+  Given %{захожу в личный кабинет}
+  Given %{иду по ссылке "ЗАВЕРШИТЬ ИГРУ"}
+  Given %{я разлогиниваюсь}
+end

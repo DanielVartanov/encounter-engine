@@ -25,7 +25,8 @@ class Game < ActiveRecord::Base
   validate :deadline_is_before_game_start
   
   named_scope :by, lambda {|author|{:conditions =>{:author_id => author.id}}}
-  named_scope :non_drafts, :conditions => {:is_draft => false} 
+  named_scope :non_drafts, :conditions => {:is_draft => false}
+  named_scope :finished, :conditions => ['author_finished_at IS NOT NULL']
 
   def self.started
     Game.all.select {|game| game.started?}
@@ -76,10 +77,19 @@ class Game < ActiveRecord::Base
     Game.all.select {|game| !game.started?}
   end
 
+  def finish_game!
+    self.author_finished_at = Time.now
+    self.save!
+  end
+
+  def author_finished?
+    !self.author_finished_at.nil?
+  end
+
 protected
 
   def game_starts_in_the_future
-    if self.starts_at and self.starts_at < Time.now
+    if self.author_finished_at.nil? and self.starts_at and self.starts_at < Time.now
       self.errors.add(:starts_at, "Вы выбрали дату из прошлого. Так нельзя :-)")
     end
   end
@@ -92,7 +102,7 @@ protected
     end
   end
   def deadline_is_in_future
-    if self.registration_deadline and self.registration_deadline < Time.now
+    if self.author_finished_at.nil? and self.registration_deadline and self.registration_deadline < Time.now
         self.errors.add(:registration_deadline,"Вы указали крайний срок регистрации из прошлого, так нельзя :-)")
     end
   end

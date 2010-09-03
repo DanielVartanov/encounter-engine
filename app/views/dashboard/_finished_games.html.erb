@@ -1,0 +1,10 @@
+<fieldset>
+  <legend>
+    Завершенные игры
+  </legend>
+  <% Game.finished.each do |game | %>
+    Завершена игра <b><%= link_to game.name, resource(game) %></b> |
+      <%= link_to "Посмотреть результаты", url(:controller => :game_passings, :action => :show_results, :game_id => game.id) %>
+    <br/>
+  <% end %>
+</fieldset>

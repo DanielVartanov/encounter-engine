@@ -5,7 +5,7 @@
         Текущие игры домена
       </legend>
 
-      <% Game.started.each do |game| %>
+      <% (Game.started - Game.finished).each do |game| %>
         <div id="game-<%= game.id %>">
           Началась игра "<%= link_to game.name, resource(game) %>" |
           <% if current_user.team.finished?(game) or game.created_by?(current_user) %>

@@ -4,6 +4,7 @@ class GamePassings < Application
   before :ensure_authenticated, :exclude => [:index, :show_results]
   before :find_game
   before :ensure_game_is_started
+  before :author_finished_at, :exclude => [:index, :show_results]
   before :ensure_team_member, :exclude => [:index, :show_results]
   before :ensure_not_author_of_the_game, :exclude => [:index, :show_results]
   before :find_team, :exclude => [:show_results, :index]
@@ -82,5 +83,9 @@ protected
 
   def ensure_not_author_of_the_game
     raise Unauthorized, "Нельзя играть в собственные игры, сорри :-)" if @game.created_by?(current_user)
+  end
+
+  def author_finished_at
+    raise Unauthorized, "Игра была завершена автором, и вы не можете в нее больше играть" if @game.author_finished?
   end
 end
