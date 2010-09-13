@@ -13,6 +13,7 @@ class Question < ActiveRecord::Base
   end
 
   def matches_any_answer(answer_value)
-    self.answers.any? {|answer| answer.value == answer_value}
+    require "lib/ee_strings.rb"
+    self.answers.any? {|answer| answer.value.to_s.upcase_utf8_cyr == answer_value.to_s.upcase_utf8_cyr}
   end
 end

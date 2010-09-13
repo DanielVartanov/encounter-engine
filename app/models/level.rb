@@ -36,8 +36,9 @@ class Level < ActiveRecord::Base
   end
 
   def find_question_by_answer(answer_value)
+    require "lib/ee_strings.rb"
     self.questions.detect do |question|
-      question.answers.any? {|answer| answer.value == answer_value }
+      question.answers.any? {|answer| answer.value.to_s.upcase_utf8_cyr == answer_value.to_s.upcase_utf8_cyr }
     end
   end
 end
