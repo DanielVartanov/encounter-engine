@@ -262,3 +262,15 @@ Given /^игра завершена автором "(.*)"$/ do |author_name|
   Given %{иду по ссылке "ЗАВЕРШИТЬ ИГРУ"}
   Given %{я разлогиниваюсь}
 end
+
+Then /должен в блоке "([^"]+)" увидеть "([^"]+)"$/ do |block_id, text|
+  webrat_session.response.body.should have_selector("##{block_id}") do |content|
+    content.should contain(text)
+  end
+end
+
+Then /не должен в блоке "([^"]+)" видеть "([^"]+)"$/ do |block_id, text|
+  webrat_session.response.body.should have_selector("##{block_id}") do |content|
+    content.should_not contain(text)
+  end
+end

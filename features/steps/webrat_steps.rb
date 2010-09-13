@@ -21,6 +21,10 @@ When /отмечаю галочку "(.*)"$/ do |field|
   check(field)
 end
 
+When /снимаю галочку "(.*)"$/ do |field|
+  uncheck(field)
+end
+
 When /^I select "(.*)" from "(.*)"$/ do |value, field|
   select(value, :from => field)
 end
