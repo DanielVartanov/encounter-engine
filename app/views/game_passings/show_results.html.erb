@@ -15,7 +15,11 @@
         <td><%= @game.place_of(game_passing.team) %></td>
         <td><%= game_passing.team.name %></td>
         <td>
-          <%= game_passing.finished_at.strftime('%H:%M:%S') %> <%= game_passing.finished_at.strftime('(%d.%m)') if game_passing.finished_at.day != @game.starts_at.day %>
+          <% if game_passing.exited? %>
+            <b>Сошли с дистанции</b>(<%= game_passing.finished_at.strftime('%H:%M:%S') %><%= ' ' + game_passing.finished_at.strftime('(%d.%m)') if game_passing.finished_at.day != @game.starts_at.day %>)
+          <% else %>
+            <%= game_passing.finished_at.strftime('%H:%M:%S') %> <%= game_passing.finished_at.strftime('(%d.%m)') if game_passing.finished_at.day != @game.starts_at.day %>
+          <% end %>
         </td>
       </tr>
     <% end %>

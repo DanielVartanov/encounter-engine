@@ -69,3 +69,9 @@
   <p><%= text_field :name => 'answer', :label => "Код" %></p>
   <%= submit "Отправить!" %>
 <% end =%>
+
+<br/>
+
+<% if current_user.captain? %>
+    <%= link_to "Сойти с дистанции", "/game_passings/exit_game/#{@game_passing.game_id}" %>
+<% end %>

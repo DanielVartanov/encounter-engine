@@ -1,14 +1,17 @@
 class GamePassings < Application
   include GamePassingsHelper
 
+  before :find_game, :exclude => [:exit_game]
+  before :find_game_by_id, :only => [:exit_game]
+  before :find_team, :exclude => [:show_results, :index]
+  before :find_or_create_game_passing, :exclude => [:show_results, :index]
   before :ensure_authenticated, :exclude => [:index, :show_results]
-  before :find_game
   before :ensure_game_is_started
+  before :ensure_team_captain, :only => [:exit_game]
+  before :ensure_not_finished, :exclude => [:index, :show_results]
   before :author_finished_at, :exclude => [:index, :show_results]
   before :ensure_team_member, :exclude => [:index, :show_results]
   before :ensure_not_author_of_the_game, :exclude => [:index, :show_results]
-  before :find_team, :exclude => [:show_results, :index]
-  before :find_or_create_game_passing, :exclude => [:show_results, :index]
   before :ensure_author, :only => [:index]
 
   provides :json
@@ -56,10 +59,19 @@ class GamePassings < Application
     render
   end
 
+  def exit_game
+    @game_passing.exit!
+    render :show_results
+  end
+
 protected
 
   def find_game
     @game = Game.find params[:game_id]
+  end
+
+  def find_game_by_id
+    @game = Game.find(params[:id])
   end
 
   # TODO: must be a critical section, double creation is possible!
@@ -87,5 +99,14 @@ protected
 
   def author_finished_at
     raise Unauthorized, "Игра была завершена автором, и вы не можете в нее больше играть" if @game.author_finished?
+  end
+
+  def ensure_captain_exited
+    raise Unauthorized, "Команда сошла с дистанции" if @game_passing.exited?
+  end
+
+  def ensure_not_finished
+    self.author_finished_at
+    self.ensure_captain_exited
   end
 end

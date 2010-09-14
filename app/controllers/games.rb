@@ -58,10 +58,9 @@ class Games < Application
 
   def end_game
     @game.finish_game!
-    @gp = GamePassing.of_game(@game)
-    @gp.each do |g|
-      g.status = "ended"
-      g.save!
+    game_passings = GamePassing.of_game(@game)
+    game_passings.each do |gp|
+      gp.end!
     end
     redirect url(:dashboard)
   end
