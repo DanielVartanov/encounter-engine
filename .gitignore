@@ -30,3 +30,4 @@ webrat-*.html
 .idea
 output
 rerun.txt
+features/step_definitions
