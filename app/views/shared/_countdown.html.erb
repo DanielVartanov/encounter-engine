@@ -28,18 +28,20 @@
         <% end %>
 
         <%
-        @game_entry = GameEntry.of(@team,@game)
-        if @game_entry
-          if @game_entry.status == "accepted"
-          %>
-            var game_id = <%= @game.id %>
-            return window.location = "/play/"+game_id+"/";
-          <%
+        if @team && @game
+          @game_entry = GameEntry.of(@team,@game)
+          if @game_entry
+            if @game_entry.status == "accepted"
+            %>
+              var game_id = <%= @game.id %>
+              return window.location = "/play/"+game_id+"/";
+            <%
+            else
+            %> document.write("<h1>You are not registered</h1>"); <%
+            end
           else
           %> document.write("<h1>You are not registered</h1>"); <%
           end
-        else
-        %> document.write("<h1>You are not registered</h1>"); <%
         end
         %>
 
