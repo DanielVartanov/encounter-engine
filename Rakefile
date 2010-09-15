@@ -12,6 +12,7 @@ init_env = ENV['MERB_ENV'] || 'rake'
 Merb.load_dependencies(:environment => init_env)
 
 # Get Merb plugins and dependencies
+
 Merb::Plugins.rakefiles.each { |r| require r }
 
 # Load any app level custom rakefile extensions from lib/tasks
