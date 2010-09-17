@@ -4,7 +4,7 @@ class Games < Application
   before :find_game, :only => [:show, :edit, :update, :delete, :end_game]
   before :find_team, :only => [:show]
   before :ensure_author_if_game_is_draft, :only => [:show]
-  before :ensure_author_if_no_start_time,:only =>[:show]
+  before :ensure_author_if_no_start_time, :only =>[:show]
   before :ensure_author, :only => [:edit, :update]
   before :ensure_game_was_not_started, :only => [:edit, :update]
 
@@ -43,7 +43,7 @@ class Games < Application
     render
   end
 
-  def update    
+  def update
     if @game.update_attributes(params[:game])
       redirect resource(@game)
     else
@@ -65,16 +65,16 @@ class Games < Application
     redirect url(:dashboard)
   end
 
-protected
+  protected
 
   def build_game
     @game = Game.new(params[:game])
     @game.author = @current_user
   end
 
-  def find_game    
+  def find_game
     @game = Game.find(params[:id])
-  end  
+  end
 
   def game_is_draft?
     @game.draft?
@@ -91,9 +91,11 @@ protected
   def no_start_time?
     @game.starts_at.nil?
   end
+
   def ensure_author_if_game_is_draft
     ensure_author if game_is_draft?
   end
+
   def ensure_author_if_no_start_time
     ensure_author if no_start_time?
   end
