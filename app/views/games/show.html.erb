@@ -90,3 +90,7 @@
 
 <br />
 <%= partial 'teams', :teams => @teams if (!logged_in?) || (logged_in? && !@current_user.author_of?(@game)) %>
+
+<% if @game.created_by?(current_user) and @game.draft? and !@game.started? %>
+   <%= link_to 'Начать тестирование', url("games/start_test/#{@game.id}") %>
+<% end %>

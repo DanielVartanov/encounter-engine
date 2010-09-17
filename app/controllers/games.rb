@@ -65,6 +65,18 @@ class Games < Application
     redirect url(:dashboard)
   end
 
+  def start_test
+    game = self.find_game
+    game.is_draft = 'f'
+    game.is_testing = 't'
+    game.test_date = game.starts_at
+    game.starts_at = Time.now + 0.1.second
+    game.save!
+    sleep(rand(1))
+
+    redirect url(:play/game.id)
+  end
+
   protected
 
   def build_game
