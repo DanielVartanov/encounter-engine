@@ -71,10 +71,10 @@ class Games < Application
     game.is_testing = 't'
     game.test_date = game.starts_at
     game.starts_at = Time.now + 0.1.second
+    game.registration_deadline = nil
     game.save!
-    sleep(rand(1))
 
-    redirect url(:play/game.id)
+    redirect resource(@game)
   end
 
   protected

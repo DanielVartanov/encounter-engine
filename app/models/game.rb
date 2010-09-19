@@ -86,6 +86,10 @@ class Game < ActiveRecord::Base
     !self.author_finished_at.nil?
   end
 
+  def is_testing?
+    self.is_testing
+  end
+
 protected
 
   def game_starts_in_the_future

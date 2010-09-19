@@ -94,7 +94,7 @@ protected
   end
 
   def ensure_not_author_of_the_game
-    raise Unauthorized, "Нельзя играть в собственные игры, сорри :-)" if @game.created_by?(current_user)
+    raise Unauthorized, "Нельзя играть в собственные игры, сорри :-)" if @game.created_by?(current_user) unless @game.is_testing?
   end
 
   def author_finished_at
