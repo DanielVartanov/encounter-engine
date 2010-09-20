@@ -277,3 +277,67 @@ Then /не должен в блоке "([^"]+)" видеть "([^"]+)"$/ do |blo
     content.should_not contain(text)
   end
 end
+
+Given %r{зарегистрирован определенный пользователь: "([^"]+)", "([^"]+)", "([^"]+)"$}i do |nickname, e_mail, password|
+  When %{я пытаюсь зарегистрироваться с данными "#{nickname}", "#{e_mail}", "#{password}"}
+  Then %{То я должен быть перенаправлен в личный кабинет}
+  Then %{должен увидеть "#{nickname}"}
+  Given %{я разлогиниваюсь}
+  Given %{все отосланные к этому моменту письма прочитаны}
+end
+
+When %r{пытаюсь зарегистрироваться с данными "([^"]+)", "([^"]+)", "([^"]+)"}i do |nickname, e_mail, password|
+  Given %{я захожу по адресу /signup}
+  When %{я ввожу "#{nickname}" в поле "Имя"}
+  When %{ввожу "#{e_mail}" в поле "Email"}
+  When %{ввожу "#{password}" в поле "Пароль"}
+  When %{ввожу "#{password}" в поле "Подтверждение"}
+  When %{нажимаю "Зарегистрироваться"}
+end
+
+Then /^данные пользователя "([^"]+)" с паролем "([^"]+)" такие "([^"]+)", "([^"]+)", "([^"]+)"$/ do |nickname, password, date_of_birth, icq_number, jabber_id|
+  When %{залогинился как "#{nickname}" с паролем "#{password}"}
+  When %{иду по ссылке "Профиль"}
+  When %{иду по ссылке "Редактировать профиль..."}
+  When %{ввожу "#{date_of_birth}" в поле "Дата рождения"}
+  When %{ввожу "#{icq_number}" в поле "Номер ICQ"}
+  When %{ввожу "#{jabber_id}" в поле "Jabber ID"}
+  When %{нажимаю "Принять изменения"}
+  When %{иду по ссылке "Выйти"}
+end
+
+Then /^данные капитана "([^"]+)" с паролем "([^"]+)" такие "([^"]+)", "([^"]+)", "([^"]+)", "([^"]+)"$/ do |nickname, password, date_of_birth, icq_number, jabber_id, phone_number|
+  When %{залогинился как "#{nickname}" с паролем "#{password}"}
+  When %{иду по ссылке "Профиль"}
+  When %{иду по ссылке "Редактировать профиль..."}
+  When %{ввожу "#{date_of_birth}" в поле "Дата рождения"}
+  When %{ввожу "#{icq_number}" в поле "Номер ICQ"}
+  When %{ввожу "#{jabber_id}" в поле "Jabber ID"}
+  When %{ввожу "#{phone_number}" в поле "Контактный телефон"}
+  When %{нажимаю "Принять изменения"}
+  When %{иду по ссылке "Выйти"}
+end
+
+
+When %r{залогинился как "([^"]+)" с паролем "([^"]+)"$} do |nickname, password|
+  email = User.find_by_nickname(nickname).email
+
+  When %{я захожу по адресу /login}
+  When %{ввожу "#{email}" в поле "Email"}
+  When %{ввожу "#{password}" в поле "Пароль"}
+  When %{нажимаю "Войти"}
+  Then %{должен быть перенаправлен в личный кабинет}
+  Then %{должен увидеть "#{nickname}"}
+end
+
+Given %r{игрок "([^"]+)" с паролем "([^"]+)" создает команду "([^"]+)"}i do |nickname, password, team_name|
+  Given %{залогинился как "#{nickname}" с паролем "#{password}"}
+  When %{я пытаюсь создать команду "#{team_name}"}
+  Then %{должен быть перенаправлен в личный кабинет}
+  Then %{там должен увидеть "Вы - капитан команды"}
+  Then %{должен увидеть "#{team_name}"}
+end
+
+When /^пароль пользователя "([^"]*)" равен "([^"]*)"$/ do |nickname, password|
+  Given %{залогинился как "#{nickname}" с паролем "#{password}"}
+end

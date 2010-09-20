@@ -12,6 +12,10 @@
   </p>
 
   <p>
+    <%= link_to "Профиль", url(:users) %>
+  </p>
+
+  <p>
     <% if current_user.member_of_any_team? %>
       <%= link_to "Комната команды", url(:team_room) %>
     <% else %>

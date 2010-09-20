@@ -4,9 +4,13 @@ class Users < Application
     raise NotFound unless @user
     display @user
   end
+
+  def index
+    render
+  end
   
   def new
-    only_provides :html    
+    only_provides :html
     @user = User.new(params[:user])
     render
   end
@@ -19,6 +23,20 @@ class Users < Application
       redirect url(:dashboard)
     else
       render :new
+    end
+  end
+
+  def edit
+    @user = @current_user
+    render
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      redirect resource(:users)
+    else
+      render :edit
     end
   end
 
