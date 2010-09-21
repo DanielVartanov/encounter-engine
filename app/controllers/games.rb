@@ -77,6 +77,25 @@ class Games < Application
     redirect resource(@game)
   end
 
+  def finish_test
+    game = self.find_game
+    game.is_draft = 't'
+    game.is_testing = 'f'
+    game.starts_at = game.test_date
+    game.test_date = Time.now
+    game.save!
+
+    game_passing = GamePassing.of_game(game)
+    level = Level.of_game(game)
+    logs = Log.of_game(game)
+
+    game_passing.delete_all
+    level.delete_all
+    logs.delete_all
+
+    redirect resource(@game)
+  end
+
   protected
 
   def build_game
