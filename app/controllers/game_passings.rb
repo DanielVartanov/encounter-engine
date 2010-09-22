@@ -90,7 +90,7 @@ protected
   end
 
   def ensure_game_is_started
-    raise Unauthorized, "Нельзя играть в игру до её начала. И вообще, где вы достали эту ссылку? :-)" unless @game.started?
+    raise Unauthorized, "Нельзя играть в игру до её начала. И вообще, где вы достали эту ссылку? :-)" unless @game.started? unless @game.is_testing?
   end
 
   def ensure_not_author_of_the_game

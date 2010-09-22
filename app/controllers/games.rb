@@ -73,6 +73,7 @@ class Games < Application
     game.starts_at = Time.now + 0.1.second
     game.registration_deadline = nil
     game.save!
+    sleep(rand(1))
 
     redirect resource(@game)
   end
