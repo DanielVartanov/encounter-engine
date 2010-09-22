@@ -75,3 +75,7 @@
 <% if current_user.captain? %>
     <%= link_to "Сойти с дистанции", "/game_passings/exit_game/#{@game_passing.game_id}" %>
 <% end %>
+<% if @game.is_testing? %>
+  <br/>
+  <%= link_to "Завершить тестирование", url("games/finish_test/#{@game.id}") %>
+<% end %>
