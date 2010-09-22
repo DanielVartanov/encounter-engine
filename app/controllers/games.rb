@@ -87,11 +87,9 @@ class Games < Application
     game.save!
 
     game_passing = GamePassing.of_game(game)
-    level = Level.of_game(game)
     logs = Log.of_game(game)
 
     game_passing.delete_all
-    level.delete_all
     logs.delete_all
 
     redirect resource(@game)
