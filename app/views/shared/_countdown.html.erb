@@ -26,7 +26,16 @@
         <% if @game.draft? %>
           return
         <% end %>
-
+        <% unless @team.nil? %>
+            <% unless @game.game_passings.of_team(@team).first.nil? %>
+                <% if @game.game_passings.of_team(@team).first.finished? %>
+                  return
+                <% end %>
+            <% end %>
+        <% end %>
+        <% if @game.author_finished? %>
+          return
+        <% end %>
         <%
         if @team && @game
           @game_entry = GameEntry.of(@team,@game)

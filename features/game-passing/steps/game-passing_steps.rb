@@ -98,3 +98,7 @@ end
 Then /должен увидеть следующюю таблицу:/ do |strings_table|
   strings_table.diff!(tableish('#results tr', 'td,th'), :missing_col => false)
 end
+
+Given /^я обновляю страницу$/ do
+
+end

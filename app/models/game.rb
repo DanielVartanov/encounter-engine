@@ -3,6 +3,7 @@ class Game < ActiveRecord::Base
   has_many :levels, :order => "position"
   has_many :logs, :order => "time"
   has_many :game_entries, :class_name => "GameEntry"
+  has_many :game_passings, :class_name => "GamePassing"
 
   validates_presence_of :name,
     :message => "Вы не ввели название"
