@@ -31,3 +31,4 @@ webrat-*.html
 output
 rerun.txt
 features/step_definitions
+db/development.sqlite
