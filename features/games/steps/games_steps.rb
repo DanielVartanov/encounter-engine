@@ -341,3 +341,23 @@ end
 When /^пароль пользователя "([^"]*)" равен "([^"]*)"$/ do |nickname, password|
   Given %{залогинился как "#{nickname}" с паролем "#{password}"}
 end
+When /^команда "([^\"]*)" завершает игру "([^\"]*)"$/ do |team_name, game_name|
+  last_level = Game.find_by_name(game_name).levels.last
+
+
+
+  Given %{команда #{team_name} находится на уровне "#{last_level.name}" игры "#{game_name}"}
+  Given %{команда #{team_name} вводит правильные коды последнего уровня игры "#{game_name}"}
+end
+
+When /команда (.*) вводит правильные коды последнего уровня игры "(.*)"/ do |team_name, game_name|
+  team = Team.find_by_name(team_name)
+  game = Game.find_by_name(game_name)
+  current_level = game.levels.last
+
+  Given %{я логинюсь как #{team.captain.nickname}}
+  current_level.questions.each do |question|
+    When %{ввожу код "#{question.answers.first.value}" в игре "#{game_name}"}
+  end
+  Then %{должен увидеть "Поздравляем"}
+end

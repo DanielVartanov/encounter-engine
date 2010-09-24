@@ -59,6 +59,8 @@ When /захожу в игру "([^\"]*)"/ do |game_name|
 
   When %{я захожу в личный кабинет}
 
+
+
   within "#game-#{game.id}" do |scope|
     scope.click_link "Играть!"
   end

@@ -6,7 +6,14 @@
       <tr align="center">
         <td colspan="0">
           <h2><%= level.name %></h2>
-          <strong>Верный код:</strong><%= level.questions.first.correct_answer %>
+          <% if level.questions.count == 1 %>
+            <strong>Верный код:</strong><%= level.questions.first.correct_answer %>
+          <% else %>
+            <strong>Верные коды:</strong>
+            <% level.questions.each do |question| %>
+              <%= question.correct_answer %><% if question!=level.questions.last %>,<% end %>
+            <% end %>
+          <% end %>
         </td>
       </tr>
       <tr valign="top">
