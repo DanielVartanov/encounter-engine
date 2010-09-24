@@ -17,7 +17,7 @@ class GamePassings < Application
   provides :json
 
   def show_current_level
-    render
+    render :layout => 'in_game'
   end
 
   def index
@@ -39,7 +39,7 @@ class GamePassings < Application
       save_log
       @answer_was_correct = @game_passing.check_answer!(@answer)
       unless @game_passing.finished?
-        render :show_current_level
+        render :show_current_level, :layout => 'in_game'
       else
         render :show_results
       end
