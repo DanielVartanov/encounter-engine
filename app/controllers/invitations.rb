@@ -18,6 +18,7 @@ class Invitations < Application
       send_invitation_notification(@invitation)
       redirect resource(:invitations, :new), :message => "Пользователю #{@invitation.recepient_nickname} выслано приглашение"
     else
+      @all_users = User.find :all
       render :new
     end
   end
