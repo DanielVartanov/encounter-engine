@@ -37,7 +37,12 @@
   <em>Максимальное количество команд:</em>
 </p>
 <p>
-  <%= @game.max_team_number %>
+  <% if @game.max_team_number.equal?(10000) or @game.max_team_number.equal?(0) or @game.max_team_number.nil? %>
+    Неограничено
+    <% @game.max_team_number = 10000 %>
+  <% else %>
+    <%= @game.max_team_number %>
+  <% end %>
 </p>
 
 <br />

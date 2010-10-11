@@ -6,16 +6,17 @@ class Game < ActiveRecord::Base
   has_many :game_passings, :class_name => "GamePassing"
 
   validates_presence_of :name,
-    :message => "Вы не ввели название"
+                        :message => "Вы не ввели название"
 
   validates_uniqueness_of :name,
-    :message => "Игра с таким названием уже существует"
+                          :message => "Игра с таким названием уже существует"
 
   validates_presence_of :description,
-    :message => "Вы не ввели описание"
+                        :message => "Вы не ввели описание"
 
-  validates_numericality_of :max_team_number, :greater_than => 0, :less_than => 10000,
-    :message => "Диапазон количества команд от 1 до 10000"
+  validates_numericality_of :max_team_number, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000, :allow_nil => true,
+                        :message => "Диапазон количества команд от 0 до 10000"
+
 
   validates_presence_of :author
 
@@ -24,13 +25,13 @@ class Game < ActiveRecord::Base
 
   validate :deadline_is_in_future
   validate :deadline_is_before_game_start
-  
-  named_scope :by, lambda {|author|{:conditions =>{:author_id => author.id}}}
+
+  named_scope :by, lambda { |author| {:conditions =>{:author_id => author.id}} }
   named_scope :non_drafts, :conditions => {:is_draft => false}
   named_scope :finished, :conditions => ['author_finished_at IS NOT NULL']
 
   def self.started
-    Game.all.select {|game| game.started?}
+    Game.all.select { |game| game.started? }
   end
 
   def draft?
@@ -75,7 +76,7 @@ class Game < ActiveRecord::Base
 
   def can_request?
     self.requested_teams_number < self.max_team_number
-    Game.all.select {|game| !game.started?}
+    Game.all.select { |game| !game.started? }
   end
 
   def finish_game!
@@ -91,7 +92,7 @@ class Game < ActiveRecord::Base
     self.is_testing
   end
 
-protected
+  protected
 
   def game_starts_in_the_future
     if self.author_finished_at.nil? and self.starts_at and self.starts_at < Time.now
@@ -106,15 +107,17 @@ protected
       end
     end
   end
+
   def deadline_is_in_future
     if self.author_finished_at.nil? and self.registration_deadline and self.registration_deadline < Time.now
-        self.errors.add(:registration_deadline,"Вы указали крайний срок регистрации из прошлого, так нельзя :-)")
+      self.errors.add(:registration_deadline, "Вы указали крайний срок регистрации из прошлого, так нельзя :-)")
     end
   end
+
   def deadline_is_before_game_start
     if self.registration_deadline and
-        self.starts_at and self.registration_deadline > self.starts_at
-      self.errors.add(:registration_deadline,"Вы указали крайний срок регистрации больше даты начала игры, так нельзя :-)")
+            self.starts_at and self.registration_deadline > self.starts_at
+      self.errors.add(:registration_deadline, "Вы указали крайний срок регистрации больше даты начала игры, так нельзя :-)")
     end
   end
 end

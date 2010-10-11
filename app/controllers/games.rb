@@ -7,6 +7,7 @@ class Games < Application
   before :ensure_author_if_no_start_time, :only =>[:show]
   before :ensure_author, :only => [:edit, :update]
   before :ensure_game_was_not_started, :only => [:edit, :update]
+  before :max_team_number_from_nz, :only => [:create, :update]
 
   def index
     unless params[:user_id].blank?
@@ -128,5 +129,11 @@ class Games < Application
 
   def ensure_author_if_no_start_time
     ensure_author if no_start_time?
+  end
+
+  def max_team_number_from_nz
+    if @game.max_team_number.nil? or @game.max_team_number.equal?(0)
+      @game.max_team_number = 10000
+    end
   end
 end
