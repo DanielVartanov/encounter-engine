@@ -15,7 +15,7 @@ class Game < ActiveRecord::Base
                         :message => "Вы не ввели описание"
 
   validates_numericality_of :max_team_number, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 10000, :allow_nil => true,
-                        :message => "Диапазон количества команд от 0 до 10000"
+                        :message => "Вы некорректно указали ограничение на количество команд в игре"
 
 
   validates_presence_of :author
