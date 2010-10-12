@@ -11,7 +11,8 @@
     <br/><p><input id="max_team_checkbox" type="checkbox" onclick=toggle(this) /></p>
     <p><label for="max_team_checkbox">Ограничить</label>
     <br><p><%= text_field :max_team_number, :label => "количество команд" %></p>
-    <br/> <br/>
+    <br/><p><%= check_box :is_draft, :label => "Черновик?" %></p>
+    <br/>
     <%= submit "Сохранить" %>
     <em><%= link_to "(отменить)", resource(@game) %></em>
 <% end =%>
