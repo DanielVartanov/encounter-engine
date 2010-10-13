@@ -23,18 +23,18 @@ class GamePassing < ActiveRecord::Base
     answer.strip!
 
     if correct_answer?(answer)
-    	answered_question = current_level.find_question_by_answer(answer)
-    	pass_question!(answered_question)
-    	pass_level! if all_questions_answered?
-    	true
-   	else
-    	false
+      answered_question = current_level.find_question_by_answer(answer)
+      pass_question!(answered_question)
+      pass_level! if all_questions_answered? or question_is_gold?
+      true
+    else
+      false
     end
   end
 
   def pass_question!(question)
-		answered_questions << question
-		save!
+    answered_questions << question
+    save!
   end
 
   def pass_level!
@@ -73,11 +73,19 @@ class GamePassing < ActiveRecord::Base
   end
 
   def unanswered_questions
-		current_level.questions - answered_questions
-	end
+    current_level.questions - answered_questions
+  end
 
   def all_questions_answered?
-    (current_level.questions - self.answered_questions).empty?
+    if current_level.has_gold_question?
+      (current_level.questions - self.answered_questions - [current_level.gold_question]).empty?
+    else
+      (current_level.questions - self.answered_questions).empty?
+    end
+  end
+
+  def question_is_gold?
+    self.answered_questions.last.gold
   end
 
   def exit!
@@ -97,7 +105,7 @@ class GamePassing < ActiveRecord::Base
     end
   end
 
-protected
+  protected
 
   def last_level?
     self.current_level.next.nil?
@@ -108,7 +116,7 @@ protected
   end
 
   def set_finish_time
-  	self.finished_at = Time.now
+    self.finished_at = Time.now
   end
 
   def reset_answered_questions
@@ -118,9 +126,9 @@ protected
   # TODO: keep SRP, extract this to a separate helper
   def seconds_fraction_to_time(seconds)
     hours = minutes = 0
-    if seconds >=  60 then
+    if seconds >= 60 then
       minutes = (seconds / 60).to_i
-      seconds = (seconds % 60 ).to_i
+      seconds = (seconds % 60).to_i
 
       if minutes >= 60 then
         hours = (minutes / 60).to_i

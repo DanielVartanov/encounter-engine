@@ -35,6 +35,19 @@ class Level < ActiveRecord::Base
     self.questions.count > 1
   end
 
+  def has_gold_question?
+    self.questions.each do |question|
+      return true if question.gold
+    end
+    false
+  end
+
+  def gold_question
+    self.questions.each do |question|
+      return question if question.gold
+    end
+  end
+
   def find_question_by_answer(answer_value)
     require "lib/ee_strings.rb"
     self.questions.detect do |question|

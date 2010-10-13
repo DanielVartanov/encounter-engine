@@ -12,6 +12,9 @@
 
 <%= form_for @question, :action => resource(@game, @level, :questions) do %>
   <p><%= text_field :correct_answer, :label => "Код" %></p>
+  <% if not @level.has_gold_question? %>
+    <p><%= check_box :gold, :label => "Золотой?" %></p>
+  <% end %>
   <%= submit "Добавить код" %>
   <em><%= link_to "(отменить)", resource(@game, @level) %></em>
 <% end =%>

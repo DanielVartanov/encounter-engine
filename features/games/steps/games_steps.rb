@@ -381,3 +381,11 @@ Given %r{(.*) завершил тестирование игры "(.*)"} do |aut
   Then %{игра "#{game_name}" не черновик}
   Given %{я разлогиниваюсь}
 end
+
+Given /^нажимаю на "([^\"]*)" возле кода "([^\"]*)"$/ do |link_name, code|
+  answer = Answer.find_by_value(code)
+  question = answer.question
+  within "#question-#{question.id}" do |scope|
+    scope.click_link link_name
+  end
+end
