@@ -11,10 +11,17 @@ class Questions < Application
 
   def create
     @question.correct_answer = params[:question][:correct_answer]
-	@question.gold = params[:question][:gold]
+    @question.gold = params[:question][:gold]
 
     if @question.save
-      redirect resource(@level.game, @level)
+      @answer = @question.answers.first
+      if @answer.save
+        redirect resource(@level.game, @level)
+      else
+        @question.destroy
+        build_question
+        render :new
+      end
     else
       render :new
     end
@@ -25,7 +32,7 @@ class Questions < Application
     redirect resource(@level.game, @level)
   end
 
-protected
+  protected
 
   def find_game
     @game = Game.find(params[:game_id])
@@ -36,8 +43,8 @@ protected
   end
 
   def find_question
-      @question = Question.find(params[:id])
-    end
+    @question = Question.find(params[:id])
+  end
 
   def build_question
     @question = Question.new(params[:question])
