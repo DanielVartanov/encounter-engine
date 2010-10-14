@@ -11,9 +11,7 @@
           <% else %>
             <strong>Верные коды:</strong>
             <% level.questions.each do |question| %>
-              <%= question.correct_answer %>
-              <% if question.gold %>(золотой)<% end %>
-              <% if question!=level.questions.last %>,<% end %>
+              <%= question.correct_answer %><% if question.gold %>(золотой)<% end %><% if question!=level.questions.last %>,<% end %>
             <% end %>
           <% end %>
         </td>
