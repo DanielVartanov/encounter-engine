@@ -70,6 +70,9 @@
   </div>
 <% end %>
 
+    Введенные коды:
+<%= @entered_correct_answers.join ', '  %>
+
 <%= form :action => url(:post_answer), :method => :post do %>
   <p><%= text_field :name => 'answer', :label => "Код" %></p>
   <%= submit "Отправить!" %>

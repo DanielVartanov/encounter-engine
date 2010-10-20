@@ -13,6 +13,7 @@ class GamePassings < Application
   before :ensure_team_member, :exclude => [:index, :show_results]
   before :ensure_not_author_of_the_game, :exclude => [:index, :show_results]
   before :ensure_author, :only => [:index]
+  before :show_uniq_level_code, :only => [:show_current_level]
 
   provides :json
 
@@ -39,6 +40,7 @@ class GamePassings < Application
       save_log
       @answer_was_correct = @game_passing.check_answer!(@answer)
       unless @game_passing.finished?
+        @entered_correct_answers = get_uniq_level_codes
         render :show_current_level, :layout => 'in_game'
       else
         render :show_results
@@ -112,5 +114,10 @@ protected
   def ensure_not_finished
     self.author_finished_at
     self.ensure_captain_exited
+  end
+
+  def get_uniq_level_codes
+    entered_correct_answers = Log.of_team(current_user.team).of_level(@game_passing.current_level)
+    entered_correct_answers.map { |u| u.answer }.uniq
   end
 end
