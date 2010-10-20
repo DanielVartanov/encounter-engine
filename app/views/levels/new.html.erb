@@ -1,3 +1,5 @@
+<% require_js 'code_generator' %>
+
 Новое задание для игры <%= @level.game.name %><br />
 <br />
 
@@ -10,7 +12,9 @@
   
   <p>
     <%= text_field :correct_answer, :label => "Код" %>
-    <em>после создания вы сможете добавить больше кодов в задание</em>
+    <input type="button" value="Сгенерировать" onclick="generate('level_correct_answer')"/>
+    <br />
+    <em>После создания вы сможете добавить больше кодов в задание</em>
   </p>
 
   <%= submit "Добавить задание" %>

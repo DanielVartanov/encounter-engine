@@ -1,3 +1,4 @@
+<% require_js 'code_generator' %>
 <h2>
   Задание "<strong><%= @level.name %></strong>"
 </h2>
@@ -16,5 +17,6 @@
     <p><%= check_box :gold, :label => "Золотой?" %></p>
   <% end %>
   <%= submit "Добавить код" %>
+  <input type="button" value="Сгенерировать" onclick="generate('question_correct_answer')"/>
   <em><%= link_to "(отменить)", resource(@game, @level) %></em>
 <% end =%>
