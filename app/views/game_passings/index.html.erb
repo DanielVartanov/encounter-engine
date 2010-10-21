@@ -35,7 +35,11 @@
           <td><%= game_passing.current_level.name %></td>
           <td><%= game_passing.time_at_level %></td>
         <% end %>
-        <td><em><%= link_to "(лог по уровню)", "/logs/level/#{game_passing.game_id}/#{game_passing.team_id}" %></em></td>
+        <td>
+          <% unless game_passing.finished? and not game_passing.exited? %>
+            <em><%= link_to "(лог по уровню)", "/logs/level/#{game_passing.game_id}/#{game_passing.team_id}" %></em>
+          <% end %>
+        </td>
         <td><em><%= link_to "(лог по игре)", "/logs/game/#{game_passing.game_id}/#{game_passing.team_id}" %></em></td>
         </tr>
     <% end %>
