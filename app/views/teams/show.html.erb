@@ -18,6 +18,14 @@
   <p>
     <%= link_to "Пригласить участников", resource(:invitations, :new) if @current_user.captain? %>
   </p>
+  <p>
+    <!--Изменить название команды-->
+    <%= link_to "Изменить название команды", resource(@team, :edit) if @current_user.captain? %>
+  </p>
+  <p>
+    Изменить состав команды
+    <%#= link_to "Изменить состав команды", resource(:invitations, :new) if @current_user.captain? %>
+  </p>
 </fieldset>
 
 <br />

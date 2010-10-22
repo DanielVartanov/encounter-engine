@@ -29,7 +29,7 @@
     </p>
     
     <p>
-      <%= link_to "Перейти в комнату команды", url(:team_room) %>
+      <%= link_to "Перейти в комнату команды", resource(@current_user.team) %>
     </p>
 
   <% end %>

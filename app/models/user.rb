@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
     member_of_any_team? && team.captain.id == id
   end
 
+  def captain_of_team?(team)
+    team.captain.id == id
+  end
+
   def author_of?(game)
     game.author.id == self.id
   end

@@ -7,7 +7,8 @@ class Team < ActiveRecord::Base
     :message => "Команда с таким названием уже существует"
 
   validates_presence_of :name,
-    :message => "Название команды должно быть непустым"
+    :message => "Название команды должно быть непустым",
+    :on => :create
 
   before_save :adopt_captain
 

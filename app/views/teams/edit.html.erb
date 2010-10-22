@@ -1,0 +1,12 @@
+<h2>
+  Текущее название команды "<strong><%= @team.name %></strong>"
+</h2>
+
+<%= error_messages_for @team, :header => "<h2>Ошибка</h2>" %>
+
+<%= form_for @team, :action => resource(@team) do %>
+  <p><%= text_field :name, :label => "Новое название команды:", :value => "" %></p>
+  <input type="hidden" name="team_old_name" value="<%= @team.name %>">
+  <%= submit "Сохранить изменения" %>
+  <em><%= link_to "(отменить)", resource(@current_user.team) %></em>
+<% end =%>
