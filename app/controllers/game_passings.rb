@@ -117,7 +117,15 @@ protected
   end
 
   def get_uniq_level_codes
-    log_of_level = Log.of_team(current_user.team).of_level(@game_passing.current_level)
-    @entered_correct_answers = log_of_level.map { |u| u.answer }.uniq
+    correct_answers = []
+    log_of_level = Log.of_game(@game).of_level(@game_passing.current_level).of_team(current_user.team)
+    entered_answers = log_of_level.map { |u| u.answer }.uniq
+
+    @game_passing.current_level.questions.each do |question|
+      question.answers.each do |answer|
+        correct_answers << answer.value
+      end
+    end
+    @entered_correct_answers = entered_answers & correct_answers
   end
 end
