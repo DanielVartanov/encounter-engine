@@ -3,8 +3,8 @@ class Teams < Application
   before :ensure_team_member, :exclude => [:new, :create]
   before :ensure_not_member_of_any_team, :only => [:new, :create]
   before :build_team
-  before :find_team, :only => [:update, :index, :show, :edit]
-  before :ensure_team_captain, :only => [:show, :edit]
+  before :find_team, :only => [:update, :index, :show]
+  before :ensure_team_captain, :only => [:edit]
 
   def index
     render :show
@@ -25,6 +25,7 @@ class Teams < Application
   end
 
   def edit
+    @team = @current_user.team
     render
   end
 
@@ -44,6 +45,32 @@ class Teams < Application
     render
   end
 
+  def delete_member
+    #raise params.inspect
+    who = User.find(params[:member_id])
+    if @current_user.captain? && @current_user.team == who.team && !who.captain?
+      who.team = nil
+      who.save!
+      redirect url("teams/edit")
+    else
+      redirect url(:dashboard)
+    end
+  end
+
+  def make_member_captain
+    who = User.find(params[:member_id])
+    if @current_user.captain? && @current_user.team == who.team && !who.captain?
+      who_team = @current_user.team
+      who_team.captain = who
+      who_team.save!
+      who.save!
+      redirect url("teams")
+    else
+      redirect url(:dashboard)
+    end
+  end
+
+
 protected
 
   def build_team
@@ -51,14 +78,11 @@ protected
   end
 
   def find_team
-    @team = Team.find(params[:id])
+    @team = @current_user.team
   end
 
   def ensure_not_member_of_any_team
     raise Unauthorized, "Вы уже являетесь членом команды" if current_user.member_of_any_team?
   end
 
-  def ensure_team_captain
-    @current_user.captain_of_team?(@team)
-  end
 end
