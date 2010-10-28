@@ -1,7 +1,7 @@
 <h2>
   Профиль пользователя <%= @current_user.nickname %>
   <% if @current_user.captain? %>
-    (капитан команды <%= link_to @current_user.team.name, url(:team_room) %>)
+    (капитан команды <%= link_to @current_user.team.name, url(@current_user.team) %>)
   <% end %>
 </h2>
 <br>
