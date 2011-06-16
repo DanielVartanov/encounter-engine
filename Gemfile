@@ -26,6 +26,7 @@ gem "sqlite3-ruby", "1.2.5"
 
 group :development do
   gem 'ruby-debug'
+  gem "linecache", "=0.43"
 end
 
 group :test do
