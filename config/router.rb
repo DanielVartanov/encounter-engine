@@ -40,7 +40,9 @@ Merb::Router.prepare do
   resources :games do |games|
     games.resources :levels do |levels|
       levels.resources :hints
-      levels.resources :questions
+      levels.resources :questions do |questions|
+        questions.resources :answers
+      end
 
       levels.member :move_up, :method => :get
       levels.member :move_down, :method => :get
@@ -57,11 +59,13 @@ Merb::Router.prepare do
   match('/logs/level/:game_id/:team_id').to(:controller => :logs, :action => :show_level_log).name(:show_level_log) # лог по уровню
   match('/logs/game/:game_id/:team_id').to(:controller => :logs, :action => :show_game_log).name(:show_game_log) # лог по игре
   match('/logs/full/:game_id').to(:controller => :logs, :action => :show_full_log).name(:show_full_log) # полный лог по игре
+  
   match('/game_entries/new/:game_id/:team_id').to(:controller => :game_entries, :action => :new).name(:new) # отправка заявки
-
   match('/signup').to(:controller => :users, :action => :new).name(:signup)
   match('/dashboard').to(:controller => :dashboard).name(:dashboard)
-  match('/team-room').to(:controller => :team_room).name(:team_room)
+  match('/teams/edit').to(:controller => :teams, :action => :edit).name(:edit)
+  match('/teams/edit/delete_member', :method => :get).to(:controller => :teams, :action => :delete_member).name(:delete_member)
+  match('/teams/edit/captain', :method => :get).to(:controller => :teams, :action => :make_member_captain).name(:make_captain)
 
 
   match('/').to(:controller => :index).name(:index_page)

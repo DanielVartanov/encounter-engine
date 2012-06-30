@@ -3,7 +3,7 @@
   <legend>
     <%= link_to current_user.nickname, url(:dashboard) %>
     <% if current_user.member_of_any_team? %>
-      (<%= link_to current_user.team.name, url(:team_room) %>)
+      (<%= link_to current_user.team.name, resource(@current_user.team) %>)
     <% end %>
   </legend>
 
@@ -12,8 +12,12 @@
   </p>
 
   <p>
+    <%= link_to "Профиль", url(:users) %>
+  </p>
+
+  <p>
     <% if current_user.member_of_any_team? %>
-      <%= link_to "Комната команды", url(:team_room) %>
+      <%= link_to "Комната команды", resource(@current_user.team) %>
     <% else %>
       <%= link_to "Создать команду", resource(:teams, :new) %>
     <% end %>

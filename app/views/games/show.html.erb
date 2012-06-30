@@ -37,7 +37,12 @@
   <em>Максимальное количество команд:</em>
 </p>
 <p>
-  <%= @game.max_team_number %>
+  <% if @game.max_team_number.equal?(10000) or @game.max_team_number.equal?(0) or @game.max_team_number.nil? %>
+    Неограничено
+    <% @game.max_team_number = 10000 %>
+  <% else %>
+    <%= @game.max_team_number %>
+  <% end %>
 </p>
 
 <br />
@@ -75,101 +80,7 @@
 <% end %>
 
 <script type="text/javascript" src="/javascripts/jquery-1.3.2.min.js"></script>
-<script type="text/javascript">
-    jQuery.fn.countdown = function (date, settings) {
-      var countdown_settings = {
-        lang: {
-          years:   ['год', 'года', 'лет'],
-          months:  ['месяц', 'месяца', 'месяцев'],
-          days:    ['день', 'дня', 'дней'],
-          hours:   ['час', 'часа', 'часов'],
-          minutes: ['минута', 'минуты', 'минут'],
-          seconds: ['секунда', 'секунды', 'секунд'],
-          plurar:  function(n) {
-            return (n % 10 == 1 && n % 100 != 11 ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2);
-          }
-        },
-        prefix: "Осталось: ",
-        finish : function() {
-         <% if logged_in? and @current_user.author_of?(@game) %>
-           return
-         <% end %>
-         <% unless @game.finished_teams %>
-            return
-         <% end %>
-         <% unless @game.levels && @game.levels.count > 0 %>
-            return
-         <% end %>
-         <% if @game.draft? %>
-            return
-         <% end %>
-
-         <%
-          @game_entry = GameEntry.first(:conditions => { :game_id => @game.id, :team_id => @team.id })
-
-          if @game_entry
-            if @game_entry.status == "accepted"
-              %>
-              var game_id = <%= @game.id %>
-              return window.location = "/play/"+game_id+"/";
-              <%
-            else
-              %> document.write("<h1>You are not registered</h1>"); <%
-            end
-          else
-             %> document.write("<h1>You are not registered</h1>"); <%
-          end
-          %>
-         
-        }
-      };
-      countdown_settings = jQuery.extend(countdown_settings, settings);
-
-      var timeDifference = function(begin, end) {
-        if (end < begin) {
-          return false;
-        }
-        var
-        days   = end.getDate()  - begin.getDate(),
-        months = end.getMonth() - begin.getMonth(),
-        years  = end.getYear()  - begin.getYear(),
-        hms    = (end / 1000 - begin / 1000) % 86400,
-        seconds = Math.floor(hms % 60),
-        minutes = Math.floor(hms/60) % 60,
-        hours   = Math.floor(hms/3600) % 60,
-        date = new Date();
-        if (days < 0) {
-          date.setFullYear(begin.getYear(), begin.getMonth(), 32);
-          days += 31 - date.getDate();
-          months--;
-        }
-        if (months < 0) {
-          months += 12;
-          years--;
-        }
-        var diff = {years: years, months: months, days: days, hours: hours, minutes: minutes, seconds: seconds};
-        var result = new Array();
-        for (i in diff) {
-          if(!diff[i]) continue;
-          result.push(diff[i] + ' ' + countdown_settings.lang[i][countdown_settings.lang.plurar(diff[i])]);
-        }
-        return result.join(' ');
-      };
-      var elem = $(this);
-      var timeUpdate = function () {
-        var s = timeDifference(new Date(), date);
-        if (s.length) {
-          elem.html(countdown_settings.prefix + s);
-        } else {
-          clearInterval(timer);
-          elem(countdown_settings.finish());
-        }
-      };
-      timeUpdate();
-      var timer = setInterval(timeUpdate, 1000);
-    };
-  </script>
-
+<%= partial 'shared/countdown' %>
 <div id="countdown-example"></div>
 
 <script type="text/javascript">
@@ -184,3 +95,13 @@
 
 <br />
 <%= partial 'teams', :teams => @teams if (!logged_in?) || (logged_in? && !@current_user.author_of?(@game)) %>
+
+<% if @game.draft? and !@game.started? and @game.levels and @game.levels.count > 0 %>
+   <%= link_to 'Начать тестирование', url("games/start_test/#{@game.id}") %>
+<% end %>
+
+<% if @game.is_testing? %>
+   <%= link_to "Старт", url(:show_current_level, :game_id => @game.id) %>
+   <br />
+   <%= link_to "Завершить тестирование", url("games/finish_test/#{@game.id}") %>
+<% end %>

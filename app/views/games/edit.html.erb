@@ -4,32 +4,48 @@
 <%= error_messages_for @game, :header => "<h2>Ошибка</h2>" %>
 
 <%= form_for @game, :action => resource(@game) do %>
-  <p><%= text_field :name, :label => "Название" %></p>
-  <p><%= text_area :description, :label => "Описание" %></p>
-  <p><%= text_field :starts_at, :label => "Начало игры" %> <input id="calendar-switch" type="button" value="..." /> </p>
-  <br/><p><%= text_field :registration_deadline, :label => "Крайний срок регистрации " %> <input id="calendar-switch2" type="button" value="..." /></p>
-  <br/><p><%= text_field :max_team_number, :label => "Максимальное количество команд" %></p>
-  <br/><p><br/><%= check_box :is_draft, :label => "Черновик?" %></p>
-  <br/>
-  <%= submit "Сохранить" %>
-  <em><%= link_to "(отменить)", resource(@game) %></em>
+    <p><%= text_field :name, :label => "Название" %></p>
+    <p><%= text_area :description, :label => "Описание" %></p>
+    <p><%= text_field :starts_at, :label => "Начало игры" %> <input id="calendar-switch" type="button" value="..."/></p>
+    <br/><p><%= text_field :registration_deadline, :label => "Крайний срок регистрации " %> <input id="calendar-switch2" type="button" value="..."/></p>
+    <br/><p><input id="max_team_checkbox" type="checkbox" onclick=toggle(this) /></p>
+    <p><label for="max_team_checkbox">Ограничить</label>
+    <br><p><%= text_field :max_team_number, :label => "количество команд" %></p>
+    <br/><p><%= check_box :is_draft, :label => "Черновик?" %></p>
+    <br/>
+    <%= submit "Сохранить" %>
+    <em><%= link_to "(отменить)", resource(@game) %></em>
 <% end =%>
 
 <script type="text/javascript">
-  Calendar.setup(
+    Calendar.setup(
     {
-      inputField  : "game_starts_at",
-      ifFormat    : "%Y-%m-%d %H:%M",
-      button      : "calendar-switch",
-      showsTime   : true
+        inputField  : "game_starts_at",
+        ifFormat    : "%Y-%m-%d %H:%M",
+        button      : "calendar-switch",
+        showsTime   : true
     }
-  );
-  Calendar.setup(
-  {
-    inputField  : "game_registration_deadline",
-    ifFormat    : "%Y-%m-%d %H:%M",
-    button      : "calendar-switch2",
-    showsTime   : true
-  }
-);
+            );
+    Calendar.setup(
+    {
+        inputField  : "game_registration_deadline",
+        ifFormat    : "%Y-%m-%d %H:%M",
+        button      : "calendar-switch2",
+        showsTime   : true
+    }
+            );
+
+   function onload(){
+        document.getElementById('game_max_team_number').style.visibility = 'hidden'
+    }
+
+    function toggle(sourceCheckbox) {
+        if (sourceCheckbox.checked) {
+            document.getElementById('game_max_team_number').style.visibility = 'visible'
+            document.getElementById('game_max_team_number').focus()
+        }
+        else {
+            document.getElementById('game_max_team_number').style.visibility = 'hidden'
+        }
+    }
 </script>

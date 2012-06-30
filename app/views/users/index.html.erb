@@ -1,0 +1,25 @@
+<h2>
+  Профиль пользователя <%= @current_user.nickname %>
+  <% if @current_user.captain? %>
+    (капитан команды <%= link_to @current_user.team.name, url(@current_user.team) %>)
+  <% end %>
+</h2>
+<br>
+
+<table>
+  <tr><td width="150"><b>E-mail:</b></td>
+      <td><%= current_user.email %></td></tr>
+  <tr><td><b>Дата рождения:</b></td>
+      <td><%= current_user.date_of_birth %></td></tr>
+  <tr><td><b>Номер ICQ:</b></td>
+      <td><%= current_user.icq_number %></td></tr>
+  <tr><td><b>Jabber ID:</b></td>
+      <td><%= current_user.jabber_id %></td></tr>
+  <% if current_user.captain? %>
+    <tr><td><b>Контактный телефон:</b></td>
+        <td><%= current_user.phone_number %></td></tr>
+  <% end %>
+</table>
+<br>
+
+<em><%= link_to "Редактировать профиль...", resource(current_user, :edit) %></em>

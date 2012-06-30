@@ -18,6 +18,9 @@
   <p>
     <%= link_to "Пригласить участников", resource(:invitations, :new) if @current_user.captain? %>
   </p>
+  <p>
+    <%= link_to "Редактировать команду", resource(@team, :edit) if @current_user.captain? %>
+  </p>
 </fieldset>
 
 <br />
@@ -27,3 +30,7 @@
 <b />
 
 <%= partial 'dashboard/coming_games' %>
+
+<b />
+
+<%= partial 'dashboard/finished_games' %>

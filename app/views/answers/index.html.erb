@@ -1,0 +1,30 @@
+<h2>
+  Задание "<strong><%= @level.name %></strong>"
+</h2>
+
+<p>
+  <em>(игра "<%= link_to @game.name, resource(@game) %>")</em>
+</p>
+
+<%= error_messages_for @answer, :header => "<h2>Ошибка</h2>" %>
+<br />
+
+<p>
+  <em>Варианты кодов:</em>
+</p>
+<table>
+  <% @answers.each do |answer| %>
+  <tr id="answer-<%=  answer.id%>">
+    <td><%= answer.value %></td>
+    <td><%= link_to "(удалить)", resource(@game, @level, @question, answer, :delete) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= form_for @answer, :action => resource(@game, @level, @question, :answers) do %>
+  <p><%= text_field :value, :label => "Ещё один вариант кода" %></p>
+  <%= submit "Добавить вариант кода" %>
+  <em><%= link_to "(отменить)", resource(@game, @level) %></em>
+<% end =%>

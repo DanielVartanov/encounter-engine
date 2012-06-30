@@ -6,14 +6,21 @@
       <tr align="center">
         <td colspan="0">
           <h2><%= level.name %></h2>
-          <strong>Верный код:</strong><%= level.questions.first.answer %>
+          <% if level.questions.count == 1 %>
+            <strong>Верный код:</strong><%= level.questions.first.correct_answer %>
+          <% else %>
+            <strong>Верные коды:</strong>
+            <% level.questions.each do |question| %>
+              <%= question.correct_answer %><% if question.gold %>(золотой)<% end %><% if question!=level.questions.last %>,<% end %>
+            <% end %>
+          <% end %>
         </td>
       </tr>
       <tr valign="top">
         <% @teams.each do |team| %>
         <td>
           <%= team.name %>
-          <% team_logs = @logs.find_all { |log| log.team == team.name and log.level == level.name } %>
+          <% team_logs = Log.of_team(team).of_level(level) %>
           <ul>
           <% team_logs.each do |team_log| %>
             <li><%= team_log.time.strftime("%H:%M:%S") %>&nbsp;<%= team_log.answer %></li>

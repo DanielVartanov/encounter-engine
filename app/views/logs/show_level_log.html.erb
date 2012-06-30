@@ -1,6 +1,6 @@
 <h1>Лог ответов команды "<%= @team.name %>" по уровню "<%= @level.name %>" игры "<%= @game.name %>"</h1>
 
-<strong>Верный код:</strong>&nbsp;<%= @level.questions.first.answer %>
+<strong>Верный код:</strong>&nbsp;<%= @level.questions.first.correct_answer %>
 <ul>
 <% @logs.each do |log| %>
   <li><%= log.time.strftime("%H:%M:%S") %>&nbsp;<%= log.answer %></li>

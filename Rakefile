@@ -6,53 +6,27 @@ require 'merb-core/tasks/merb'
 
 include FileUtils
 
-# Load the basic runtime dependencies; this will include 
+# Load the basic runtime dependencies; this will include
 # any plugins and therefore plugin rake tasks.
 init_env = ENV['MERB_ENV'] || 'rake'
 Merb.load_dependencies(:environment => init_env)
-     
+
 # Get Merb plugins and dependencies
-Merb::Plugins.rakefiles.each { |r| require r } 
+
+Merb::Plugins.rakefiles.each { |r| require r }
 
 # Load any app level custom rakefile extensions from lib/tasks
 tasks_path = File.join(File.dirname(__FILE__), "lib", "tasks")
 rake_files = Dir["#{tasks_path}/*.rake"]
 rake_files.each{|rake_file| load rake_file }
 
-desc "Start runner environment"
-task :merb_env do
-  Merb.start_environment(:environment => init_env, :adapter => 'runner')
-end
-
-require 'spec/rake/spectask'
-require 'merb-core/test/tasks/spectasks'
-desc 'Default: run spec examples'
-task :default => 'spec'
-
-##############################################################################
-# ADD YOUR CUSTOM TASKS IN /lib/tasks
-# NAME YOUR RAKE FILES file_name.rake
-##############################################################################
-
-desc "run after commit"
-task :dev_build do
-  text = `bundle exec rake db:migrate`
-  puts text
-
-  if text =~ /rake aborted/
-    exit 1
-  end 
-
-  text = `bundle exec cucumber`
-  puts text
-  if text =~ /\(\d+ failed, \d+/
-    exit 1
-  else 
-    if text =~ /(\d+ scenarios .*\d+ steps.*)$/msi
-      exit 0
-    else
-      exit 1
-    end
+desc "add folder step definitions"
+task :add_folder_step_definitions do
+  `mkdir -p features/step_definitions`
+  chdir "features/step_definitions"
+  puts `ln -s ../steps/ common_steps`
+  `ls -d ../*/steps`.split("\n").each do |path|
+    pp = path.split '/';
+    puts `ln -s #{path} #{pp[1]}_steps`
   end
 end
-

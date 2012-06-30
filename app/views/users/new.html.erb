@@ -3,7 +3,7 @@
 <%= form_for @user, :action => url(:users) do %>
   <p><%= text_field :nickname, :label => "Имя" %></p>
   <p><%= text_field :email, :label => "Email" %></p>
-  <p><%= text_field :password, :label => "Пароль" %></p>
-  <p><%= text_field :password_confirmation, :label => "Подтверждение" %></p>
+  <p><%= password_field :password, :label => "Пароль" %></p>
+  <p><%= password_field :password_confirmation, :label => "Подтверждение" %></p>
   <%= submit "Зарегистрироваться" %>
 <% end =%>

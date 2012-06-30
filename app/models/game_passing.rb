@@ -8,6 +8,8 @@ class GamePassing < ActiveRecord::Base
 
   named_scope :of_game, lambda { |game| { :conditions => { :game_id => game.id } } }
   named_scope :of_team, lambda { |team| { :conditions => { :team_id => team.id } } }
+  named_scope :ended_by_author, :conditions => ['status = "ended"'], :order => 'current_level_id DESC'
+  named_scope :exited, :conditions => ['status = "exited"'], :order => 'finished_at DESC'
   named_scope :finished, :conditions => ['finished_at IS NOT NULL'], :order => 'finished_at ASC'
   named_scope :finished_before, lambda { |time| { :conditions => ['finished_at < ?', time] } }
 
@@ -21,18 +23,18 @@ class GamePassing < ActiveRecord::Base
     answer.strip!
 
     if correct_answer?(answer)
-    	answered_question = current_level.questions.find_by_answer(answer)
-    	pass_question!(answered_question)
-    	pass_level! if all_questions_answered?
-    	true
-   	else
-    	false
+      answered_question = current_level.find_question_by_answer(answer)
+      pass_question!(answered_question)
+      pass_level! if all_questions_answered? or question_is_gold?
+      true
+    else
+      false
     end
   end
 
   def pass_question!(question)
-		answered_questions << question
-		save!
+    answered_questions << question
+    save!
   end
 
   def pass_level!
@@ -61,7 +63,7 @@ class GamePassing < ActiveRecord::Base
   end
 
   def correct_answer?(answer)
-    unanswered_questions.any? { |question| answer.strip == question.answer }
+    unanswered_questions.any? { |question| question.matches_any_answer(answer) }
   end
 
   def time_at_level
@@ -71,14 +73,39 @@ class GamePassing < ActiveRecord::Base
   end
 
   def unanswered_questions
-		current_level.questions - answered_questions
-	end
-
-  def all_questions_answered?
-    (current_level.questions - self.answered_questions).empty?
+    current_level.questions - answered_questions
   end
 
-protected
+  def all_questions_answered?
+    if current_level.has_gold_question?
+      (current_level.questions - self.answered_questions - [current_level.gold_question]).empty?
+    else
+      (current_level.questions - self.answered_questions).empty?
+    end
+  end
+
+  def question_is_gold?
+    self.answered_questions.last.gold
+  end
+
+  def exit!
+    self.finished_at = Time.now
+    self.status = "exited"
+    self.save!
+  end
+
+  def exited?
+    self.status == "exited"
+  end
+
+  def end!
+    if !self.exited?
+      self.status = "ended"
+      self.save!
+    end
+  end
+
+  protected
 
   def last_level?
     self.current_level.next.nil?
@@ -89,7 +116,7 @@ protected
   end
 
   def set_finish_time
-  	self.finished_at = Time.now
+    self.finished_at = Time.now
   end
 
   def reset_answered_questions
@@ -99,9 +126,9 @@ protected
   # TODO: keep SRP, extract this to a separate helper
   def seconds_fraction_to_time(seconds)
     hours = minutes = 0
-    if seconds >=  60 then
+    if seconds >= 60 then
       minutes = (seconds / 60).to_i
-      seconds = (seconds % 60 ).to_i
+      seconds = (seconds % 60).to_i
 
       if minutes >= 60 then
         hours = (minutes / 60).to_i

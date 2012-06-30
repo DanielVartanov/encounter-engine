@@ -1,0 +1,30 @@
+<h2>
+  Текущее название команды "<strong><%= @team.name %></strong>"
+</h2>
+
+<%= error_messages_for @team, :header => "<h2>Ошибка</h2>" %>
+
+<%= form_for @team, :action => resource(@team) do %>
+  <p><%= text_field :name, :label => "Новое название команды:", :value => "" %></p>
+  <input type="hidden" name="team_old_name" value="<%= @team.name %>">
+  <%= submit "Сохранить изменения" %>
+  <em><%= link_to "(отменить)", resource(@current_user.team) %></em>
+<% end =%>
+
+<br />
+
+<fieldset>
+  <legend>
+    Состав
+  </legend>
+
+  <% @team.members.each do |member| %>
+    <p>
+      <%= member.nickname %> <%= "- капитан" if member.captain? %>
+      <% if @current_user.captain? and not member.captain? %>
+        <em><%= link_to "(удалить игрока)", url("teams/edit/delete_member?member_id=#{member.id}") %></em>
+        <em><%= link_to "(назначить капитаном)", url("teams/edit/captain?member_id=#{member.id}") %></em>
+      <% end %>
+    </p>
+  <% end %>
+</fieldset>

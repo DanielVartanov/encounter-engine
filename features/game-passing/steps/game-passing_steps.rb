@@ -40,7 +40,7 @@ When /команда (.*) вводит правильный код текуще�
   current_level = team.current_level_in(game) || game.levels.first
 
   Given %{я логинюсь как #{team.captain.nickname}}
-  When %{ввожу код "#{current_level.questions.first.answer}" в игре "#{game_name}"}
+  When %{ввожу код "#{current_level.questions.first.answers.first.value}" в игре "#{game_name}"}
   Then %{должен увидеть "#{current_level.next.name}"}
 end
 
@@ -50,7 +50,7 @@ When /команда (.*) вводит правильный код послед�
   current_level = game.levels.last
 
   Given %{я логинюсь как #{team.captain.nickname}}
-  When %{ввожу код "#{current_level.questions.first.answer}" в игре "#{game_name}"}
+  When %{ввожу код "#{current_level.questions.first.answers.first.value}" в игре "#{game_name}"}
   Then %{должен увидеть "Поздравляем"}
 end
 
@@ -58,6 +58,8 @@ When /захожу в игру "([^\"]*)"/ do |game_name|
   game = Game.find_by_name(game_name)
 
   When %{я захожу в личный кабинет}
+
+
 
   within "#game-#{game.id}" do |scope|
     scope.click_link "Играть!"
@@ -87,3 +89,18 @@ Given /в "(.*)" команда "(.*)" на задании "(.*)" игры "(.*)
   And %{ввожу код "#{code}"}
 end
 
+Given /^команда (.*) сошла с дистанции игры "([^"]*)"$/ do |team_name, game_name|
+  team = Team.find_by_name(team_name)
+
+  Given %{я логинюсь как #{team.captain.nickname}}
+  Given %{я захожу в игру "#{game_name}"}
+  Given %{ иду по ссылке "Сойти с дистанции"}
+end
+
+Then /должен увидеть следующюю таблицу:/ do |strings_table|
+  strings_table.diff!(tableish('#results tr', 'td,th'), :missing_col => false)
+end
+
+Given /^я обновляю страницу$/ do
+
+end

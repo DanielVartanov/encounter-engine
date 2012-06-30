@@ -1,36 +1,15 @@
-<fieldset>
+<fieldset id="coming">
   <legend>
-   Предстоящие игры (<%= Game.notstarted.count  %>)
+    Предстоящие игры (<%= Game.notstarted.count  %>)
   </legend>
   <% Game.notstarted.each do |game | %>
     Предстоит игра <b><%= link_to game.name, resource(game) %></b> |
     <% if game.created_by?(current_user) %>
       <b>Вы автор игры</b>
     <% else %>
-      <% if @current_user.captain?
-           @game_entry = GameEntry.all(:conditions => {:team_id => @team.id, :game_id => game.id}).first
-           if @game_entry
-             case @game_entry.status
-               when "new" %> Заявка подана
-               <%= link_to "Отозвать", "/game_entries/recall/#{@game_entry.id}" %>
-              <% when "accepted"%> Вы зарегистрированы
-               <%= link_to "Отказаться", "/game_entries/cancel/#{@game_entry.id}" %>
-              <% when "recalled", "rejected", "canceled", nil %> 
-               <% if game.requested_teams_number < game.max_team_number %>
-                  <%= link_to "Подать заявку на регистрацию заново", "/game_entries/reopen/#{@game_entry.id}" %>
-               <% else %>
-                    Вы не можете зарегистрироваться так как превышено количество участников
-               <% end %>
-             <% end %>
-        <% else %>
-          <% if game.requested_teams_number >= game.max_team_number %>
-            Вы не можете зарегистрироваться так как превышено количество участников
-          <% elsif game.registration_deadline and game.registration_deadline <= Time.now %>
-            Вы не можете зарегистрироваться, так как опоздали на игру
-          <% else %>
-            <%= link_to "Подать заявку на регистрацию", "/game_entries/new/#{game.id}/#{@team.id}" %>
-          <%  end %>
-        <% end %>
+      <% if @current_user.captain? %>
+        <% @game_entry = GameEntry.of(@team,game)%>
+        <%= partial 'shared/game_entry_controls', :game_entry => @game_entry,  :game => game, :team => @team %>
       <% end %>
       <%= link_to "Войти!", resource(game) %>
     <% end %>

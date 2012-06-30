@@ -25,14 +25,38 @@
 <% unless @level.multi_question? %>
   <p>
     <em>Код:</em>
-    <%= @level.correct_answer %>
+    <div id="question-<%= @level.questions.first.id %>">
+      <%= @level.correct_answer %>
+      <%= link_to "(редактировать)", resource(@game, @level, @level.questions.first, :answers) %>
+    </div>
   </p>
 <% else %>
+
+
+  <% if @level.has_gold_question? %>
+    <p><em>Золотой код:</em></p>
+    <div id="question-<%= @level.gold_question.id %>">
+      <p><%= @level.gold_question.correct_answer %></p>
+      <%= link_to "(редактировать)", resource(@game, @level, @level.gold_question, :answers) %>
+      <%= link_to "(удалить)", resource(@game, @level, @level.gold_question, :delete) %>
+      <br /><br />
+    </div>
+  <% end %>
+
   <p>
-    <em>Коды (<%= @level.questions.count %>):</em>
+    <% if @level.has_gold_question? %>
+      <em>Коды (<%= @level.questions.count-1 %>):</em>
+    <% else %>
+      <em>Коды (<%= @level.questions.count %>):</em>
+    <% end %>
   </p>
   <% @level.questions.each do |question| %>
-    <p><%= question.answer %></p>
+    <% unless question.gold? %>
+    <div id="question-<%=  question.id %>">
+      <p><%= question.correct_answer %></p>
+      <%= link_to "(редактировать)", resource(@game, @level, question, :answers) %>
+    </div>
+    <% end %>
   <% end %>
 <% end %>
 

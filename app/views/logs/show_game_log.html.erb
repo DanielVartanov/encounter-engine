@@ -2,9 +2,9 @@
 
 <% @game.levels.each do |level| %>
   <h2><%= level.name %></h2>
-  <strong>Верный код:</strong>&nbsp;<%= level.questions.first.answer %>
+  <strong>Верный код:</strong>&nbsp;<%= level.questions.first.correct_answer %>
   <ul>
-  <% logs = @logs.find_all { |log| log.level == level.name } %>
+  <% logs = Log.of_game(level) %>
   <% logs.each do |log| %>
     <li><%= log.time.strftime("%H:%M:%S") %>&nbsp;<%= log.answer %></li>
   <% end %>

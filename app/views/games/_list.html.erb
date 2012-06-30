@@ -7,6 +7,8 @@
         <em><%= link_to "(статистика)", url(:game_stats, :game_id => game.id) if game.started? %></em>
         <em><%= link_to "(прямой эфир)", "/logs/livechannel/#{game.id}" if game.started? %></em>
         <em><%= link_to "(лог ответов)", "/logs/full/#{game.id}" if game.started? %></em>
+        <b><%= link_to "ЗАВЕРШИТЬ ИГРУ", "/games/end_game/#{game.id}" if (game.started? and !game.author_finished?) %></b>
+        <em><%= "Вы завершили игру" if (game.started? and game.author_finished?) %></em>
     <% end %>
   </p>
 <% end %>

@@ -1,108 +1,5 @@
 <script language="javascript" src="/javascripts/jquery-1.3.2.min.js"></script>
-<script language="javascript">
-var LevelHintUpdater = function() {
-  var
-      countdownValue = 0
-      ,gameId = 0
-      ,intervalId = null;
-
-  var
-      $hintsContainer
-      ,$countdownContainer
-      ,$countdownTimerText
-      ,$loadingIndicator;
-
-  var
-      start = function(initialCountdownValue) {
-        countdownValue = initialCountdownValue;
-
-        updateCountdown();
-        intervalId = setInterval(updateCountdown, 1000);
-
-        setTimeout(stop, countdownValue * 1000 + 1000);
-      }
-
-      ,stop = function() {
-        clearInterval(intervalId);
-        countdownValue = 0;
-
-        loadHint();
-      }
-
-      ,updateCountdown = function() {
-        var minutes = countdownValue / 60
-            ,seconds = 0;
-
-        if ( minutes > 0 && Math.floor(minutes) != minutes ) {
-          minutes = Math.floor(minutes);
-          seconds = countdownValue % 60;
-        } else {
-          seconds = countdownValue;
-        }
-
-        $countdownTimerText.text(minutes + ' мин ' + seconds + ' сек');
-        countdownValue--;
-      }
-
-      ,showCountdownContainer = function() {
-        $countdownContainer.show();
-      }
-
-      ,hideCountdownContainer = function() {
-        $countdownContainer.hide();
-      }
-
-      ,showLoadIndicator = function() {
-        $loadingIndicator.show();
-      }
-
-      ,hideLoadIndicator = function() {
-        $loadingIndicator.hide();
-      }
-
-      ,appendHint = function(hintNum, hintText) {
-        $hintsContainer.append('<fieldset><legend>Подсказка #' + hintNum + '</legend>' + hintText + '</br></fieldset>');
-      }
-
-      ,loadHint = function() {
-        hideCountdownContainer();
-        showLoadIndicator();
-
-        $.ajax({
-          url: '/play/' + gameId + '/tip'
-          ,method: 'GET'
-          ,dataType: 'json'
-          ,success: function(data) {
-            hideLoadIndicator();
-            showCountdownContainer();
-
-            appendHint(data.hint_num, data.hint_text);
-
-            if ( !data.next_available_in ) {
-              $countdownContainer.text('Подсказок больше не будет');
-            } else {
-              start(data.next_available_in);
-            }
-          }
-        });
-      }
-
-  return {
-    setup: function(config) {
-      $(document).ready(function() {
-        $hintsContainer = $('#LevelHintsContainer');
-        $countdownContainer = $('#LevelHintCountdownContainer');
-        $countdownTimerText = $('#LevelHintCountdownTimerText');
-        $loadingIndicator = $('#LevelHintCountdownLoadIndicator');
-
-        gameId = config.gameId;
-        start(config.initialCountdownValue);
-      });
-    }
-  };
-}();
-
-</script>
+<script language="javascript" src="/javascripts/level_hint_updater.js"></script>
 
 <h2>
   Игра "<strong><%= @game.name %></strong>", Задание #<%= @game_passing.current_level.position %>
@@ -128,7 +25,6 @@ var LevelHintUpdater = function() {
       </legend>
       <%= hint.text %>
     </fieldset>
-
     <br />
   <% end %>
 </div>
@@ -145,31 +41,51 @@ var LevelHintUpdater = function() {
   </script>
 <% else %>
   <div>
-  	Подсказок больше не будет
+  Подсказок больше не будет
   </div>
 <% end %>
 
 <br />
 
 <% if answer_posted? %>
-	<% if answer_was_correct? %>
-		<div>
-			Код '<%= @answer %>' -- верный.
-		</div>
-	<% else %>
-		<p>
-		  Код неверный, вы ввели '<%= @answer %>'.
-		</p>
-	<% end %>
+  <% if answer_was_correct? %>
+    <div>
+      Код '<%= @answer %>' -- верный.
+    </div>
+  <% else %>
+    <p>
+      Код неверный, вы ввели '<%= @answer %>'.
+    </p>
+  <% end %>
 <% end %>
 
 <% if @game_passing.current_level.multi_question? %>
-	<div>
-    Правильных кодов введено: <%= @game_passing.answered_questions.size %> из <%= @game_passing.current_level.questions.count %>
-	</div>
+  <div>
+    Правильных кодов введено: <%= @game_passing.answered_questions.size %> из
+    <% if @game_passing.current_level.has_gold_question? %>
+      <%= @game_passing.current_level.questions.count - 1 %>
+    <% else %>
+      <%= @game_passing.current_level.questions.count %>
+    <% end %>
+  </div>
 <% end %>
+
+<p id="entered_codes">
+    Введенные коды:
+<%= @entered_correct_answers.join ', '  %>
+</p>
 
 <%= form :action => url(:post_answer), :method => :post do %>
   <p><%= text_field :name => 'answer', :label => "Код" %></p>
   <%= submit "Отправить!" %>
 <% end =%>
+
+<br/>
+
+<% if current_user.captain? %>
+    <%= link_to "Сойти с дистанции", "/game_passings/exit_game/#{@game_passing.game_id}" %>
+<% end %>
+<% if @game.is_testing? %>
+  <br/>
+  <%= link_to "Завершить тестирование", url("games/finish_test/#{@game.id}") %>
+<% end %>

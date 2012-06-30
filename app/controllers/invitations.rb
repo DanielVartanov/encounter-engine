@@ -8,7 +8,8 @@ class Invitations < Application
   before :ensure_recepient, :only => [:reject, :accept]
 
   def new
-    only_provides :html        
+    only_provides :html
+    @all_users = User.find :all
     render
   end
 
@@ -17,6 +18,7 @@ class Invitations < Application
       send_invitation_notification(@invitation)
       redirect resource(:invitations, :new), :message => "Пользователю #{@invitation.recepient_nickname} выслано приглашение"
     else
+      @all_users = User.find :all
       render :new
     end
   end
@@ -79,7 +81,7 @@ protected
 
   def build_invitation
     @invitation = Invitation.new(params[:invitation])
-    @invitation.to_team = @current_user.team    
+    @invitation.to_team = @current_user.team
   end
 
   def find_invitation    
