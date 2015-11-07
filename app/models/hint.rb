@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Hint < ActiveRecord::Base
   belongs_to :level
 

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Team < ActiveRecord::Base
   has_many :game_entries, :class_name => "GameEntry"
   has_many :members, :class_name => "User"
@@ -27,5 +28,5 @@ protected
     unless captain.nil?
       self.members << captain unless members.include?(captain)
     end
-  end 
+  end
 end

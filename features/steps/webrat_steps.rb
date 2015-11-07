@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Commonly used webrat steps
 # http://github.com/brynary/webrat
 

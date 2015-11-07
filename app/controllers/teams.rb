@@ -1,5 +1,6 @@
+# -*- encoding : utf-8 -*-
 class Teams < Application
-  before :ensure_authenticated  
+  before :ensure_authenticated
   before :ensure_not_member_of_any_team, :only => [:new, :create]
   before :build_team
 
@@ -8,7 +9,7 @@ class Teams < Application
   end
 
   def create
-    
+
     @team.captain = @current_user
     if @team.save
       redirect url(:dashboard)

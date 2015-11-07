@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Before do
   clear_mail_deliveries
   recreate_database

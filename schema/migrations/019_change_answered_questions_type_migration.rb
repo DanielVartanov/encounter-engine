@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeAnsweredQuestionsTypeMigration < ActiveRecord::Migration
   def self.up
     change_column :game_passings, :answered_questions, :text

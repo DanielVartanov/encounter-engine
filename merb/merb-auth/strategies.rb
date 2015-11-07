@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # This file is specifically for you to define your strategies 
 #
 # You should declare you strategies directly and/or use 

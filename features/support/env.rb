@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Sets up the Merb environment for Cucumber (thanks to krzys and roman)
 require "rubygems"
 

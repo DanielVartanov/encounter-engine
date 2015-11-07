@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Given %r{зарегистрирована команда "(.*)" под руководством (.*)}i do |team_name, nickname|
   Given %{я залогинен как #{nickname}}
   When %{я пытаюсь создать команду "#{team_name}"}

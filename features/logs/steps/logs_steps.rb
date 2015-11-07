@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 When /захожу в прямой эфир игры "(.*)"$/ do |game_name|
   game = Game.find_by_name(game_name)
   Then %{иду по ссылке "Все игры домена"}
@@ -9,7 +10,7 @@ end
 Given /захожу в лог ответов команды "(.*)" по игре "(.*)"$/ do |team_name, game_name|
   game_id = Game.find_by_name(game_name).id
   team_id = Team.find_by_name(team_name).id
-  
+
   Given %{захожу по адресу /logs/level/#{game_id}/#{team_id}}
 end
 
@@ -18,7 +19,3 @@ When /смотрю полный лог ответов по игре "(.*)"$/ do 
   And %{должен увидеть "#{game_name}"}
   When %{иду по ссылке "(лог ответов)"}
 end
-
-
-
-

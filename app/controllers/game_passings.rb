@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GamePassings < Application
   include GamePassingsHelper
 
@@ -83,7 +84,7 @@ protected
     @game_passing = GamePassing.of(@team,@game)
 
     if @game_passing.nil?
-      @game_passing = GamePassing.create! :team => @team, 
+      @game_passing = GamePassing.create! :team => @team,
         :game => @game,
         :current_level => @game.levels.first
     end

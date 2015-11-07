@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Invitations < Application
   before :ensure_authenticated
 
@@ -30,12 +31,12 @@ class Invitations < Application
 
     send_accept_notification(@invitation)
 
-    reject_rest_of_invitations    
+    reject_rest_of_invitations
 
     redirect url(:dashboard)
   end
 
-  def reject    
+  def reject
     @invitation.delete
     send_reject_notification(@invitation)
     redirect url(:dashboard)
@@ -71,7 +72,7 @@ protected
     team = @invitation.to_team
     team.members << @current_user
   end
-  
+
   def reject_rest_of_invitations
     Invitation.for(@current_user).each do |invitation|
       invitation.delete
@@ -84,7 +85,7 @@ protected
     @invitation.to_team = @current_user.team
   end
 
-  def find_invitation    
+  def find_invitation
     @invitation = Invitation.find params[:id]
   end
 

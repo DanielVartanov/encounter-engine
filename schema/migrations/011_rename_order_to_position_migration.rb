@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RenameOrderToPositionMigration < ActiveRecord::Migration
   def self.up
     rename_column :levels, :order, :position

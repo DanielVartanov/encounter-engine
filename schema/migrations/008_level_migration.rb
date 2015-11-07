@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class LevelMigration < ActiveRecord::Migration
   def self.up
     create_table :levels do |t|

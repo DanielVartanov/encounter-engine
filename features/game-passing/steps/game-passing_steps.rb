@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Given /команда (.*) находится на уровне "(.*)" игры "(.*)"/ do |team_name, level_name, game_name|
   team = Team.find_by_name(team_name)
   game = Game.find_by_name(game_name)

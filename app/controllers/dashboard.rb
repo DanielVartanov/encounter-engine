@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Dashboard < Application
   before :ensure_authenticated
   before :find_invitations_for_current_user

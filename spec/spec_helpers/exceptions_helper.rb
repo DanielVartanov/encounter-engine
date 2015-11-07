@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module ExceptionsHelper
   def assert_unauthenticated(&block)
     block.should raise_error(Merb::Controller::Unauthenticated)

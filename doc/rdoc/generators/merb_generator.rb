@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 # # We're responsible for generating all the HTML files
 # from the object tree defined in code_objects.rb. We

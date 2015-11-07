@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Levels < Application
   before :find_game
   before :ensure_author

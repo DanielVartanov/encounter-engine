@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ActiveRecordHelper
   class << self
     def recreate_database!

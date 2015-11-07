@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "rubygems"
 
 # Add the local gems dir if found within the app root; any dependencies loaded

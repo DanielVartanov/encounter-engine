@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GameEntries < Application
   before :ensure_authenticated
   before :find_game, :only=>:new

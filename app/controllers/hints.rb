@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Hints < Application  
   before :find_level
   before :find_game

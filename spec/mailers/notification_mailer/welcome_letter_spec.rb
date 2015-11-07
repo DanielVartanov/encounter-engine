@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), "..", "..", "spec_helper")
 
 describe_mail NotificationMailer, :welcome_letter do

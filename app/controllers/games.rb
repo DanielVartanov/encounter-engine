@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Games < Application
   before :ensure_authenticated, :exclude => [:index, :show]
   before :build_game, :only => [:new, :create]

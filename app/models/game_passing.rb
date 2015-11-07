@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GamePassing < ActiveRecord::Base
   serialize :answered_questions
   default_value_for :answered_questions, []

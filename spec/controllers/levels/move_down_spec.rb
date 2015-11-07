@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), '..', '..', 'spec_helper.rb')
 
 describe Levels, "#move_down" do

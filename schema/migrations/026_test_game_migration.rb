@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class TestGameMigration < ActiveRecord::Migration
  def self.up
   add_column :games, :is_testing, :boolean, :null => false, :default => false

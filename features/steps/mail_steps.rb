@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 def deliveries_for(email)
   deliveries = []
   Merb::Mailer.deliveries.each do |delivery|

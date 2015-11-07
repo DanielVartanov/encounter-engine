@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # This file is specifically setup for use with the merb-auth plugin.
 # This file should be used to setup and configure your authentication stack.
 # It is not required and may safely be deleted.

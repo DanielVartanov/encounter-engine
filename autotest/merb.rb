@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Adapted from Autotest::Rails
 require 'autotest'
 

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddOrderToLevelMigration < ActiveRecord::Migration
   def self.up
     add_column :levels, :order, :integer

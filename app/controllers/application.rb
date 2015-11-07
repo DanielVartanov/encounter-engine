@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Application < Merb::Controller
   before :find_user_from_session
 

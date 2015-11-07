@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Given %r(в игре "(.*)" следующие задания:$)i do |game_name, levels_table|
   game = Game.find_by_name(game_name)
   author_name = game.author.nickname

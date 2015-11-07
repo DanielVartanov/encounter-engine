@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class TeamRoom < Application
   before :ensure_authenticated
   before :ensure_team_member

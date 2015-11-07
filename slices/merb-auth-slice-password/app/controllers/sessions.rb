@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MerbAuthSlicePassword::Sessions < MerbAuthSlicePassword::Application
   
   before :_maintain_auth_session_before, :exclude => [:destroy]  # Need to hang onto the redirection during the session.abandon!

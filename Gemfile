@@ -23,9 +23,10 @@ gem "acts-as-list", "0.1.2", :require => 'acts_as_list'
 gem "thin"
 gem "sqlite3-ruby", "1.2.5"
 
+gem 'unicode_utils'
+
 group :development do
-  gem 'ruby-debug'
-  gem "linecache", "=0.43"
+  gem 'debugger'
   gem 'rspec', '1.3.0', :require => 'spec'
 end
 

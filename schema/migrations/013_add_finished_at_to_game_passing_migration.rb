@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddFinishedAtToGamePassingMigration < ActiveRecord::Migration
   def self.up
     add_column :game_passings, :finished_at, :datetime

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module GamePassingsHelper
   def answer_posted?
     ! @answer.nil?

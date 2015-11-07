@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Given /пользователем (.*) создана игра "(.*)"$/ do |user_name, game_name|
   Given %{я зарегистрирован как #{user_name}}
   Given %{#{user_name} создаёт игру "#{game_name}"}

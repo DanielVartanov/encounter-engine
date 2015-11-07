@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module FixturesHelper
   def random_string
     rand(1000000).to_s

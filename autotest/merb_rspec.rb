@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Adapted from Autotest::Rails, RSpec's autotest class, as well as merb-core's.
 require 'autotest'
 

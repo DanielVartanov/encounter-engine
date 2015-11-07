@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Merb.logger.info("Loaded STAGING Environment...")
 Merb::Config.use { |c|
   c[:exception_details] = false

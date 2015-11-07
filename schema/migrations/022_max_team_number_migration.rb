@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MaxTeamNumberMigration < ActiveRecord::Migration
   def self.up
     add_column :games, :max_team_number, :integer

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GameEntryMigration < ActiveRecord::Migration
   def self.up
     create_table :game_entries do |t|

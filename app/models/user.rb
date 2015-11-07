@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
   belongs_to :team
 
@@ -6,7 +7,7 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+.)+[a-z]{2,})\Z/i,
     :message => "Неправильный формат поля e-mail"
 
-  validates_uniqueness_of :email, 
+  validates_uniqueness_of :email,
     :message => "Пользователь с таким адресом уже зарегистрирован"
 
   validates_presence_of :nickname,
@@ -39,7 +40,7 @@ class User < ActiveRecord::Base
     :message => "Слишком короткий пароль (минимум 4 символа)",
     :if => :password_required?
 
-  validates_confirmation_of :password, 
+  validates_confirmation_of :password,
     :message => "Пароль и его подтверждение не совпадают",
     :if => :password_required?
 

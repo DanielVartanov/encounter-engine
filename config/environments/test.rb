@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Merb.logger.info("Loaded TEST Environment...")
 Merb::Config.use { |c|
   c[:testing]           = true

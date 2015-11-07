@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Given %r{разлогиниваюсь$}i do
   Given %{захожу по адресу /logout}
 end

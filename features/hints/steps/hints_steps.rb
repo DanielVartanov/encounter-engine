@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Given %r(на уровне "(.*)" следующие подсказки:$)i do |level_name, hints_table|
   level = Level.find_by_name(level_name)
   author_name = level.game.author.nickname

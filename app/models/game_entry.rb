@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GameEntry < ActiveRecord::Base
   belongs_to :game
   belongs_to :team

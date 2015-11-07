@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Question < ActiveRecord::Base
 	belongs_to :level
   has_many :answers, :dependent => :destroy
