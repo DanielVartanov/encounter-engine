@@ -34,6 +34,6 @@ group :test do
   gem 'cucumber-rails', '0.3.2'
   gem 'launchy'
   gem 'merb_cucumber', '0.6.1'
-  gem 'webrat', '0.7.1'
-  gem 'nokogiri', '1.4.1'
+  gem 'webrat'
+  gem 'nokogiri', '1.5.11'
 end
