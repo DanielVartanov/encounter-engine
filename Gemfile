@@ -1,5 +1,4 @@
-# A sample Gemfile
-source :gemcutter
+source 'https://rubygems.org'
 
 merb_gems_version = "1.1.3"
 
@@ -21,7 +20,7 @@ gem "merb_activerecord"
 gem "activerecord", "2.3.8"
 gem "acts-as-list", "0.1.2", :require => 'acts_as_list'
 
-gem "mongrel"
+gem "thin"
 gem "sqlite3-ruby", "1.2.5"
 
 group :development do
@@ -31,12 +30,10 @@ group :development do
 end
 
 group :test do
-  gem 'gherkin', '2.1.4'
-  gem 'cucumber', '0.8.5'
+  gem 'cucumber', '0.10.6'
   gem 'cucumber-rails', '0.3.2'
   gem 'launchy'
   gem 'merb_cucumber', '0.6.1'
   gem 'webrat', '0.7.1'
   gem 'nokogiri', '1.4.1'
-  gem 'rspec', '1.3.0', :require => 'spec'
 end
