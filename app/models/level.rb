@@ -1,4 +1,6 @@
-# -*- encoding : utf-8 -*-
+# coding: utf-8
+require Merb.root + '/lib/ee_strings'
+
 class Level < ActiveRecord::Base
   acts_as_list :scope => :game
 
@@ -37,7 +39,6 @@ class Level < ActiveRecord::Base
   end
 
   def find_question_by_answer(answer_value)
-    require "lib/ee_strings.rb"
     self.questions.detect do |question|
       question.answers.any? {|answer| answer.value.to_s.upcase_utf8_cyr == answer_value.to_s.upcase_utf8_cyr }
     end

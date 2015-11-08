@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# coding: utf-8
 class Users < Application
   def show
     @user = User.find_by_id(params[:id])
@@ -23,8 +23,6 @@ class Users < Application
       send_welcome_letter_to @user
       redirect url(:dashboard)
     else
-      p @user.errors
-      @user.errors.errors.each { |err| p err }
       render :new
     end
   end

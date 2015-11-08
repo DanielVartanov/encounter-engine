@@ -5,7 +5,7 @@ merb_gems_version = "1.1.3"
 gem "merb-core", merb_gems_version
 #gem "merb-action-args", merb_gems_version
 gem "merb-assets", merb_gems_version
-gem "merb-helpers", merb_gems_version
+gem "merb-helpers", path: '~/src/merb/merb-helpers'
 gem "merb-mailer", merb_gems_version
 gem "merb-slices", merb_gems_version
 gem "merb-param-protection", merb_gems_version
@@ -21,7 +21,8 @@ gem "activerecord", "2.3.8"
 gem "acts-as-list", "0.1.2", :require => 'acts_as_list'
 
 gem "thin"
-gem "sqlite3-ruby", "1.2.5"
+
+gem "sqlite3-ruby"
 
 gem 'unicode_utils'
 
