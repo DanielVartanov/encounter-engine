@@ -3,7 +3,7 @@ class Invitation < ActiveRecord::Base
   belongs_to :to_team, :class_name => "Team"
   belongs_to :for_user, :class_name => "User"
 
-  named_scope :for, lambda { |user| { :conditions => { :for_user_id => user.id } } }
+  scope :for, lambda { |user| { :conditions => { :for_user_id => user.id } } }
 
   attr_accessor :recepient_nickname
 
@@ -21,8 +21,8 @@ class Invitation < ActiveRecord::Base
 
   before_validation :find_user
 
-  named_scope :for_user, lambda { |user| { :conditions => { :for_user_id => user.id } } }
-  named_scope :to_team, lambda { |team| { :conditions => { :to_team_id => team.id } } }
+  scope :for_user, lambda { |user| { :conditions => { :for_user_id => user.id } } }
+  scope :to_team, lambda { |team| { :conditions => { :to_team_id => team.id } } }
 protected
 
   def find_user

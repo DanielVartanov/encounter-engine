@@ -12,7 +12,7 @@ class Answer < ActiveRecord::Base
     :scope => [:level_id],
     :message => "Такой код уже есть в задании"
 
-  named_scope :of_question, lambda {|question| {:conditions => {:question_id => question.id}}}
+  scope :of_question, lambda {|question| {:conditions => {:question_id => question.id}}}
 
 protected
 

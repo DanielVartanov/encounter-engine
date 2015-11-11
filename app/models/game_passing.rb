@@ -6,12 +6,12 @@ class GamePassing < ActiveRecord::Base
   belongs_to :game
   belongs_to :current_level, :class_name => "Level"
 
-  named_scope :of_game, lambda { |game| { :conditions => { :game_id => game.id } } }
-  named_scope :of_team, lambda { |team| { :conditions => { :team_id => team.id } } }
-  named_scope :ended_by_author, :conditions => ['status = "ended"'], :order => 'current_level_id DESC'
-  named_scope :exited, :conditions => ['status = "exited"'], :order => 'finished_at DESC'
-  named_scope :finished, :conditions => ['finished_at IS NOT NULL'], :order => 'finished_at ASC'
-  named_scope :finished_before, lambda { |time| { :conditions => ['finished_at < ?', time] } }
+  scope :of_game, lambda { |game| { :conditions => { :game_id => game.id } } }
+  scope :of_team, lambda { |team| { :conditions => { :team_id => team.id } } }
+  scope :ended_by_author, :conditions => ['status = "ended"'], :order => 'current_level_id DESC'
+  scope :exited, :conditions => ['status = "exited"'], :order => 'finished_at DESC'
+  scope :finished, :conditions => ['finished_at IS NOT NULL'], :order => 'finished_at ASC'
+  scope :finished_before, lambda { |time| { :conditions => ['finished_at < ?', time] } }
 
   before_create :update_current_level_entered_at
 
