@@ -16,18 +16,15 @@ gem "merb-auth-core", merb_auth_gems_version
 gem "merb-auth-more", merb_auth_gems_version
 gem "merb-auth-slice-password", merb_auth_gems_version
 
-gem "merb_activerecord"
-gem "activerecord", "2.3.8"
+gem "merb_activerecord", path: '~/src/merb_activerecord'
+gem "activerecord", "3.2.22"
 gem "acts-as-list", "0.1.2", :require => 'acts_as_list'
-
 gem "thin"
-
-gem "sqlite3-ruby"
-
+gem "sqlite3"
 gem 'unicode_utils'
 
 group :development do
-  gem 'debugger'
+  gem 'pry-byebug'
   gem 'rspec', '1.3.0', :require => 'spec'
 end
 

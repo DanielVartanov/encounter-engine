@@ -1,6 +1,5 @@
 class GamePassing < ActiveRecord::Base
   serialize :answered_questions
-  default_value_for :answered_questions, []
 
   belongs_to :team
   belongs_to :game
@@ -14,6 +13,8 @@ class GamePassing < ActiveRecord::Base
   scope :finished_before, lambda { |time| { :conditions => ['finished_at < ?', time] } }
 
   before_create :update_current_level_entered_at
+
+  before_save { self.answered_questions ||= [] }
 
   def self.of(team, game)
     self.of_team(team).of_game(game).first

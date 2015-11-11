@@ -10,7 +10,7 @@ class Team < ActiveRecord::Base
   validates_presence_of :name,
     :message => "Название команды должно быть непустым"
 
-  before_save :adopt_captain
+  after_save :adopt_captain
 
   def current_level_in(game)
     game_passing = GamePassing.of(self, game)
@@ -22,7 +22,7 @@ class Team < ActiveRecord::Base
     !! game_passing.try(:finished?)
   end
 
-protected
+  protected
 
   def adopt_captain
     unless captain.nil?

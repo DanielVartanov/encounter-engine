@@ -30,6 +30,6 @@ protected
   end
 
   def recepient_is_not_member_of_any_team
-    errors.add_to_base("Пользователь уже является членом одной из команд") if for_user and for_user.member_of_any_team?
+    errors.add(:base, "Пользователь уже является членом одной из команд") if for_user and for_user.member_of_any_team?
   end
 end
