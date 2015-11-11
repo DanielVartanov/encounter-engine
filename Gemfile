@@ -28,7 +28,6 @@ gem 'unicode_utils'
 
 group :development do
   gem 'debugger'
-  gem 'rspec', '1.3.0', :require => 'spec'
 end
 
 group :test do
@@ -38,4 +37,5 @@ group :test do
   gem 'merb_cucumber', '0.6.1'
   gem 'webrat'
   gem 'nokogiri', '1.5.11'
+  gem 'rspec', '~> 2'
 end
