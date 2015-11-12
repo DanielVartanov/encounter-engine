@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.7'
+
 merb_gems_version = "1.1.3"
 
 gem "merb-core", merb_gems_version
