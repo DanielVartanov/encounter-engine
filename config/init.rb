@@ -25,8 +25,5 @@ Merb::BootLoader.after_app_loads do
   Merb::Mailer.delivery_method = :test_send
 end
 
-require 'yaml'
-YAML::ENGINE.yamler = 'syck'
-
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
