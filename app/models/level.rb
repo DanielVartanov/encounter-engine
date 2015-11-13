@@ -5,9 +5,9 @@ class Level < ActiveRecord::Base
   acts_as_list :scope => :game
 
   belongs_to :game
-  has_many :questions, :dependent => :destroy
+  has_many :questions
   has_many :answers
-  has_many :hints, :order => "delay ASC"
+  has_many :hints, -> { order('delay ASC') }
 
   validates_presence_of :name,
     :message => "Вы не ввели название задания"
@@ -17,7 +17,7 @@ class Level < ActiveRecord::Base
 
   validates_presence_of :game
 
-  scope :of_game, lambda { |game| { :conditions => { :game_id => game.id } } }
+  scope :of_game, ->(game) { where(game_id: game) }
 
   def next
     lower_item
@@ -39,7 +39,7 @@ class Level < ActiveRecord::Base
 
   def find_question_by_answer(answer_value)
     self.questions.detect do |question|
-      question.answers.any? {|answer| answer.value.to_s.upcase_utf8_cyr == answer_value.to_s.upcase_utf8_cyr }
+      question.answers.any? { |answer| answer.value.to_s.upcase_utf8_cyr == answer_value.to_s.upcase_utf8_cyr }
     end
   end
 end

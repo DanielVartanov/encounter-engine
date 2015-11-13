@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 Given %r{сейчас "(.*)"} do |fake_datetime|
-  fake_datetime = Time.parse(fake_datetime)
+  fake_datetime = Time.parse("#{fake_datetime} UTC")
   Time.stub!(:now => fake_datetime)
 end
 

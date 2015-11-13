@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Game < ActiveRecord::Base
   belongs_to :author, :class_name => "User"
-  has_many :levels, :order => "position"
-  has_many :logs, :order => "time"
+  has_many :levels, -> {  order('position') }
+  has_many :logs, -> { order('time') }
   has_many :game_entries, :class_name => "GameEntry"
   has_many :game_passings, :class_name => "GamePassing"
 
@@ -26,12 +26,12 @@ class Game < ActiveRecord::Base
   validate :deadline_is_in_future
   validate :deadline_is_before_game_start
 
-  scope :by, lambda {|author|{:conditions =>{:author_id => author.id}}}
-  scope :non_drafts, :conditions => {:is_draft => false}
-  scope :finished, :conditions => ['author_finished_at IS NOT NULL']
+  scope :by, ->(author) { where(author_id: author) }
+  scope :non_drafts, -> { where(is_draft: false) }
+  scope :finished, -> { where.not(author_finished_at: nil) }
 
   def self.started
-    Game.all.select {|game| game.started?}
+    Game.all.select(&:started?)
   end
 
   def draft?

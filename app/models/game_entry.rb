@@ -9,13 +9,14 @@ class GameEntry < ActiveRecord::Base
   validates_presence_of :team_id,
     :message => "Вы не указали команду"
 
-  scope :of_game, lambda { |game| { :conditions => { :game_id => game.id } } }
-  scope :of_team, lambda { |team| { :conditions => { :team_id => team.id } } }
-  scope :with_status, lambda { |status| { :conditions => { :status  => status } } }
+  scope :of_game, ->(game) { where(game_id: game.id) }
+  scope :of_team, ->(team) { where(team_id: team.id) }
+  scope :with_status, ->(status) { where(status: status) }
 
   def self.of(team, game)
     self.of_team(team).of_game(game).first
   end
+
   def reopen!
     self.status = "new"
     save!
@@ -40,5 +41,4 @@ class GameEntry < ActiveRecord::Base
     self.status = "canceled"
     save!
   end
-
 end

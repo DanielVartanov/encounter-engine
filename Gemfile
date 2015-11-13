@@ -2,30 +2,31 @@ source 'https://rubygems.org'
 
 ruby '2.2.3'
 
-merb_gems_version = "1.1.3"
+merb_gems_version = '1.1.3'
 
-gem "merb-core", merb_gems_version
-#gem "merb-action-args", merb_gems_version
-gem "merb-assets", merb_gems_version
-gem "merb-helpers", path: '~/src/merb/merb-helpers'
-gem "merb-mailer", merb_gems_version
-gem "merb-slices", merb_gems_version
-gem "merb-param-protection", merb_gems_version
-gem "merb-exceptions", merb_gems_version
+gem 'merb-core', merb_gems_version
+#gem 'merb-action-args', merb_gems_version
+gem 'merb-assets', merb_gems_version
+gem 'merb-helpers', path: '~/src/merb/merb-helpers'
+gem 'merb-mailer', merb_gems_version
+gem 'merb-slices', merb_gems_version
+gem 'merb-param-protection', merb_gems_version
+gem 'merb-exceptions', merb_gems_version
 
-merb_auth_gems_version = "1.1.0"
-gem "merb-auth-core", merb_auth_gems_version
-gem "merb-auth-more", merb_auth_gems_version
-gem "merb-auth-slice-password", merb_auth_gems_version
+merb_auth_gems_version = '1.1.0'
+gem 'merb-auth-core', merb_auth_gems_version
+gem 'merb-auth-more', merb_auth_gems_version
+gem 'merb-auth-slice-password', merb_auth_gems_version
 
-gem "merb_activerecord", path: '~/src/merb_activerecord'
-gem "activerecord", "3.2.22"
-gem "acts-as-list", "0.1.2", :require => 'acts_as_list'
-gem "thin"
-gem "sqlite3"
+gem 'merb_activerecord', path: '~/src/merb_activerecord'
+gem 'activerecord', '~>4.0.0'
+gem 'acts_as_list'
+gem 'thin'
+gem 'sqlite3'
 gem 'unicode_utils'
 
 group :development do
+  gem 'pry'
   gem 'pry-byebug'
   gem 'rspec', '1.3.0', :require => 'spec'
 end
