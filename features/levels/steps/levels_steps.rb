@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 Given %r(в игре "(.*)" следующие задания:$)i do |game_name, levels_table|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
 
   levels_table.hashes.each do |hash|
@@ -15,7 +15,7 @@ Given /добавляю задание "([^\"]*)" в игру "([^\"]*)"$/ do |l
 end
 
 Given /добавляю задание "([^\"]*)" с кодом "([^\"]*)" в игру "([^\"]*)"$/ do |level_name, code, game_name|
-  Given %{захожу в профиль игры "#{game_name}"}  
+  Given %{захожу в профиль игры "#{game_name}"}
   Given %{иду по ссылке "Добавить новое задание"}
   When %{я ввожу "#{level_name}" в поле "Название"}
   When %{ввожу "#{level_name}" в поле "Текст задания"}
@@ -36,7 +36,7 @@ Given %r{^(.+) добавляет задание "([^\"]*)" с кодом "([^\"
 end
 
 Given /в игру "([^\"]*)" добавлено задание "([^\"]*)" с кодом "([^\"]*)"$/ do |game_name, level_name, code|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
 
   Given %{я логинюсь как #{author_name}}
@@ -44,7 +44,7 @@ Given /в игру "([^\"]*)" добавлено задание "([^\"]*)" с к
 end
 
 Given /^в игру "([^\"]*)" добавлено задание "([^\"]*)" со следующими кодами:$/ do |game_name, level_name, table|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
 
   codes = table.raw.map(&:first)
@@ -71,7 +71,7 @@ Given /^([^\"]*) добавляет код "([^\"]*)" в задание "([^\"]*
 end
 
 Given /^добавляю код "([^\"]*)" в задание "([^\"]*)"$/ do |code, level_name|
-  author = Level.find_by_name(level_name).game.author.nickname
+  author = Level.where(name: level_name).first.game.author.nickname
   Given %{#{author} добавляет код "#{code}" в задание "#{level_name}"}
 end
 
@@ -85,11 +85,11 @@ Given /^пользователем (.*) создана игра "(.*)" со сл
 end
 
 When %r{захожу в профиль задания "(.*)"$}i do |level_name|
-  level = Level.find_by_name(level_name)
+  level = Level.where(name: level_name).first
   Then %{захожу по адресу #{resource(level.game, level)}}
 end
 
 Then /должен быть перенаправлен в профиль задания "(.*)"/ do |level_name|
-  level = Level.find_by_name(level_name)
+  level = Level.where(name: level_name).first
   Then %{должен быть перенаправлен по адресу #{resource(level.game, level)}}
 end

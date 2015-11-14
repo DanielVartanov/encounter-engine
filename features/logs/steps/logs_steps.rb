@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 When /захожу в прямой эфир игры "(.*)"$/ do |game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   Then %{иду по ссылке "Все игры домена"}
   And %{должен увидеть "#{game_name}"}
   And %{должен увидеть "(прямой эфир)"}
@@ -8,8 +8,8 @@ When /захожу в прямой эфир игры "(.*)"$/ do |game_name|
 end
 
 Given /захожу в лог ответов команды "(.*)" по игре "(.*)"$/ do |team_name, game_name|
-  game_id = Game.find_by_name(game_name).id
-  team_id = Team.find_by_name(team_name).id
+  game_id = Game.where(name: game_name).first.id
+  team_id = Team.where(name: team_name).first.id
 
   Given %{захожу по адресу /logs/level/#{game_id}/#{team_id}}
 end

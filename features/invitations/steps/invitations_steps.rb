@@ -8,7 +8,7 @@ When %r{высылаю пользователю (.*) приглашение вс
 end
 
 Then %r{пользователь (.*) должен получить приглашение от команды (.*)}i do |nickname, team_name|
-  user_email = User.find_by_nickname(nickname).email
+  user_email = User.where(nickname: nickname).first.email
 
   Given %{я логинюсь как #{nickname}}
   When %{я захожу в личный кабинет}
@@ -17,7 +17,7 @@ Then %r{пользователь (.*) должен получить пригла
 end
 
 Then %r{пользователь (.*) не должен получить приглашение}i do |nickname|
-  user_email = User.find_by_nickname(nickname).email
+  user_email = User.where(nickname: nickname).first.email
 
   Given %{я логинюсь как #{nickname}}
   When %{я захожу в личный кабинет}
@@ -29,8 +29,8 @@ When %r{как пользователь (.*) принимаю приглашен
   When %{я захожу в личный кабинет}
   Then %{должен увидеть "Вас пригласили в команду #{team_name}"}
 
-  user = User.find_by_nickname(nickname)
-  team = Team.find_by_name(team_name)
+  user = User.where(nickname: nickname).first
+  team = Team.where(name: team_name).first
   invitation = Invitation.for_user(user).to_team(team).first
   When %{я иду по ссылке "accept-invitation-#{invitation.id}"}
   Then %{должен быть перенаправлен в личный кабинет}
@@ -40,9 +40,9 @@ When %r{как пользователь (.*) отказываюсь от при�
   When %{я захожу в личный кабинет}
   Then %{должен увидеть "Вас пригласили в команду #{team_name}"}
 
-  user = User.find_by_nickname(nickname)
-  team = Team.find_by_name(team_name)
-  invitation = Invitation.for_user(user).to_team(team).first  
+  user = User.where(nickname: nickname).first
+  team = Team.where(name: team_name).first
+  invitation = Invitation.for_user(user).to_team(team).first
 
   When %{я иду по ссылке "reject-invitation-#{invitation.id}"}
   Then %{должен быть перенаправлен в личный кабинет}

@@ -27,7 +27,7 @@ class Invitation < ActiveRecord::Base
   protected
 
   def find_user
-    self.for_user = User.find_by_nickname(recepient_nickname)
+    self.for_user = User.where(nickname: recepient_nickname).first
   end
 
   def recepient_is_not_member_of_any_team

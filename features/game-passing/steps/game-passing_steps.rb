@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 Given /команда (.*) находится на уровне "(.*)" игры "(.*)"/ do |team_name, level_name, game_name|
-  team = Team.find_by_name(team_name)
-  game = Game.find_by_name(game_name)
+  team = Team.where(name: team_name).first
+  game = Game.where(name: game_name).first
 
   Given %{я логинюсь как #{team.captain.nickname}}
   Given %{захожу в игру "#{game_name}"}
@@ -9,7 +9,7 @@ Given /команда (.*) находится на уровне "(.*)" игры 
   current_level = team.current_level_in(game)
   current_position = current_level.nil? ? 1 : current_level.position
 
-  target_level = game.levels.find_by_name(level_name)
+  target_level = game.levels.where(name: level_name).first
   target_position = target_level.position
 
   level_count_to_pass = target_position - current_position
@@ -19,7 +19,7 @@ Given /команда (.*) находится на уровне "(.*)" игры 
 end
 
 Given /команда (.*) закончила игру "(.*)"/ do |team_name, game_name|
-  last_level = Game.find_by_name(game_name).levels.last
+  last_level = Game.where(name: game_name).first.levels.last
 
   Given %{команда #{team_name} находится на уровне "#{last_level.name}" игры "#{game_name}"}
   Given %{команда #{team_name} вводит правильный код последнего уровня игры "#{game_name}"}
@@ -36,8 +36,8 @@ When /ввожу код "([^\"]*)" в игре "([^\"]*)"/ do |code, game_name|
 end
 
 When /команда (.*) вводит правильный код текущего уровня игры "(.*)"/ do |team_name, game_name|
-  team = Team.find_by_name(team_name)
-  game = Game.find_by_name(game_name)
+  team = Team.where(name: team_name).first
+  game = Game.where(name: game_name).first
   current_level = team.current_level_in(game) || game.levels.first
 
   Given %{я логинюсь как #{team.captain.nickname}}
@@ -46,8 +46,8 @@ When /команда (.*) вводит правильный код текуще�
 end
 
 When /команда (.*) вводит правильный код последнего уровня игры "(.*)"/ do |team_name, game_name|
-  team = Team.find_by_name(team_name)
-  game = Game.find_by_name(game_name)
+  team = Team.where(name: team_name).first
+  game = Game.where(name: game_name).first
   current_level = game.levels.last
 
   Given %{я логинюсь как #{team.captain.nickname}}
@@ -56,7 +56,7 @@ When /команда (.*) вводит правильный код послед�
 end
 
 When /захожу в игру "([^\"]*)"/ do |game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
 
   When %{я захожу в личный кабинет}
 
@@ -82,7 +82,7 @@ When /захожу в статистику игры "(.*)"$/ do |game_name|
 end
 
 Given /в "(.*)" команда "(.*)" на задании "(.*)" игры "(.*)" ввела код "(.*)"$/ do |datetime, team_name, level_name, game_name, code|
-  team = Team.find_by_name(team_name)
+  team = Team.where(name: team_name).first
 
   Given %{сейчас "#{datetime}"}
   Given %{я логинюсь как #{team.captain.nickname}}
@@ -91,7 +91,7 @@ Given /в "(.*)" команда "(.*)" на задании "(.*)" игры "(.*)
 end
 
 Given /^команда (.*) сошла с дистанции игры "([^"]*)"$/ do |team_name, game_name|
-  team = Team.find_by_name(team_name)
+  team = Team.where(name: team_name).first
 
   Given %{я логинюсь как #{team.captain.nickname}}
   Given %{я захожу в игру "#{game_name}"}

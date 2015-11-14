@@ -10,14 +10,14 @@ Given /^добавляю вариант "([^\"]*)" для кода "([^\"]*)"$/ 
 end
 
 Given /^нажимаю на "([^\"]*)" возле варианта "([^\"]*)"$/ do |button_name, code|
-  answer = Answer.find_by_value(code)
+  answer = Answer.where(value: code).first
   within "#answer-#{answer.id}" do |scope|
     scope.click_link button_name
   end
 end
 
 Given /^захожу на страницу редактирования кода "([^\"]*)"$/ do |code|
-  answer = Answer.find_by_value(code)
+  answer = Answer.where(value: code).first
 
   Given %{я захожу в профиль задания "#{answer.level.name}"}
   within "#question-#{answer.question.id}" do |scope|
@@ -29,7 +29,7 @@ Given /^для уровня "([^\"]*)" есть следующие коды:$/ d
   Given %{я захожу в профиль задания "#{level_name}"}
 
   codes.hashes.each do |hash|
-    code = Answer.find_by_value(hash['Вариант_1'])
+    code = Answer.where(value: hash['Вариант_1']).first
     if code
       Given %{добавляю вариант "#{hash['Вариант_2']}" для кода "#{hash['Вариант_1']}"}
     else
@@ -38,4 +38,3 @@ Given /^для уровня "([^\"]*)" есть следующие коды:$/ d
     end
   end
 end
-

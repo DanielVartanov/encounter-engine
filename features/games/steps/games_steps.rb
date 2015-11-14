@@ -47,18 +47,18 @@ Given %r{(.*) назначает крайний срок регистрации 
 end
 
 Given /начало игры "(.*)" назначено на "(.*)"/ do |game_name, datetime|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
   Given %{#{author_name} назначает начало игры "#{game_name}" на "#{datetime}"}
 end
 Given /крайний срок регистрации игры "(.*)" назначено на "(.*)"/ do |game_name, datetime|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
   Given %{#{author_name} назначает крайний срок регистрации на игру "#{game_name}" на "#{datetime}"}
 end
 
 When %r{захожу в профиль игры "(.*)"$}i do |game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   Then %{захожу по адресу #{resource(game)}}
 end
 
@@ -68,12 +68,12 @@ When /захожу в список игр$/ do
 end
 
 Then %r{должен быть перенаправлен в профиль игры "(.*)"$}i do |game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   Then %{должен быть перенаправлен по адресу #{resource(game)}}
 end
 
 Given /^(.*) добавил задание "([^\"]*)" в игру "([^\"]*)"$/ do |author_name, level_name, game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   Given %{я логинюсь как #{author_name}}
   Given %{добавляю задание "#{level_name}" в игру "#{game_name}"}
 end
@@ -83,7 +83,7 @@ Given /^в игре "([^\"]*)" нет заданий$/ do |game_name|
 end
 
 Given /^игра "([^\"]*)" не черновик$/ do |game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
   Given %{я логинюсь как #{author_name}}
   When %{захожу в профиль игры "#{game_name}"}
@@ -94,7 +94,7 @@ Given /^игра "([^\"]*)" не черновик$/ do |game_name|
 end
 
 Given /^игра "([^\"]*)" черновик$/ do |game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
   Given %{я логинюсь как #{author_name}}
   Given %{захожу в профиль игры "#{game_name}"}
@@ -121,14 +121,14 @@ Given /^я залогинён как "([^\"]*)"$/ do |user_name|
 end
 
 Given /^игра "([^\"]*)" не начата$/ do |game_name|
-  game=Game.find_by_name(game_name)
+  game=Game.where(name: game_name).first
   game.starts_at=Time.now+3.days
   game.registration_deadline = Time.now+2.days
   game.save
 end
 
 Given /^игра "([^\"]*)" уже начата$/ do |game_name|
-  game=Game.find_by_name(game_name)
+  game=Game.where(name: game_name).first
   Given %{сейчас "#{game.starts_at+1.hour}"}
 
 end
@@ -156,7 +156,7 @@ When /^нажимаю на "([^\"]*)"$/ do |link|
 end
 
 Given /^капитан "([^\"]*)" зарегистрировал свою команду на участие в игре "([^\"]*)"$/ do |team_leader, game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
   Given %{капитан #{team_leader} подал заявку на участие в игре}
   Given %{я разлогиниваюсь}
@@ -167,7 +167,7 @@ Given /^капитан "([^\"]*)" зарегистрировал свою ком
 end
 
 Given /^капитан "([^\"]*)" не зарегистрировал свою команду на участие в игре "([^\"]*)"$/ do |team_leader, game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
   Given %{капитан #{team_leader} подал заявку на участие в игре}
   Given %{я разлогиниваюсь}
@@ -198,7 +198,7 @@ Given /^команда ([^\s]+) подала заявку на участие в
 end
 
 Given /^есть задание "([^\"]*)" в игре "([^\"]*)"$/ do |level_name, game_name|
-  game = Game.find_by_name(game_name)
+  game = Game.where(name: game_name).first
   author_name = game.author.nickname
   Given %{#{author_name} добавляет задание "#{level_name}" в игру "#{game_name}"}
 end
@@ -221,7 +221,7 @@ Given /^я залогинился как автор игры "(.*)"$/ do |game_n
 end
 
 Given /^команда "([^\"]*)" отозвала заявку на участие в игре$/ do |team_name|
-  team = Team.find_by_name(team_name)
+  team = Team.where(name: team_name).first
   captain_name = team.captain.nickname
   Given %{я логинюсь как #{captain_name}}
   Given %{захожу в личный кабинет}
@@ -241,7 +241,7 @@ Given /([^\s]+) создал игру "([^\"]*)" с началом в "([^\"]*)"
 end
 
 Given /^команда "([^\"]*)" отменила регистрацию в игре$/ do |team_name|
-  team = Team.find_by_name(team_name)
+  team = Team.where(name: team_name).first
   captain_name = team.captain.nickname
   Given %{я логинюсь как #{captain_name}}
   Given %{захожу в личный кабинет}
@@ -321,7 +321,7 @@ end
 
 
 When %r{залогинился как "([^"]+)" с паролем "([^"]+)"$} do |nickname, password|
-  email = User.find_by_nickname(nickname).email
+  email = User.where(nickname: nickname).first.email
 
   When %{я захожу по адресу /login}
   When %{ввожу "#{email}" в поле "Email"}
@@ -344,7 +344,7 @@ When /^пароль пользователя "([^"]*)" равен "([^"]*)"$/ do
 end
 
 When /^команда "([^\"]*)" завершает игру "([^\"]*)"$/ do |team_name, game_name|
-  last_level = Game.find_by_name(game_name).levels.last
+  last_level = Game.where(name: game_name).first.levels.last
 
 
 
@@ -353,8 +353,8 @@ When /^команда "([^\"]*)" завершает игру "([^\"]*)"$/ do |te
 end
 
 When /команда (.*) вводит правильные коды последнего уровня игры "(.*)"/ do |team_name, game_name|
-  team = Team.find_by_name(team_name)
-  game = Game.find_by_name(game_name)
+  team = Team.where(name: team_name).first
+  game = Game.where(name: game_name).first
   current_level = game.levels.last
 
   Given %{я логинюсь как #{team.captain.nickname}}

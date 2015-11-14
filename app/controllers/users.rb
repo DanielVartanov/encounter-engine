@@ -1,8 +1,7 @@
 # coding: utf-8
 class Users < Application
   def show
-    @user = User.find_by_id(params[:id])
-    raise NotFound unless @user
+    @user = User.find(params[:id])
     display @user
   end
 

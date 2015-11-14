@@ -15,7 +15,7 @@ When %r{пытаюсь создать команду "(.*)"}i do |team_name|
 end
 
 Given %r{пользователь (.*) состоит в команде "(.*)"}i do |nickname, team_name|
-  captain_nickname = Team.find_by_name(team_name).captain.nickname
+  captain_nickname = Team.where(name: team_name).first.captain.nickname
 
   Given %{зарегистрирован пользователь #{nickname}}
   Given %{я логинюсь как #{captain_nickname}}

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 Given %r(на уровне "(.*)" следующие подсказки:$)i do |level_name, hints_table|
-  level = Level.find_by_name(level_name)
+  level = Level.where(name: level_name).first
   author_name = level.game.author.nickname
 
   hints_table.hashes.each do |hash|
@@ -11,7 +11,7 @@ Given %r(на уровне "(.*)" следующие подсказки:$)i do |
 end
 
 Given %r((.*) добавила? подсказку "(.*)" через (\d+) минут на уровне "(.*)")i do |author_name, hint_text, hint_delay, level_name|
-  Given %{я логинюсь как #{author_name}}  
+  Given %{я логинюсь как #{author_name}}
   Given %{захожу в профиль задания "#{level_name}"}
   When %{я иду по ссылке "Добавить подсказку"}
   When %{ввожу "#{hint_text}" в поле "Текст"}
