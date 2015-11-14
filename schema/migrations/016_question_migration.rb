@@ -5,7 +5,7 @@ class QuestionMigration < ActiveRecord::Migration
     	t.string :questions
       t.string :answer
       t.integer :level_id
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

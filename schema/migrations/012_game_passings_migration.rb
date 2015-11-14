@@ -5,7 +5,7 @@ class GamePassingsMigration < ActiveRecord::Migration
       t.integer :game_id
       t.integer :team_id
       t.integer :current_level_id
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

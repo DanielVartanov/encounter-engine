@@ -4,7 +4,7 @@ class TeamMigration < ActiveRecord::Migration
     create_table :teams do |t|
       t.string :name
       t.integer :captain_id
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_column :users, :team_id, :integer

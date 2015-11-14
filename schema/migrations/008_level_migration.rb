@@ -5,7 +5,7 @@ class LevelMigration < ActiveRecord::Migration
       t.text :text
       t.string :correct_answers
       t.integer :game_id
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

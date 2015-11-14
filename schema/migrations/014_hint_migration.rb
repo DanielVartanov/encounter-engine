@@ -5,7 +5,7 @@ class HintMigration < ActiveRecord::Migration
       t.integer :level_id
       t.string :text
       t.integer :delay
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

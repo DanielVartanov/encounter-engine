@@ -5,7 +5,7 @@ class GameMigration < ActiveRecord::Migration
       t.string :name
       t.string :description
       t.integer :author_id
-      t.timestamps
+      t.timestamps null: false
     end
   end
 

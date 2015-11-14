@@ -6,7 +6,7 @@ class UserMigration < ActiveRecord::Migration
       t.string :name
       t.string :crypted_password
       t.string :salt
-      t.timestamps
+      t.timestamps null: false
     end
   end
 
