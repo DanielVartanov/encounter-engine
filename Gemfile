@@ -18,7 +18,7 @@ gem 'merb-auth-more', path: '~/src/merb-auth/merb-auth-more'
 gem 'merb-auth-slice-password', path: '~/src/merb-auth/merb-auth-slice-password'
 
 gem 'merb_activerecord', path: '~/src/merb_activerecord'
-gem 'activerecord', '~> 4.1.0'
+gem 'activerecord'
 gem 'acts_as_list'
 gem 'thin'
 gem 'sqlite3'
