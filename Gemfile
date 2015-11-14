@@ -13,13 +13,12 @@ gem 'merb-slices', merb_gems_version
 gem 'merb-param-protection', merb_gems_version
 gem 'merb-exceptions', merb_gems_version
 
-merb_auth_gems_version = '1.1.0'
-gem 'merb-auth-core', merb_auth_gems_version
-gem 'merb-auth-more', merb_auth_gems_version
-gem 'merb-auth-slice-password', merb_auth_gems_version
+gem 'merb-auth-core', path: '~/src/merb-auth/merb-auth-core'
+gem 'merb-auth-more', path: '~/src/merb-auth/merb-auth-more'
+gem 'merb-auth-slice-password', path: '~/src/merb-auth/merb-auth-slice-password'
 
 gem 'merb_activerecord', path: '~/src/merb_activerecord'
-gem 'activerecord', '~>4.0.0'
+gem 'activerecord', '~> 4.1.0'
 gem 'acts_as_list'
 gem 'thin'
 gem 'sqlite3'

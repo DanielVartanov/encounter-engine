@@ -31,7 +31,7 @@ Given %r{(.*) назначает начало игры "(.*)" на "(.*)"} do |u
   When %{иду по ссылке "Редактировать эту игру"}
   When %{ввожу "#{datetime}" в поле "Начало игры"}
   When %{нажимаю "Сохранить"}
-  Then %{должен быть перенаправлен в профиль игры "#{game_name}"}  
+  Then %{должен быть перенаправлен в профиль игры "#{game_name}"}
   Then %{должен увидеть "#{datetime}"}
   Given %{я разлогиниваюсь}
 end
@@ -57,8 +57,8 @@ Given /крайний срок регистрации игры "(.*)" назна
   Given %{#{author_name} назначает крайний срок регистрации на игру "#{game_name}" на "#{datetime}"}
 end
 
-When %r{захожу в профиль игры "(.*)"$}i do |game_name|  
-  game = Game.find_by_name(game_name)  
+When %r{захожу в профиль игры "(.*)"$}i do |game_name|
+  game = Game.find_by_name(game_name)
   Then %{захожу по адресу #{resource(game)}}
 end
 
@@ -130,7 +130,7 @@ end
 Given /^игра "([^\"]*)" уже начата$/ do |game_name|
   game=Game.find_by_name(game_name)
   Given %{сейчас "#{game.starts_at+1.hour}"}
-  
+
 end
 
 When /^я нахожусь на странице "([^\"]*)"$/ do |page|
@@ -148,7 +148,7 @@ Given /^должен видеть ссылку "([^\"]*)"$/ do |link|
 end
 
 Given /^страница перегружается$/ do
-  
+
 end
 
 When /^нажимаю на "([^\"]*)"$/ do |link|
@@ -215,8 +215,8 @@ Given /^(.*) подтвердил участие команды "(.*)" в игр
 end
 
 Given /^я залогинился как автор игры "(.*)"$/ do |game_name|
-  game=Game.find_by_name(game_name)
-  author=User.find :first, :conditions=>{:id=>game.author_id}
+  game = Game.where(name: game_name).first
+  author = User.find(game.author_id)
   Given %{я логинюсь как #{author.nickname}}
 end
 

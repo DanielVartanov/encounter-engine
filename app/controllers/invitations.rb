@@ -10,7 +10,7 @@ class Invitations < Application
 
   def new
     only_provides :html
-    @all_users = User.find :all
+    @all_users = User.all
     render
   end
 
@@ -19,7 +19,7 @@ class Invitations < Application
       send_invitation_notification(@invitation)
       redirect resource(:invitations, :new), :message => "Пользователю #{@invitation.recepient_nickname} выслано приглашение"
     else
-      @all_users = User.find :all
+      @all_users = User.all
       render :new
     end
   end
