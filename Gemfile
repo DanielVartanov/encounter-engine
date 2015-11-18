@@ -3,22 +3,20 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 merb_gems_version = '1.1.3'
-
-gem 'merb-core', merb_gems_version
-#gem 'merb-action-args', merb_gems_version
+gem 'merb-core', path: 'vendor/merb/merb-core'
+gem 'merb-helpers', path: 'vendor/merb/merb-helpers'
+gem 'merb-slices', path: 'vendor/merb/merb-slices'
 gem 'merb-assets', merb_gems_version
-gem 'merb-helpers', path: '~/src/merb/merb-helpers'
 gem 'merb-mailer', merb_gems_version
-gem 'merb-slices', merb_gems_version
 gem 'merb-param-protection', merb_gems_version
 gem 'merb-exceptions', merb_gems_version
 
-gem 'merb-auth-core', path: '~/src/merb-auth/merb-auth-core'
-gem 'merb-auth-more', path: '~/src/merb-auth/merb-auth-more'
-gem 'merb-auth-slice-password', path: '~/src/merb-auth/merb-auth-slice-password'
+gem 'merb-auth-core', path: 'vendor/merb-auth/merb-auth-core'
+gem 'merb-auth-more', path: 'vendor/merb-auth/merb-auth-more'
+gem 'merb-auth-slice-password', path: 'vendor/merb-auth/merb-auth-slice-password'
 
-gem 'merb_activerecord', path: '~/src/merb_activerecord'
-gem 'activerecord'
+gem 'merb_activerecord', git: 'https://github.com/DanielVartanov/merb_activerecord.git', branch: 'modernize'
+gem 'activerecord', '~> 4.2.5'
 gem 'acts_as_list'
 gem 'thin'
 gem 'sqlite3'
