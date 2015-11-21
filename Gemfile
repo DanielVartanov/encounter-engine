@@ -19,10 +19,10 @@ gem 'merb_activerecord', git: 'https://github.com/DanielVartanov/merb_activereco
 gem 'activerecord', '~> 4.2.5'
 gem 'acts_as_list'
 gem 'thin'
-gem 'sqlite3'
 gem 'unicode_utils'
 
 group :development do
+  gem 'sqlite3'
   gem 'pry'
   gem 'pry-byebug'
   gem 'rspec', '1.3.0', :require => 'spec'
@@ -35,4 +35,8 @@ group :test do
   gem 'merb_cucumber', '0.6.1'
   gem 'webrat'
   gem 'nokogiri', '1.5.11'
+end
+
+group :production do
+  gem 'pg'
 end
