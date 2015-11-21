@@ -10,8 +10,7 @@
   :encoding: utf8
 
 :production:
-  <<: *defaults
-  :database: db/production.sqlite
+  :url: <%= ENV['DATABASE_URL'] %>
 
 :rake:
   <<: *defaults
