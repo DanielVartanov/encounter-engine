@@ -21,11 +21,12 @@ gem 'acts_as_list'
 gem 'thin'
 gem 'unicode_utils'
 
+gem 'rspec', '1.3.0', :require => 'spec'
+
 group :development do
   gem 'sqlite3'
   gem 'pry'
   gem 'pry-byebug'
-  gem 'rspec', '1.3.0', :require => 'spec'
 end
 
 group :test do
