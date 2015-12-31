@@ -1,0 +1,12 @@
+merb_activerecord, make it do ActiveRecord::Base.establish_connection(:production)
+or
+
+ActiveRecord::Base.establish_connection(
+  "adapter"  => "sqlite3",
+  "database" => "path/to/dbfile"
+)
+Or a URL:
+
+ActiveRecord::Base.establish_connection(
+  "postgres://myuser:mypass@localhost/somedatabase"
+)
