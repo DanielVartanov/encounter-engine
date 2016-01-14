@@ -9,11 +9,7 @@
   :database: ":memory:"
   :encoding: utf8
 
-:production:
-  :adapter: postgresql
-  :encoding: unicode
-  :pool: 5
-  :url: <%= ENV['DATABASE_URL'] %>
+:production: <%= ENV['DATABASE_URL'] %>
 
 :rake:
   <<: *defaults
