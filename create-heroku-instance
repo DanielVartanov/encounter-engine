@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# TZ database: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+set -e
+set -x
+
+heroku apps:create $1 --region eu --remote $1
+heroku config:set MERB_ENV=production RACK_ENV=production TZ="$2" -r $1
+git push $1 master
+heroku run rake db:migrate -r $1
+heroku restart -r $1
+heroku open -r $1
