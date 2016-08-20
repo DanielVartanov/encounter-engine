@@ -35,7 +35,7 @@ group :test do
   gem 'launchy'
   gem 'merb_cucumber', '0.6.1'
   gem 'webrat'
-  gem 'nokogiri', '1.5.11'
+  gem 'nokogiri'
 end
 
 group :production do
