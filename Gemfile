@@ -21,10 +21,12 @@ gem 'acts_as_list'
 gem 'thin'
 gem 'unicode_utils'
 
+gem 'rake', '<12.0' # Remove constraint after upgrading to altest RSpec
+
 gem 'rspec', '1.3.0', :require => 'spec'
 
 group :development do
-  gem 'sqlite3'
+  gem 'sqlite3', '<1.4' # Remove constraint after upgrading to latest Rails
   gem 'pry'
   gem 'pry-byebug'
 end
