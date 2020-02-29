@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.4'
+ruby '2.4.0'
 
 merb_gems_version = '1.1.3'
 gem 'merb-core', path: 'vendor/merb/merb-core'
@@ -23,7 +23,7 @@ gem 'unicode_utils'
 
 gem 'rake', '<12.0' # Remove constraint after upgrading to altest RSpec
 
-gem 'rspec', '1.3.0', :require => 'spec'
+gem 'rspec', '1.3.0', :require => 'spec'  # Read upgrade docs, maybe?
 
 group :development do
   gem 'sqlite3', '<1.4' # Remove constraint after upgrading to latest Rails
