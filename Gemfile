@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.7'
+ruby '2.6.5'
 
 merb_gems_version = '1.1.3'
 gem 'merb-core', path: 'vendor/merb/merb-core'
