@@ -65,8 +65,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_list (0.9.19)
-      activerecord (>= 3.0)
+    acts_as_list (1.0.1)
+      activerecord (>= 4.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     arel (6.0.4)
@@ -192,7 +192,7 @@ DEPENDENCIES
   webrat
 
 RUBY VERSION
-   ruby 2.4.0p0
+   ruby 2.5.7p206
 
 BUNDLED WITH
    2.1.4
