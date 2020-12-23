@@ -21,7 +21,7 @@ gem 'acts_as_list'
 gem 'thin'
 gem 'unicode_utils'
 
-gem 'rake', '<12.0' # Remove this constraint after upgrading to the latest RSpec
+gem 'rake', '~> 12.3.3' # Remove this constraint after upgrading to the latest RSpec
 
 gem 'rspec', '1.3.0', :require => 'spec'  # Read upgrade docs, maybe?
 
