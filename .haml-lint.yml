@@ -1,0 +1,6 @@
+exclude:
+  - 'vendor/bundle/**/*'
+
+linters:
+  LineLength:
+    enabled: false

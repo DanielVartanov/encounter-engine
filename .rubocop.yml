@@ -1,0 +1,50 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'lib/tasks/**/*'
+    - 'vendor/bundle/**/*'
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+
+Lint/Debugger:
+  DebuggerMethods:
+    RubyJard:
+      - jard
+
+Metrics:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+
+# RSpec
+
+RSpec/FactoryBot/CreateList:
+  Enabled: false
+
+RSpec/LeadingSubject:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false

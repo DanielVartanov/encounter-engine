@@ -1,0 +1,105 @@
+name: Test and lint
+
+on: [push]
+
+jobs:
+  test-rspec:
+    name: rspec
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: bundle install
+        run: bundle install
+
+      - name: Configure database
+        run: cp config/database.ci.yml config/database.yml
+
+      - run: bundle exec rails parallel:setup
+      - run: bundle exec parallel_rspec
+
+  test-cucumber:
+    name: cucumber
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: bundle install
+        run: bundle install
+
+      - name: Configure database
+        run: cp config/database.ci.yml config/database.yml
+
+      - run: yarn
+      - run: bundle exec rails parallel:setup
+      - run: bundle exec parallel_cucumber
+
+  rubocop:
+    name: rubocop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: bundle install
+        run: bundle install
+
+      - run: bundle exec rubocop
+
+  haml-lint:
+    name: haml-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: bundle install
+        run: bundle install
+
+      - run: bundle exec haml-lint
