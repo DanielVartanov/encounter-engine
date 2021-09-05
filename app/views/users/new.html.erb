@@ -1,9 +1,0 @@
-<%= error_messages_for @user, :header => "<h2>Ошибка</h2>" %>
-
-<%= form_for @user, :action => url(:users) do %>
-  <p><%= text_field :nickname, :label => "Имя" %></p>
-  <p><%= text_field :email, :label => "Email" %></p>
-  <p><%= password_field :password, :label => "Пароль" %></p>
-  <p><%= password_field :password_confirmation, :label => "Подтверждение" %></p>
-  <%= submit "Зарегистрироваться" %>
-<% end =%>

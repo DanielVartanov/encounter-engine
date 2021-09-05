@@ -1,4 +1,0 @@
-language: ruby
-
-script:
-  - bundle exec cucumber

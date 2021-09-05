@@ -1,6 +1,0 @@
-[submodule "vendor/merb"]
-	path = vendor/merb
-	url = https://github.com/DanielVartanov/merb.git
-[submodule "vendor/merb-auth"]
-	path = vendor/merb-auth
-	url = https://github.com/DanielVartanov/merb-auth.git
