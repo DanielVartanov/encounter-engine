@@ -1,5 +1,6 @@
 class Play < ApplicationRecord
   belongs_to :game
+  belongs_to :team
   belongs_to :current_level, class_name: 'Level'
 
   has_many :answer_attempts

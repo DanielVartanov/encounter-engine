@@ -1,6 +1,6 @@
 class PlaysController < ApplicationController
   def play
-    @play = game.plays.first || game.plays.create!
+    @play = game.plays.where(team: current_team).first_or_create!
   end
 
   private

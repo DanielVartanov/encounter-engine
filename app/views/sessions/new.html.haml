@@ -1,0 +1,3 @@
+= bootstrap_form_tag url: sessions_path do |form|
+  = form.collection_select :team_id, Team.all, :id, :name, { label: 'Team' }, control_class: 'form-select form-select-sm'
+  = form.primary 'Sign in'

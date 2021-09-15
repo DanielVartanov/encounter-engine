@@ -28,11 +28,11 @@ When 'I click {string}' do |clickable|
   click_on clickable
 end
 
-When 'I open another browser window' do
+When 'я открываю другое окно' do
   Capybara.session_name = 'another browser window'
 end
 
-When 'I close another browser window' do
+When 'я закрываю другое окно' do
   Capybara.session_name = :default
 end
 

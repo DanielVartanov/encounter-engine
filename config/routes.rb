@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :play, only: [] do
     resources :answer_attempts, only: [:create]
   end
+
+  resources :sessions, only: [:new, :create]
 end

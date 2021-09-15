@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :play do
-    game
+    game { create :game, :with_levels }
+    team
   end
 end
