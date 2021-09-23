@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
 
   def create
     session[:team_id] = params.require(:team_id)
-    render plain: "You are logged in as #{current_team.name}"
+    authenticate
+    redirect_to new_session_path
   end
 end

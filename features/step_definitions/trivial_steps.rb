@@ -2,7 +2,7 @@
 
 module KnownPages
   KNOWN_PAGES = {
-    'SomePage' => -> { some_page_path },
+    'Вход' => -> { new_session_path },
   }.freeze
 
   def visit_known_page(page_name)
@@ -16,7 +16,7 @@ Given 'I am on the {string} page' do |page|
   visit_known_page page
 end
 
-When 'I go to the {string} page' do |page|
+Если '(я )захожу на страницу {string}' do |page|
   visit_known_page page
 end
 
@@ -24,22 +24,26 @@ When 'I fill in {string} with {string}' do |input_field, value|
   fill_in input_field, with: value
 end
 
-When 'I click {string}' do |clickable|
+Если '(я )выбираю {string} из списка {string}' do |element, list_name|
+  select element, from: list_name
+end
+
+Если '(я )нажимаю {string}' do |clickable|
   click_on clickable
 end
 
-When 'я открываю другое окно' do
+Если '(я )открываю другое окно' do
   Capybara.session_name = 'another browser window'
 end
 
-When 'я закрываю другое окно' do
+Если '(я )закрываю другое окно' do
   Capybara.session_name = :default
 end
 
-Then 'I should see {string}' do |text|
+То '(я )должен видеть {string}' do |text|
   expect(page).to have_content text
 end
 
-Then 'I should NOT see {string}' do |text|
+То '(я )не должен видеть {string}' do |text|
   expect(page).to have_no_content text
 end

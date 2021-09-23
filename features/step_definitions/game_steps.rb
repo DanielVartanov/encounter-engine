@@ -22,15 +22,6 @@ def level_by_name(level_name)
   the_game.levels.find_by name: level_name
 end
 
-def sign_in(as:)
-  visit '/sessions/new'
-  select as.name, from: 'Team'
-  click_on 'Sign in'
-  sleep 0.1 # That's because for some reason I don't want to dig too
-  # deep on, the form does not wait until server does its job setting
-  # a session, therefore we wait. This form is temporary anyway.
-end
-
 def create_game_with_levels(levels_table)
   @the_game = create(:game).tap do |game|
     if levels_table.column_names == ['название', 'правильный ответ']

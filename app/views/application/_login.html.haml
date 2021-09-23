@@ -1,0 +1,7 @@
+.py-2
+  .d-flex.justify-content-end
+    .p-2
+      - if signed_in?
+        = "Вы вошли как #{current_team.name}"
+      - else
+        Вы не залогинены
