@@ -1,3 +1,8 @@
+def current_team
+  current_team_name = page.text.match(/Вы вошли как (.*)/)[1]
+  Team.find_by name: current_team_name
+end
+
 def sign_in(as:)
   visit '/sessions/new'
   select as.name, from: 'Выберите команду'

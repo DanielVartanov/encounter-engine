@@ -4,16 +4,16 @@ Then 'I wait' do
   sleep 5
 end
 
-Then 'I wait for {int} seconds' do |seconds|
+Если '(я )жду {int} секунд(у)' do |seconds|
   sleep seconds
 end
 
-Then 'I run debugger' do
+То '(я )запускаю отладчик' do
   sleep 0.5
   jard # rubocop:disable Lint/Debugger
 end
 
-Then 'I pause until further notice' do
+Then '(я )останавливаюсь до особого распоряжения' do
   ask 'Press ENTER to continue...'
 end
 
