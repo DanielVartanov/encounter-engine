@@ -2,20 +2,12 @@ def the_game
   @the_game
 end
 
-def the_play
-  @the_play ||= the_game.plays.find_by team: the_team
-end
-
-def another_play
-  @another_play ||= the_game.plays.find_by team: another_team
-end
-
 def current_game
   the_game # until we have a scenario with another game
 end
 
 def current_play
-  current_game.plays.find_by team: current_team
+  current_game.plays.find_by! team: current_team
 end
 
 def current_level
@@ -23,7 +15,7 @@ def current_level
 end
 
 def level_by_name(level_name)
-  the_game.levels.find_by name: level_name
+  the_game.levels.find_by! name: level_name
 end
 
 def create_game_with_levels(levels_table)
@@ -59,12 +51,20 @@ end
   create_game_with_levels_and_answers(levels_and_answers_table)
 end
 
-Допустим('моя команда сейчас на уровне {string}') do |level_name|
-  the_play.update_attribute :current_level, level_by_name(level_name)
+Допустим('я член (другой )играющей команды') do
+  member = create :user, team: create(:team)
+  sign_in as: member
+  visit game_play_path(the_game)
 end
 
-Допустим('другая команда сейчас на уровне {string}') do |level_name|
-  another_play.update_attribute :current_level, level_by_name(level_name)
+Допустим('я другой член играющей команды') do
+  the_team = the_game.plays.first!.team
+  another_member = create :user, team: the_team
+  sign_in as: another_member
+end
+
+Допустим('моя команда сейчас на уровне {string}') do |level_name|
+  current_play.update_attribute :current_level, level_by_name(level_name)
 end
 
 Допустим('игра началась') do
@@ -84,7 +84,7 @@ end
 end
 
 Если('я прохожу игру до уровня {string}') do |target_level_name|
-  target_level = current_game.levels.find_by name: target_level_name
+  target_level = current_game.levels.find_by! name: target_level_name
 
   submit_correct_answer until current_level == target_level
 end
