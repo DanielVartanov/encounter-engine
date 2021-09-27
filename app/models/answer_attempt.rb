@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnswerAttempt < ApplicationRecord
   belongs_to :play
   belongs_to :level

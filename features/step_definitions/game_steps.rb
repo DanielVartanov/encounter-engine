@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def the_game
   @the_game
 end

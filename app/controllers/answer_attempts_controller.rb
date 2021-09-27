@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnswerAttemptsController < ApplicationController
   def create
     answer_attempt = play

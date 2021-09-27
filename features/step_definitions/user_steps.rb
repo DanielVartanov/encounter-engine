@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Допустим('есть игрок {string}') do |user_name|
   create :user, name: user_name
 end
