@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def current_user
-    @current_user
+    @current_user # rubocop:disable Rails/HelperInstanceVariable
   end
 
   def current_team

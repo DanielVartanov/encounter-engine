@@ -66,7 +66,7 @@ end
 end
 
 Допустим('моя команда сейчас на уровне {string}') do |level_name|
-  current_play.update_attribute :current_level, level_by_name(level_name)
+  current_play.update current_level: level_by_name(level_name)
 end
 
 Допустим('игра началась') do

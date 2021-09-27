@@ -28,15 +28,15 @@ RSpec.describe AnswerAttempt do
     let!(:second_level) { create :level, game: game }
     let(:play) { create :play, game: game, current_level: first_level }
 
-    subject { play.answer_attempts.create! level: first_level, answer: given_answer }
+    subject(:creation) { play.answer_attempts.create! level: first_level, answer: given_answer }
 
     context 'when AnswerAttempt with a correct answer is created' do
       let(:given_answer) { 'correct' }
 
       it 'advances current level of the play' do
-        expect { subject }.to change(play, :current_level)
-                                .from(first_level)
-                                .to(second_level)
+        expect { creation }.to change(play, :current_level)
+                                 .from(first_level)
+                                 .to(second_level)
       end
     end
 
@@ -44,7 +44,7 @@ RSpec.describe AnswerAttempt do
       let(:given_answer) { 'incorrect' }
 
       it 'does not advance current level of the play' do
-        expect { subject }.not_to change(play, :current_level)
+        expect { creation }.not_to change(play, :current_level)
       end
     end
   end

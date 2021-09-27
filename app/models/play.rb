@@ -5,12 +5,12 @@ class Play < ApplicationRecord
   belongs_to :team
   belongs_to :current_level, class_name: 'Level'
 
-  has_many :answer_attempts
+  has_many :answer_attempts, dependent: :restrict_with_exception
 
   before_validation :start_with_first_level
 
   def advance_current_level!
-    update_attribute :current_level, next_level
+    update current_level: next_level
   end
 
   private

@@ -2,7 +2,7 @@
 
 module KnownPages
   KNOWN_PAGES = {
-    'Вход' => -> { new_session_path },
+    'Вход' => -> { new_session_path }
   }.freeze
 
   def visit_known_page(page_name)
