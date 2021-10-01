@@ -3,6 +3,9 @@
 .py-3
   Уровень ##{current_level.number_in_game} #{current_level.name}
 
+.py-3
+  = render @play.currently_available_hints, current_level: @play.current_level
+
 = bootstrap_form_with model: @play.answer_attempts.build, url: play_answer_attempts_path(@play) do |form|
   = form.text_field :answer, required: true, label: 'Ответ'
   = form.primary 'Отправить'

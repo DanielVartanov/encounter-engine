@@ -43,6 +43,9 @@ Style/ConditionalAssignment:
 Style/Documentation:
   Enabled: false
 
+Style/RedundantSelf:
+  Enabled: false
+
 Style/SymbolArray:
   Enabled: false
 
@@ -59,8 +62,20 @@ Rails/Delegate:
 RSpec/FactoryBot/CreateList:
   Enabled: false
 
+RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/EmptyLineAfterHook:
+  Enabled: false
+
 RSpec/LeadingSubject:
   Enabled: false
 
 RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
   Enabled: false

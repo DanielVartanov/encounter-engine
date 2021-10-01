@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_26_114133) do
+ActiveRecord::Schema.define(version: 2021_09_30_210945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 2021_09_26_114133) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "hints", force: :cascade do |t|
+    t.bigint "level_id"
+    t.string "text"
+    t.integer "delay_in_minutes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["level_id"], name: "index_hints_on_level_id"
+  end
+
   create_table "levels", force: :cascade do |t|
     t.string "name"
     t.string "answer"
@@ -46,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_114133) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "team_id"
+    t.datetime "reached_current_level_at"
     t.index ["current_level_id"], name: "index_plays_on_current_level_id"
     t.index ["game_id"], name: "index_plays_on_game_id"
     t.index ["team_id"], name: "index_plays_on_team_id"
@@ -67,6 +77,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_114133) do
 
   add_foreign_key "answer_attempts", "levels"
   add_foreign_key "answer_attempts", "plays"
+  add_foreign_key "hints", "levels"
   add_foreign_key "levels", "games"
   add_foreign_key "plays", "games"
   add_foreign_key "plays", "levels", column: "current_level_id"

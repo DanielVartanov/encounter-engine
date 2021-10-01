@@ -348,6 +348,7 @@ GEM
     temple (0.8.2)
     thor (1.1.0)
     tilt (2.0.10)
+    timecop (0.9.4)
     tty-screen (0.8.1)
     turbo-rails (0.7.11)
       rails (>= 6.0.0)
@@ -414,6 +415,7 @@ DEPENDENCIES
   spring-commands-cucumber
   spring-commands-rspec
   super_diff
+  timecop
   turbo-rails
   web-console
   webdrivers

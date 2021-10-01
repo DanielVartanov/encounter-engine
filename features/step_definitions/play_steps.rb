@@ -15,6 +15,7 @@ end
 def submit_answer(answer)
   fill_in 'Ответ', with: answer
   click_on 'Отправить'
+  sleep 0.1 # Remove this when you make the form synchronous in tests
 end
 
 def submit_correct_answer
@@ -37,19 +38,19 @@ end
   current_play.update current_level: level_by_name(level_name)
 end
 
-Если 'я захожу в игру' do
+Если '(я )захожу в игру' do
   visit game_play_path(the_game)
 end
 
-Если 'я ввожу ответ {string}' do |answer|
+Если '(я )ввожу ответ {string}' do |answer|
   submit_answer answer
 end
 
-Если 'я перехожу на следующий уровень' do
+Если '(я )перехожу на следующий уровень' do
   submit_correct_answer
 end
 
-Если 'я прохожу игру до уровня {string}' do |target_level_name|
+Если '(я )прохожу игру до уровня {string}' do |target_level_name|
   target_level = current_game.levels.find_by! name: target_level_name
 
   submit_correct_answer until current_level == target_level
@@ -59,4 +60,14 @@ end
   level = level_by_name(level_name)
 
   expect(page).to have_content "Уровень ##{level.number_in_game} #{level.name}"
+end
+
+То '(моя команда )должна получить подсказку {string}' do |hint_text|
+  visit game_play_path(the_game)
+  expect(page).to have_content hint_text
+end
+
+То '(моя команда )не должна получить подсказку {string}' do |hint_text|
+  visit game_play_path(the_game)
+  expect(page).to have_no_content hint_text
 end
