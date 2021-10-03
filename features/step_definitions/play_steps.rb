@@ -22,13 +22,17 @@ def submit_correct_answer
   submit_answer current_level.answer
 end
 
+def advance_to_level(target_level)
+  submit_correct_answer until current_level == target_level
+end
+
 Допустим 'я член (другой )играющей команды' do
   member = create :user, team: create(:team)
   sign_in as: member
   visit game_play_path(the_game)
 end
 
-Допустим 'я другой член играющей команды' do
+Допустим 'я другой член (той же )играющей команды' do
   the_team = the_game.plays.first!.team
   another_member = create :user, team: the_team
   sign_in as: another_member
@@ -53,7 +57,12 @@ end
 Если '(я )прохожу игру до уровня {string}' do |target_level_name|
   target_level = current_game.levels.find_by! name: target_level_name
 
-  submit_correct_answer until current_level == target_level
+  advance_to_level(target_level)
+end
+
+Если '(я )прохожу игру полностью' do
+  advance_to_level(current_game.last_level)
+  submit_correct_answer
 end
 
 То 'моя команда должна быть на уровне {string}' do |level_name|
@@ -70,4 +79,9 @@ end
 То '(моя команда )не должна получить подсказку {string}' do |hint_text|
   visit game_play_path(the_game)
   expect(page).to have_no_content hint_text
+end
+
+То '(моя команда )должна закончить игру' do
+  visit game_play_path(the_game)
+  expect(page).to have_content "Поздравляем! Вы закончили игру #{the_game.name}"
 end

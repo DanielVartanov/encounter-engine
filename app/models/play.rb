@@ -11,7 +11,11 @@ class Play < ApplicationRecord
   before_save :update_reached_current_level_at, if: -> { current_level_id_changed? }
 
   def advance_current_level!
-    update current_level: next_level
+    unless on_last_level?
+      switch_to_next_level!
+    else
+      finish!
+    end
   end
 
   def next_level
@@ -24,6 +28,10 @@ class Play < ApplicationRecord
     end
   end
 
+  def finished?
+    finished_at.present?
+  end
+
   private
 
   def start_with_first_level
@@ -32,5 +40,17 @@ class Play < ApplicationRecord
 
   def update_reached_current_level_at
     self.reached_current_level_at = Time.current
+  end
+
+  def on_last_level?
+    self.current_level == game.last_level
+  end
+
+  def switch_to_next_level!
+    update! current_level: next_level
+  end
+
+  def finish!
+    update! finished_at: Time.current
   end
 end

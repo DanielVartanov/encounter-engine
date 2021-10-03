@@ -52,6 +52,9 @@ Style/SymbolArray:
 Style/TrivialAccessors:
   Enabled: false
 
+Style/UnlessElse:
+  Enabled: false
+
 # Rails
 
 Rails/Delegate:

@@ -4,7 +4,7 @@ class AnswerAttempt < ApplicationRecord
   belongs_to :play
   belongs_to :level
 
-  after_create :advance_current_level
+  after_create :advance_current_level, if: -> { correct? }
 
   def correct?
     answer == level.answer
@@ -13,6 +13,6 @@ class AnswerAttempt < ApplicationRecord
   private
 
   def advance_current_level
-    play.advance_current_level! if correct?
+    play.advance_current_level!
   end
 end

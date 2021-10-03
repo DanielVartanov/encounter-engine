@@ -3,6 +3,8 @@
 class PlaysController < ApplicationController
   def play
     @play = game.plays.where(team: current_team).first_or_create!
+
+    render 'finish' if @play.finished?
   end
 
   private

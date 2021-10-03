@@ -19,9 +19,28 @@ RSpec.describe Play do
   describe '#advance_current_level!' do
     let(:play) { create :play, game: game }
 
-    it 'changes current level of play to the next one' do
-      expect { play.advance_current_level! }.to change(play, :current_level).to(game.levels.second)
-      expect { play.advance_current_level! }.to change(play, :current_level).to(game.levels.third)
+    context 'when the play is on any but the last level' do
+      it 'changes current level of play to the next one' do
+        expect { play.advance_current_level! }.to change(play, :current_level).to(game.levels.second)
+        expect { play.advance_current_level! }.to change(play, :current_level).to(game.levels.third)
+      end
+    end
+
+    context 'when the play is on the last level' do
+      before { play.update current_level: game.last_level }
+
+      it 'marks the play as finished' do
+        play.advance_current_level!
+
+        expect(play).to be_finished
+      end
+
+      it 'saves the finish time' do
+        Timecop.freeze do
+          expect { play.advance_current_level! }
+            .to change(play, :finished_at).from(nil).to(Time.current)
+        end
+      end
     end
   end
 
@@ -113,6 +132,24 @@ RSpec.describe Play do
           it { is_expected.to eq [hint_in_5_minutes, hint_in_10_minutes, hint_in_15_minutes] }
         end
       end
+    end
+  end
+
+  describe '#finished?' do
+    let(:play) { Play.create! game: game, team: team, finished_at: finished_at }
+
+    subject { play.finished? }
+
+    context 'when finished_at is nil' do
+      let(:finished_at) { nil }
+
+      it { is_expected.to eq false }
+    end
+
+    context 'when finished_at is non-nil' do
+      let(:finished_at) { 1.minute.ago }
+
+      it { is_expected.to eq true }
     end
   end
 end
