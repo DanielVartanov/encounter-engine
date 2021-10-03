@@ -68,6 +68,7 @@ end
 То 'моя команда должна быть на уровне {string}' do |level_name|
   level = level_by_name(level_name)
 
+  visit game_play_path(the_game)
   expect(page).to have_content "Уровень ##{level.number_in_game} #{level.name}"
 end
 

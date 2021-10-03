@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Then 'I wait' do
+Then '(я )жду' do
   sleep 5
 end
 

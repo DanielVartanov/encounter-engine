@@ -33,7 +33,7 @@ end
 end
 
 Если '(я )открываю другое окно' do
-  Capybara.session_name = 'another browser window'
+  Capybara.session_name = "browser_session_#{rand(1e8)}".to_sym
 end
 
 Если '(я )закрываю другое окно' do
