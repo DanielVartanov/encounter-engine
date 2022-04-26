@@ -12,7 +12,7 @@
 #       Install PostgreSQL and put its /bin directory on your path.
 #
 # Configure Using Gemfile
-# gem "pg"
+# gem 'pg'
 #
 default: &default
   adapter: postgresql
@@ -82,5 +82,4 @@ test:
 production:
   <<: *default
   database: encounter_engine_production
-  username: encounter_engine
   password: <%= ENV["ENCOUNTER_ENGINE_DATABASE_PASSWORD"] %>

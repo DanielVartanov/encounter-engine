@@ -1,0 +1,5 @@
+.py-3
+  - flash.each do |_, flash_text|
+    .alert.alert-primary.alert-dismissible.fade.show{ role: 'alert' }
+      = flash_text
+      %button.btn-close{ type: 'button', 'data-bs-dismiss': 'alert', 'aria-label': 'Close' }

@@ -1,24 +1,26 @@
-# README
+# Encounter Engine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repo is a snapshot of what an empty but advanced Rails project
+shall look like as of 2022.
 
-Things you may want to cover:
+## What's included
 
-* Ruby version
+- Rubocop
+- Turbo and Hotwire
+- Haml
+- Headless browser based system tests
+- FactoryBot and Faker
+- RubyJard and puts_debuggerer
+- RSpec and Cucumber
+- Tests parallelisation
+- Makefile
+- SASS/SCSS
+- Bootstrap
 
-* System dependencies
 
-* Configuration
+## TODO
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- dart-sass instead of sassc-ruby
+- Static and runtime type checks (Sorbet or Steep)
+- Containerization
+- Make a [template](https://guides.rubyonrails.org/rails_application_templates.html) from it
