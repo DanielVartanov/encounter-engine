@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :games do
+    get 'play', to: 'plays#play'
+  end
+
+  resources :play, only: [] do
+    resources :answer_attempts, only: [:create]
+  end
+
+  resources :sessions, only: [:new, :create]
 end

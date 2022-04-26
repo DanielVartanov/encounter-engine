@@ -46,4 +46,8 @@ Around('@debug') do |_, block|
   Capybara.default_driver = :selenium_chrome_headless
 end
 
+After do
+  Timecop.return
+end
+
 World(FactoryBot::Syntax::Methods)

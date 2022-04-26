@@ -1,0 +1,3 @@
+= bootstrap_form_tag url: sessions_path do |form|
+  = form.collection_select :user_id, User.all, :id, :name, { label: 'Выберите игрока' }, control_class: 'form-select form-select-sm'
+  = form.primary 'Войти'
