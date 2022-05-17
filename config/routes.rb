@@ -2,11 +2,11 @@
 
 Rails.application.routes.draw do
   resources :games do
-    get 'play', to: 'plays#play'
-  end
+    resource :play, only: [:show] do
+      resources :answer_attempts, only: [:create]
+    end
 
-  resources :play, only: [] do
-    resources :answer_attempts, only: [:create]
+    resource :finish, only: [:show]
   end
 
   resources :sessions, only: [:new, :create]

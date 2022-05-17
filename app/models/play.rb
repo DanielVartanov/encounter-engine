@@ -5,6 +5,8 @@ class Play < ApplicationRecord
   belongs_to :team
   belongs_to :current_level, class_name: 'Level'
 
+  broadcasts
+
   has_many :answer_attempts, dependent: :restrict_with_exception
 
   before_validation :start_with_first_level

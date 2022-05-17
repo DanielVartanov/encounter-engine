@@ -36,6 +36,7 @@ end
   the_team = the_game.plays.first!.team
   another_member = create :user, team: the_team
   sign_in as: another_member
+  visit game_play_path(the_game)
 end
 
 Допустим 'моя команда сейчас на уровне {string}' do |level_name|
@@ -48,6 +49,10 @@ end
 
 Если '(я )ввожу ответ {string}' do |answer|
   submit_answer answer
+end
+
+Если '(я )ввожу правильный ответ' do
+  submit_correct_answer
 end
 
 Если '(я )перехожу на следующий уровень' do
@@ -65,11 +70,21 @@ end
   submit_correct_answer
 end
 
+def expect_to_be_at_level(level)
+  expect(page).to have_content "Уровень ##{level.number_in_game} #{level.name}"
+end
+
+То 'я должен видеть, что нахожусь на уровне {string}' do |level_name|
+  level = level_by_name(level_name)
+
+  expect_to_be_at_level(level)
+end
+
 То 'моя команда должна быть на уровне {string}' do |level_name|
   level = level_by_name(level_name)
 
   visit game_play_path(the_game)
-  expect(page).to have_content "Уровень ##{level.number_in_game} #{level.name}"
+  expect_to_be_at_level(level)
 end
 
 То '(моя команда )должна получить подсказку {string}' do |hint_text|

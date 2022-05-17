@@ -24,7 +24,7 @@ RSpec.describe User do
 
     context 'when user is a member of a team' do
       let(:team) { build :team, name: 'Hufflepuff' }
-      let(:user) { build :user, name: 'Cedric Diggory', team: team }
+      let(:user) { build :user, name: 'Cedric Diggory', team: }
 
       it { is_expected.to eq 'Cedric Diggory [Hufflepuff]' }
     end
