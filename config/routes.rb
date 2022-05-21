@@ -5,8 +5,6 @@ Rails.application.routes.draw do
     resource :play, only: [:show] do
       resources :answer_attempts, only: [:create]
     end
-
-    resource :finish, only: [:show]
   end
 
   resources :sessions, only: [:new, :create]
