@@ -74,16 +74,9 @@ def expect_to_be_at_level(level)
   expect(page).to have_content "Уровень ##{level.number_in_game} #{level.name}"
 end
 
-То 'я должен видеть, что нахожусь на уровне {string}' do |level_name|
-  level = level_by_name(level_name)
-
-  expect_to_be_at_level(level)
-end
-
 То 'моя команда должна быть на уровне {string}' do |level_name|
   level = level_by_name(level_name)
 
-  visit game_play_path(the_game)
   expect_to_be_at_level(level)
 end
 
@@ -98,6 +91,5 @@ end
 end
 
 То '(моя команда )должна закончить игру' do
-  visit game_play_path(the_game)
   expect(page).to have_content "Поздравляем! Вы закончили игру #{the_game.name}"
 end
