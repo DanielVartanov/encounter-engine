@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Play < ApplicationRecord
+  include Support
+
   belongs_to :game
   belongs_to :team
   belongs_to :current_level, class_name: 'Level'
