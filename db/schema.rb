@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_10_02_080410) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_24_073240) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,8 +56,10 @@ ActiveRecord::Schema[7.0].define(version: 2021_10_02_080410) do
     t.bigint "team_id"
     t.datetime "reached_current_level_at", precision: nil
     t.datetime "finished_at", precision: nil
+    t.bigint "latest_available_hint_id"
     t.index ["current_level_id"], name: "index_plays_on_current_level_id"
     t.index ["game_id"], name: "index_plays_on_game_id"
+    t.index ["latest_available_hint_id"], name: "index_plays_on_latest_available_hint_id"
     t.index ["team_id"], name: "index_plays_on_team_id"
   end
 
@@ -80,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_10_02_080410) do
   add_foreign_key "hints", "levels"
   add_foreign_key "levels", "games"
   add_foreign_key "plays", "games"
+  add_foreign_key "plays", "hints", column: "latest_available_hint_id"
   add_foreign_key "plays", "levels", column: "current_level_id"
   add_foreign_key "plays", "teams"
   add_foreign_key "users", "teams"

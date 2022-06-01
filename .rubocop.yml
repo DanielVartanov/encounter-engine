@@ -62,16 +62,25 @@ Rails/Delegate:
 
 # RSpec
 
-RSpec/FactoryBot/CreateList:
+RSpec/ContextWording:
   Enabled: false
 
 RSpec/DescribedClass:
   Enabled: false
 
+RSpec/DescribeMethod:
+  Enabled: false
+
 RSpec/EmptyLineAfterHook:
   Enabled: false
 
+RSpec/FactoryBot/CreateList:
+  Enabled: false
+
 RSpec/LeadingSubject:
+  Enabled: false
+
+RSpec/LetSetup:
   Enabled: false
 
 RSpec/MultipleExpectations:
@@ -81,4 +90,7 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/ScatteredSetup:
   Enabled: false

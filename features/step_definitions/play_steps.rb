@@ -81,12 +81,10 @@ end
 end
 
 То '(моя команда )должна получить подсказку {string}' do |hint_text|
-  visit game_play_path(the_game)
   expect(page).to have_content hint_text
 end
 
 То '(моя команда )не должна получить подсказку {string}' do |hint_text|
-  visit game_play_path(the_game)
   expect(page).to have_no_content hint_text
 end
 

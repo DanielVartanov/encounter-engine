@@ -146,6 +146,8 @@ GEM
     digest (3.1.0)
     erubi (1.10.0)
     erubis (2.7.0)
+    et-orbi (1.2.7)
+      tzinfo
     execjs (2.8.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -155,6 +157,9 @@ GEM
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
+    fugit (1.5.3)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
     haml (5.2.2)
@@ -237,6 +242,7 @@ GEM
       nio4r (~> 2.0)
     puts_debuggerer (0.13.5)
       awesome_print (~> 1.9.2)
+    raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -272,6 +278,10 @@ GEM
     redis (4.6.0)
     regexp_parser (2.3.1)
     rexml (3.2.5)
+    rspec (3.11.0)
+      rspec-core (~> 3.11.0)
+      rspec-expectations (~> 3.11.0)
+      rspec-mocks (~> 3.11.0)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.0)
@@ -320,6 +330,8 @@ GEM
     ruby_parser (3.19.1)
       sexp_processor (~> 4.16)
     rubyzip (2.3.2)
+    rufus-scheduler (3.8.1)
+      fugit (~> 1.1, >= 1.1.6)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -407,13 +419,16 @@ DEPENDENCIES
   puts_debuggerer
   rails
   redis
+  rspec
   rspec-its
+  rspec-mocks
   rspec-rails
   rubocop
   rubocop-performance
   rubocop-rails
   rubocop-rspec
   ruby_jard
+  rufus-scheduler
   sassc-rails
   selenium-webdriver
   spring
