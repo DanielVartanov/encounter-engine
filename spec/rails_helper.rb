@@ -8,6 +8,7 @@ require_relative '../config/environment'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'super_diff/rspec-rails'
 
 require 'capybara/rails'
 Capybara.server = :puma, { Silent: true }
