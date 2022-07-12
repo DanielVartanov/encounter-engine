@@ -16,7 +16,7 @@ gem 'merb-auth-more', path: 'vendor/merb-auth/merb-auth-more'
 gem 'merb-auth-slice-password', path: 'vendor/merb-auth/merb-auth-slice-password'
 
 gem 'merb_activerecord', git: 'https://github.com/DanielVartanov/merb_activerecord.git', branch: 'modernize'
-gem 'activerecord', '~> 4.2.5'
+gem 'activerecord', '~> 6.1.6'
 gem 'acts_as_list'
 gem 'thin'
 gem 'unicode_utils'
