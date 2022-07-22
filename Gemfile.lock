@@ -153,7 +153,7 @@ GEM
     thread_safe (0.3.6)
     tins (1.25.0)
       sync
-    tzinfo (1.2.7)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     unicode_utils (1.4.0)
     webrat (0.7.3)
